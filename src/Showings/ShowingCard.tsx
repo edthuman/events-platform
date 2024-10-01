@@ -1,6 +1,7 @@
+import { Showing } from "../../types"
 import "./ShowingCard.css"
 
-function ShowingCard({showing}: {showing: any}) {
+function ShowingCard({showing}: {showing: Showing}) {
     const dateTime = showing["datetime"].toDate()
     const day = dateTime.toDateString().slice(4, 10)
     const time = dateTime.toTimeString().slice(0, 5)
