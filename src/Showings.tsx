@@ -1,6 +1,7 @@
 import { collection, getDocs, getFirestore, query } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { useEffect, useState } from "react";
+import ShowingCard from "./ShowingCard";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_KEY,
@@ -41,8 +42,8 @@ function Showings() {
     
     return showings.length ? (
     <>
-        <h1>Hello from Showings Page</h1>
-        {showings.map((showing)=> <p key={showing.id}>{showing.name}</p>)}
+        <h1>Upcoming Showings</h1>
+        {showings.map((showing)=> <ShowingCard showing={showing} key={showing.id}/>)}
     </>
     ) : (
     <>
