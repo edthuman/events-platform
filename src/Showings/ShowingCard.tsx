@@ -5,12 +5,14 @@ function ShowingCard({showing}: {showing: any}) {
     const day = dateTime.toDateString().slice(4, 10)
     const time = dateTime.toTimeString().slice(0, 5)
 
-    return <button className="showing-card" onClick={()=>console.log(`${showing.name}`)}>
-        <p>{showing.name}</p>
-        <p>{day}</p>
-        <p>{time}</p>
-        <img src={`${showing.poster}`} alt={`Movie post for ${showing.film}`} className="poster"/>
-    </button>
+    return <a href={`/showing/${showing.id}`} target="_self">
+        <div className="showing-card" >
+            <p>{showing.name}</p>
+            <p>{day}</p>
+            <p>{time}</p>
+            <img src={`${showing.poster}`} alt={`Movie post for ${showing.film}`} className="poster"/>
+        </div>
+    </a>
 }
 
 export default ShowingCard
