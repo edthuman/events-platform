@@ -1,32 +1,18 @@
-import { collection, getDocs, query } from "@firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import ShowingCard from "./ShowingCard";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { Showing } from "../../types";
+import { getAllShowings } from "../../server/firestore-methods";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([])
-    const database = useContext(FirebaseContext)
-
-    async function getDocuments(){
-        const showingsCollection = collection(database, "showings")  
-        const showingsQuery = query(showingsCollection)
-        const snapshot = await getDocs(showingsQuery)
-
-        const fetchedShowings: Showing[] = []
-        snapshot.forEach((document: any)=>{
-            const showing = {
-                id: document.id,
-                ...document.data()
-            }
-
-            fetchedShowings.push(showing)
-        })
-        setShowings(fetchedShowings)
-    }
+    const firestore = useContext(FirebaseContext)
 
     useEffect(()=>{
-        getDocuments()
+        (async()=>{
+            const fetchedShowings = await getAllShowings(firestore)
+            setShowings(fetchedShowings)
+        })()
     }, [])
     
     return showings.length ? (
