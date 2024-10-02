@@ -2,6 +2,10 @@ import { doc, Firestore } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 
 export async function getShowingDetails(database: Firestore, showingId: string | undefined) {
+    if (showingId === undefined) {
+        return { error: "No showing ID given" }
+    }
+    
     const docRef = doc(database, `showings/${showingId}`);
     const snapshot = await getDoc(docRef);
     const showingData = snapshot.data();
