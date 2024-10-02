@@ -13,6 +13,10 @@ const router = createBrowserRouter([
         element: <Showings />,
     },
     {
+        path: "/showing",
+        element: <SingleShowing />,
+    },
+    {
         path: "/showing/:showing_id",
         element: <SingleShowing />,
     },
