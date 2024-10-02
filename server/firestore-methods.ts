@@ -7,15 +7,21 @@ export async function getShowingDetails(database: Firestore, showingId: string |
     }
     
     const docRef = doc(database, `showings/${showingId}`);
-    const snapshot = await getDoc(docRef);
-    const showingData = snapshot.data();
-    
-    if (showingData === undefined) {
-        return { error: "No showing exists for given ID" }
+
+    try {
+        const snapshot = await getDoc(docRef);
+        const showingData = snapshot.data();
+        
+        if (showingData === undefined) {
+            return { error: "No showing exists for given ID" }
+        }
+        
+        return {
+            id: showingData.id,
+            ...showingData
+        }
     }
-    
-    return {
-        id: showingData.id,
-        ...showingData
+    catch (err){
+        return { error: "Something went wrong whilst retrieving showing details" }
     }
 }
