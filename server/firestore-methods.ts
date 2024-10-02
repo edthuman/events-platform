@@ -3,21 +3,26 @@ import { getDoc } from "firebase/firestore";
 import { Showing } from "../types";
 
 export async function getAllShowings(database: Firestore){
-    const showingsCollection = collection(database, "showings")  
-    const showingsQuery = query(showingsCollection)
-    const snapshot = await getDocs(showingsQuery)
-
-    const fetchedShowings: Showing[] = []
-    snapshot.forEach((document: any)=>{
-        const showing = {
-            id: document.id,
-            ...document.data()
-        }
-
-        fetchedShowings.push(showing)
-    })
-
-    return fetchedShowings
+    try {
+        const showingsCollection = collection(database, "showings")  
+        const showingsQuery = query(showingsCollection)
+        const snapshot = await getDocs(showingsQuery)
+    
+        const fetchedShowings: Showing[] = []
+        snapshot.forEach((document: any)=>{
+            const showing = {
+                id: document.id,
+                ...document.data()
+            }
+    
+            fetchedShowings.push(showing)
+        })
+    
+        return fetchedShowings
+    }
+    catch (err) {
+        return { error: "Error retrieving showings" }
+    }
 }
 
 export async function getShowingDetails(database: Firestore, showingId: string | undefined) {
