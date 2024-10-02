@@ -36,6 +36,9 @@ function SingleShowing() {
         showing.error ? (
             <h1>{showing.error}</h1>
     ) : (
+        movieDetails.error ? (
+            <h1>{movieDetails.error}</h1>
+        ) : (
             <>
                 <h1>{showing.name}</h1>
                 <p>{getDate(showing.datetime)}</p>
@@ -58,8 +61,7 @@ function SingleShowing() {
                     Read more about the film on IMDb
                 </a>
             </>
-        )
-    )
+    )))
 }
 
 export default SingleShowing;
