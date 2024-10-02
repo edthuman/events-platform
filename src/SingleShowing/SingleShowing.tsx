@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { getDate, getTime } from "../../utils/datetime-utils";
 import { getShowingDetails } from "../../server/firestore-methods"
+import { getFilmDetails } from "../../server/omdb-methods"
 import "./SingleShowing.css"
 
 const omdbKey = import.meta.env.VITE_OMBD_KEY;
@@ -14,40 +14,28 @@ function SingleShowing() {
     const [movieDetails, setMovieDetails] = useState<any>(null);
     const firestore = useContext(FirebaseContext);
 
-    async function getFilmDetails() {
-        const response: any = await axios.get(
-            `https://www.omdbapi.com/?apikey=${omdbKey}&t=${"Iron Giant"}`
-        );
-
-        const { Director, Runtime, Genre, Plot, Rated, Year, imdbID } =
-            response.data;
-        setMovieDetails({
-            director: Director,
-            runtime: Runtime,
-            genre: Genre,
-            plot: Plot,
-            rating: Rated,
-            year: Year,
-            imdbId: imdbID,
-        });
-    }
-
     useEffect(() => {
         (async ()=>{
             const showingDetails = await getShowingDetails(firestore, showingId);
             setShowing(showingDetails)
         })()
-        
-        getFilmDetails();
     }, []);
 
-    return !showing ? (
+    useEffect(()=>{
+        (async()=>{
+            if (showing) {
+                const filmDetails = await getFilmDetails(omdbKey, showing.film)
+                setMovieDetails(filmDetails)
+            }
+        })()
+    }, [showing])
+
+    return !showing || !movieDetails ? (
         <h1>Loading...</h1>
     ) : (
         showing.error ? (
             <h1>{showing.error}</h1>
     ) : (
-        showing && movieDetails ) ? (
             <>
                 <h1>{showing.name}</h1>
                 <p>{getDate(showing.datetime)}</p>
@@ -70,7 +58,7 @@ function SingleShowing() {
                     Read more about the film on IMDb
                 </a>
             </>
-        ) : null
+        )
     )
 }
 
