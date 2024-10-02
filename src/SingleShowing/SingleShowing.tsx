@@ -5,6 +5,7 @@ import FirebaseContext from "../../hooks/FirebaseContext";
 import { doc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 import { getDate, getTime } from "../../utils/datetime-utils";
+import "./SingleShowing.css"
 
 const omdbKey = import.meta.env.VITE_OMBD_KEY;
 
