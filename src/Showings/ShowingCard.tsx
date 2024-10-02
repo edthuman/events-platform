@@ -1,10 +1,11 @@
 import { Showing } from "../../types"
 import "./ShowingCard.css"
+import { getDate, getTime } from "../../utils/datetime-utils"
 
 function ShowingCard({showing}: {showing: Showing}) {
-    const dateTime = showing["datetime"].toDate()
-    const day = dateTime.toDateString().slice(4, 10)
-    const time = dateTime.toTimeString().slice(0, 5)
+    const {datetime} = showing
+    const day = getDate(datetime)
+    const time = getTime(datetime)
 
     return <a href={`/showing/${showing.id}`} target="_self">
         <div className="showing-card" >
