@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FirebaseContext from "../hooks/FirebaseContext";
+import FirebaseContext from "../../hooks/FirebaseContext";
 import { doc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { getDate, getTime } from "../utils/datetime-utils";
+import { getDate, getTime } from "../../utils/datetime-utils";
 
 const omdbKey = import.meta.env.VITE_OMBD_KEY;
 
