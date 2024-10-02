@@ -2,9 +2,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FirebaseContext from "../../hooks/FirebaseContext";
-import { doc } from "@firebase/firestore";
-import { getDoc } from "firebase/firestore";
 import { getDate, getTime } from "../../utils/datetime-utils";
+import { getShowingDetails } from "../../server/firestore-methods"
 import "./SingleShowing.css"
 
 const omdbKey = import.meta.env.VITE_OMBD_KEY;
@@ -13,7 +12,7 @@ function SingleShowing() {
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
     const [movieDetails, setMovieDetails] = useState<any>(null);
-    const database = useContext(FirebaseContext);
+    const firestore = useContext(FirebaseContext);
 
     async function getFilmDetails() {
         const response: any = await axios.get(
@@ -33,26 +32,12 @@ function SingleShowing() {
         });
     }
 
-    async function getShowingDetails() {
-        const docRef = doc(database, `showings/${showingId}`);
-
-        const snapshot = await getDoc(docRef);
-        const showingData = snapshot.data();
-
-        if (showingData === undefined) {
-            setShowing({
-                error: "No showing exists for given ID"
-            })
-            return
-        }
-        setShowing({
-            id: showingData.id,
-            ...showingData,
-        });
-    }
-
     useEffect(() => {
-        getShowingDetails();
+        (async ()=>{
+            const showingDetails = await getShowingDetails(firestore, showingId);
+            setShowing(showingDetails)
+        })()
+        
         getFilmDetails();
     }, []);
 
