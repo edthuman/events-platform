@@ -39,6 +39,12 @@ function SingleShowing() {
         const snapshot = await getDoc(docRef);
         const showingData = snapshot.data();
 
+        if (showingData === undefined) {
+            setShowing({
+                error: "No showing exists for given ID"
+            })
+            return
+        }
         setShowing({
             id: showingData.id,
             ...showingData,
@@ -50,32 +56,37 @@ function SingleShowing() {
         getFilmDetails();
     }, []);
 
-    return showing && movieDetails ? (
-        <>
-            <h1>{showing.name}</h1>
-            <p>{getDate(showing.datetime)}</p>
-            <p>{getTime(showing.datetime)}</p>
-            <img src={`${showing.poster}`} alt={`Poster for ${showing.film}`} />
-            <p>{showing.description}</p>
-            <h2>Movie Details</h2>
-            <p>
-                {showing.film} ({movieDetails.year})
-            </p>
-            <p>Rated: {movieDetails.rating}</p>
-            <p>Runtime: {movieDetails.runtime}</p>
-            <p>Directed by: {movieDetails.director}</p>
-            <p>Genre(s): {movieDetails.genre}</p>
-            <p>Plot: {movieDetails.plot}</p>
-            <a
-                href={`https://www.imdb.com/title/${movieDetails.imdbId}`}
-                target="_blank"
-            >
-                Read more about the film on IMDb
-            </a>
-        </>
-    ) : (
+    return !showing ? (
         <h1>Loading...</h1>
-    );
+    ) : (
+        showing.error ? (
+            <h1>{showing.error}</h1>
+    ) : (
+        showing && movieDetails ) ? (
+            <>
+                <h1>{showing.name}</h1>
+                <p>{getDate(showing.datetime)}</p>
+                <p>{getTime(showing.datetime)}</p>
+                <img src={`${showing.poster}`} alt={`Poster for ${showing.film}`} />
+                <p>{showing.description}</p>
+                <h2>Movie Details</h2>
+                <p>
+                    {showing.film} ({movieDetails.year})
+                </p>
+                <p>Rated: {movieDetails.rating}</p>
+                <p>Runtime: {movieDetails.runtime}</p>
+                <p>Directed by: {movieDetails.director}</p>
+                <p>Genre(s): {movieDetails.genre}</p>
+                <p>Plot: {movieDetails.plot}</p>
+                <a
+                    href={`https://www.imdb.com/title/${movieDetails.imdbId}`}
+                    target="_blank"
+                >
+                    Read more about the film on IMDb
+                </a>
+            </>
+        ) : null
+    )
 }
 
 export default SingleShowing;
