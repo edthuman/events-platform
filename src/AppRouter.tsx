@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Showings from "./Showings/Showings";
-import Login from "./Login";
+import Login from "./Login/Login";
 import SingleShowing from "./SingleShowing/SingleShowing";
 
 const router = createBrowserRouter([
