@@ -6,7 +6,7 @@ export async function getFilmDetails(omdbKey: string, filmName: string) {
             `https://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`
         );
     
-        if (!response.Response) {
+        if (response.data.Response === "False") {
             return { error: "Film details could not be retrieved" }
         }
 
