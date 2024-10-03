@@ -6,24 +6,25 @@ import { getAllShowings } from "../../server/firestore-methods";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([])
+    const [isLoading, setIsLoading] = useState(true)
     const firestore = useContext(FirebaseContext)
 
     useEffect(()=>{
         (async()=>{
-            const fetchedShowings = await getAllShowings(firestore)
+            const fetchedShowings = await getAllShowings(firestore, setIsLoading)
             setShowings(fetchedShowings)
         })()
     }, [])
     
-    return showings.length ? (
-    <>
-        <h1>Upcoming Showings</h1>
-        {showings.map((showing)=> <ShowingCard showing={showing} key={showing.id}/>)}
-    </>
+    return isLoading ? (
+        <>
+            <h1>Loading showings...</h1>
+        </>
     ) : (
-    <>
-        <h1>Loading showings...</h1>
-    </>
+        <>
+            <h1>Upcoming Showings</h1>
+            {showings.map((showing)=> <ShowingCard showing={showing} key={showing.id}/>)}
+        </>
     )
 }
 

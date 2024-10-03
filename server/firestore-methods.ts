@@ -2,7 +2,9 @@ import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore"
 import { getDoc } from "firebase/firestore";
 import { Showing } from "../types";
 
-export async function getAllShowings(database: Firestore){
+type SetIsLoading = React.Dispatch<React.SetStateAction<boolean>>
+
+export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoading) {
     try {
         const showingsCollection = collection(database, "showings")  
         const showingsQuery = query(showingsCollection)
@@ -17,11 +19,13 @@ export async function getAllShowings(database: Firestore){
     
             fetchedShowings.push(showing)
         })
-    
+        setIsLoading(false)
         return fetchedShowings
     }
     catch (err) {
+        setIsLoading(false)
         return { error: "Error retrieving showings" }
+
     }
 }
 
