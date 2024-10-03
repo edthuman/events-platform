@@ -8,8 +8,6 @@ const omdbKey = import.meta.env.VITE_OMDB_KEY;
 function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {filmDetails: FoundFilmDetails, setFilmDetails: React.Dispatch<SetStateAction<FoundFilmDetails>>, setIsSearchRequired: BooleanStateSetter}) {
     const [filmNameInput, setFilmNameInput] = useState("");
     const [error, setError] = useState<string>("")
-    
-    console.log(filmDetails)
 
     return <>
         <h1>Start A New Event!</h1>
