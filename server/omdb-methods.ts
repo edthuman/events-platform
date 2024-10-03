@@ -27,3 +27,7 @@ export async function getFilmDetails(omdbKey: string, filmName: string) {
         return { error: "Something went wrong whilst retrieving film details" }
     }
 }
+
+export function findFilm(e: React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+}

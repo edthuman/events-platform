@@ -1,14 +1,11 @@
 import { useState } from "react"
+import { findFilm } from "../server/omdb-methods"
 
 function CreateShowing() {
     const [filmNameInput, setFilmNameInput] = useState("")
 
     function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         setFilmNameInput(e.target.value)
-    }
-
-    function findFilm(e: React.FormEvent<HTMLFormElement>){
-        e.preventDefault()
     }
 
     return <>
