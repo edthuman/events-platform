@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { findFilm } from "../../server/omdb-methods";
 import { FoundFilmDetails } from "../../types";
 import FilmPreview from "./FilmPreview";
+import { findFilmDetails, handleFilmNameInput } from "./event-handlers";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -9,41 +9,16 @@ function CreateShowing() {
     const [filmNameInput, setFilmNameInput] = useState("");
     const [filmDetails, setFilmDetails] = useState<{} | FoundFilmDetails>({});
     const [error, setError] = useState<string>("")
-
-    function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>) {
-        setFilmNameInput(e.target.value);
-    }
-
-    async function findFilmDetails(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        if (filmNameInput === "") {
-            setError("No name given")
-            setFilmDetails({})
-            return
-        }
-
-        const fetchedFilmDetails = await findFilm(omdbKey, filmNameInput);
-
-        if (fetchedFilmDetails.error) {
-            setError(fetchedFilmDetails.error)
-            setFilmDetails({})
-            return
-        }
-
-        setFilmDetails(fetchedFilmDetails);
-        setError("")
-    }
     
     return (
         <>
             <h1>Start A New Event!</h1>
             <p>Search by film name:</p>
-            <form onSubmit={(e) => findFilmDetails(e)}>
+            <form onSubmit={(e) => findFilmDetails(e, filmNameInput, setError, setFilmDetails, omdbKey)}>
                 <label>Name:</label>
                 <input
                     type="text"
-                    onChange={(e) => handleFilmNameInput(e)}
+                    onChange={(e) => handleFilmNameInput(e, setFilmNameInput)}
                     value={filmNameInput}
                 />
                 <button type="submit">Find Film</button>
