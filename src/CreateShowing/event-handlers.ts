@@ -1,5 +1,5 @@
 import { SetStateAction } from "react";
-import { FoundFilmDetails } from "../../types";
+import { BooleanStateSetter, FoundFilmDetails } from "../../types";
 import { findFilm } from "../../server/omdb-methods";
 
 export function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>, setFilmNameInput: React.Dispatch<SetStateAction<string>>) {
@@ -25,4 +25,8 @@ export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmN
 
     setFilmDetails(fetchedFilmDetails);
     setError("")
+}
+
+export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
+    setIsSearchRequired(false)
 }
