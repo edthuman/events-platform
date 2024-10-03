@@ -6,7 +6,7 @@ import { getSingleShowing } from "../../server/firestore-methods";
 import { getFilmDetails } from "../../server/omdb-methods";
 import "./SingleShowing.css";
 
-const omdbKey = import.meta.env.VITE_OMBD_KEY;
+const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
 function SingleShowing() {
     const showingId = useParams().showing_id;
