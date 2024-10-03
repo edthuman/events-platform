@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Showings from "./Showings/Showings";
 import Login from "./Login/Login";
 import SingleShowing from "./SingleShowing/SingleShowing";
-import CreateShowing from "./CreateShowing";
+import CreateShowing from "./CreateShowing/CreateShowing";
 
 const router = createBrowserRouter([
     {
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     },
     {
         path: "/create-showing",
-        element: <CreateShowing />
-    }
+        element: <CreateShowing />,
+    },
 ]);
 
 function AppRouter() {
