@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import UserContext from "../../hooks/UserContext";
+import "./Login.css"
 
 function Login() {
     const { setUser } = useContext(UserContext);
@@ -18,20 +19,22 @@ function Login() {
         <>
             <h1>Events Platform</h1>
             <p>How would you like to log in?</p>
-            <a
-                href="/create-showing"
-                onClick={() => setUser(staffUser)}
-                className="login-link"
-            >
-                Staff
-            </a>
-            <a
-                href="/showings"
-                onClick={() => setUser(nonStaffUser)}
-                className="login-link"
-            >
-                Non-Staff
-            </a>
+            <div id="login-links">
+                <a
+                    href="/create-showing"
+                    onClick={() => setUser(staffUser)}
+                    className="login-link"
+                >
+                    Staff
+                </a>
+                <a
+                    href="/showings"
+                    onClick={() => setUser(nonStaffUser)}
+                    className="login-link"
+                >
+                    Non-Staff
+                </a>
+            </div>
         </>
     );
 }
