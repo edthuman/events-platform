@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FoundFilmDetails } from "../../types";
-import FilmPreview from "./FilmPreview";
 import FilmSearchForm from "./FilmSearchForm";
+import EventForm from "./EventForm";
 
 function CreateShowing() {
     const [filmDetails, setFilmDetails] = useState<FoundFilmDetails>({});
@@ -11,8 +11,7 @@ function CreateShowing() {
         <FilmSearchForm filmDetails={filmDetails} setFilmDetails={setFilmDetails} setIsSearchRequired={setIsSearchRequired}/>
     ) : (
     <>
-        <h1>You are seeing:</h1>
-        <FilmPreview filmDetails={filmDetails} />
+        <EventForm filmDetails={filmDetails}/>
     </>
     )
 }
