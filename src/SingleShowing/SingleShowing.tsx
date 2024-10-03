@@ -11,7 +11,7 @@ const omdbKey = import.meta.env.VITE_OMBD_KEY;
 function SingleShowing() {
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
-    const [movieDetails, setMovieDetails] = useState<any>(null);
+    const [filmDetails, setFilmDetails] = useState<any>(null);
     const firestore = useContext(FirebaseContext);
 
     useEffect(() => {
@@ -28,17 +28,17 @@ function SingleShowing() {
         (async () => {
             if (showing) {
                 const filmDetails = await getFilmDetails(omdbKey, showing.film);
-                setMovieDetails(filmDetails);
+                setFilmDetails(filmDetails);
             }
         })();
     }, [showing]);
 
-    return !showing || !movieDetails ? (
+    return !showing || !filmDetails ? (
         <h1>Loading...</h1>
     ) : showing.error ? (
         <h1>{showing.error}</h1>
-    ) : movieDetails.error ? (
-        <h1>{movieDetails.error}</h1>
+    ) : filmDetails.error ? (
+        <h1>{filmDetails.error}</h1>
     ) : (
         <>
             <h1>{showing.name}</h1>
@@ -48,15 +48,15 @@ function SingleShowing() {
             <p>{showing.description}</p>
             <h2>Movie Details</h2>
             <p>
-                {showing.film} ({movieDetails.year})
+                {showing.film} ({filmDetails.year})
             </p>
-            <p>Rated: {movieDetails.rating}</p>
-            <p>Runtime: {movieDetails.runtime}</p>
-            <p>Directed by: {movieDetails.director}</p>
-            <p>Genre(s): {movieDetails.genre}</p>
-            <p>Plot: {movieDetails.plot}</p>
+            <p>Rated: {filmDetails.rating}</p>
+            <p>Runtime: {filmDetails.runtime}</p>
+            <p>Directed by: {filmDetails.director}</p>
+            <p>Genre(s): {filmDetails.genre}</p>
+            <p>Plot: {filmDetails.plot}</p>
             <a
-                href={`https://www.imdb.com/title/${movieDetails.imdbId}`}
+                href={`https://www.imdb.com/title/${filmDetails.imdbId}`}
                 target="_blank"
             >
                 Read more about the film on IMDb
