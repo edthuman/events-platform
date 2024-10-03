@@ -13,7 +13,9 @@ function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
 
     function handleDateInput(e: React.ChangeEvent<HTMLInputElement>) {
         const dateRegex = /\d\d-\d\d-\d\d/
-        if (dateRegex.test(e.target.value)) {
+        const dateTyped = e.target.value
+
+        if (dateRegex.test(dateTyped)) {
             setDateInput(e.target.value)
         }
     }
@@ -27,7 +29,7 @@ function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
             </div>
             <div className="form-element">
                 <label htmlFor="date">Date:</label>
-                <input id="date" onChange={handleDateInput} value={dateInput} type="date" />
+                <input id="date" onChange={handleDateInput} value={dateInput} type="date" min={currentDate} max={"2999-12-31"}/>
             </div>
         </form>
     </>
