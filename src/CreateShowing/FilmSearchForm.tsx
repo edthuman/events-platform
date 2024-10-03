@@ -13,8 +13,9 @@ function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {fi
         <h1>Start A New Event!</h1>
         <p>Search by film name:</p>
         <form onSubmit={(e) => findFilmDetails(e, filmNameInput, setError, setFilmDetails, omdbKey)}>
-            <label>Name:</label>
+            <label htmlFor="film-name">Name:</label>
             <input
+                id="film-name"
                 type="text"
                 onChange={(e) => handleFilmNameInput(e, setFilmNameInput)}
                 value={filmNameInput}
