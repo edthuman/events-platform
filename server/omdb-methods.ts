@@ -29,15 +29,24 @@ export async function getFilmDetails(omdbKey: string, filmName: string) {
 }
 
 export async function findFilm(omdbKey: string, filmName: string){
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`)
+    try {
+        const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`)
 
-    const { Actors, Director, Poster, Title, Year  } = response.data
+        if (response.data.Response === "False") {
+            return { error: "No film found with that name, please try again" }
+        }
 
-    return {
-        title: Title,
-        year: Year,
-        actors: Actors,
-        director: Director,
-        poster: Poster
+        const { Actors, Director, Poster, Title, Year  } = response.data
+
+        return {
+            title: Title,
+            year: Year,
+            actors: Actors,
+            director: Director,
+            poster: Poster
+        }
+    }
+    catch (err) {
+        return { error: "Something went wrong while retrieving film details" }
     }
 }
