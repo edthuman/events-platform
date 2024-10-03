@@ -27,3 +27,5 @@ export type FoundFilmDetails = {} | {
 export type BooleanStateSetter = React.Dispatch<React.SetStateAction<boolean>>
 
 export type StringStateSetter = React.Dispatch<React.SetStateAction<string>>
+
+export type SetFilmDetails = React.Dispatch<React.SetStateAction<FoundFilmDetails>>

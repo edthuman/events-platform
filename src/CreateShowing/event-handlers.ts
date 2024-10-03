@@ -1,12 +1,11 @@
-import { SetStateAction } from "react";
-import { BooleanStateSetter, FoundFilmDetails, StringStateSetter } from "../../types";
+import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../types";
 import { findFilm } from "../../server/omdb-methods";
 
 export function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>, setFilmNameInput: StringStateSetter) {
     setFilmNameInput(e.target.value);
 }
 
-export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setError: StringStateSetter, setFilmDetails: React.Dispatch<SetStateAction<FoundFilmDetails>>, omdbKey: string) {
+export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setError: StringStateSetter, setFilmDetails: SetFilmDetails, omdbKey: string) {
     e.preventDefault();
 
     if (filmNameInput === "") {

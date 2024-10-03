@@ -1,11 +1,11 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { findFilmDetails, handleFilmFound, handleFilmNameInput } from "./event-handlers";
 import FilmPreview from "./FilmPreview";
-import { BooleanStateSetter, FoundFilmDetails } from "../../types";
+import { BooleanStateSetter, FoundFilmDetails, SetFilmDetails } from "../../types";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
-function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {filmDetails: FoundFilmDetails, setFilmDetails: React.Dispatch<SetStateAction<FoundFilmDetails>>, setIsSearchRequired: BooleanStateSetter}) {
+function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {filmDetails: FoundFilmDetails, setFilmDetails: SetFilmDetails, setIsSearchRequired: BooleanStateSetter}) {
     const [filmNameInput, setFilmNameInput] = useState("");
     const [error, setError] = useState<string>("")
 
