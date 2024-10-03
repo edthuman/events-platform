@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { findFilm } from "../../server/omdb-methods";
 import { FoundFilmDetails } from "../../types";
+import FilmPreview from "./FilmPreview";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -33,15 +34,7 @@ function CreateShowing() {
             </form>
             {Object.keys(filmDetails).length ? (
                 <>
-                    <p>Details found:</p>
-                    <p>Title: {filmDetails.title}</p>
-                    <p>Year of Release: {filmDetails.year}</p>
-                    <p>Actors: {filmDetails.actors}</p>
-                    <p>Director: {filmDetails.director}</p>
-                    <img
-                        src={filmDetails.poster}
-                        alt={`Poster for ${filmDetails.title}`}
-                    />
+                    <FilmPreview filmDetails={filmDetails}/>
                     <p>Are these correct?</p>
                     <button onClick={() => console.log("Yes")}>Yes</button>
                     <button onClick={() => console.log("No")}>No</button>
