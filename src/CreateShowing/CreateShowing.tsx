@@ -17,6 +17,12 @@ function CreateShowing() {
     async function findFilmDetails(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        if (filmNameInput === "") {
+            setError("No name given")
+            setFilmDetails({})
+            return
+        }
+
         const fetchedFilmDetails = await findFilm(omdbKey, filmNameInput);
 
         if (fetchedFilmDetails.error) {
