@@ -1,7 +1,9 @@
 import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../types";
 import { findFilm } from "../../server/omdb-methods";
 
-export function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>, setFilmNameInput: StringStateSetter) {
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
+export function handleFilmNameInput(e: ChangeEvent, setFilmNameInput: StringStateSetter) {
     setFilmNameInput(e.target.value);
 }
 
@@ -30,7 +32,7 @@ export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
     setIsSearchRequired(false)
 }
 
-export function handleDateInput(e: React.ChangeEvent<HTMLInputElement>, setDateInput: StringStateSetter) {
+export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter) {
     const dateRegex = /\d\d-\d\d-\d\d/
     const dateTyped = e.target.value
 
