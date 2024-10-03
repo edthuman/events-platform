@@ -7,7 +7,7 @@ const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
 function CreateShowing() {
     const [filmNameInput, setFilmNameInput] = useState("");
-    const [filmDetails, setFilmDetails] = useState<{} | FoundFilmDetails>({});
+    const [filmDetails, setFilmDetails] = useState<{error?: string} | FoundFilmDetails>({});
 
     function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         setFilmNameInput(e.target.value);
@@ -18,7 +18,7 @@ function CreateShowing() {
         const fetchedFilmDetails = await findFilm(omdbKey, filmNameInput);
         setFilmDetails(fetchedFilmDetails);
     }
-
+    
     return (
         <>
             <h1>Start A New Event!</h1>
@@ -33,13 +33,17 @@ function CreateShowing() {
                 <button type="submit">Find Film</button>
             </form>
             {Object.keys(filmDetails).length ? (
+                Object.keys(filmDetails).includes("error") ? (
+                    <p>{filmDetails.error}</p>
+                ) : (
                 <>
                     <FilmPreview filmDetails={filmDetails}/>
                     <p>Are these correct?</p>
                     <button onClick={() => console.log("Yes")}>Yes</button>
                     <button onClick={() => console.log("No")}>No</button>
                 </>
-            ) : null}
+                )
+            ) : null }
         </>
     );
 }
