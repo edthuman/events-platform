@@ -6,7 +6,7 @@ export function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>, setF
     setFilmNameInput(e.target.value);
 }
 
-export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setError: StringStateSetter, setFilmDetails: React.Dispatch<SetStateAction<{} | FoundFilmDetails>>, omdbKey: string) {
+export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setError: StringStateSetter, setFilmDetails: React.Dispatch<SetStateAction<FoundFilmDetails>>, omdbKey: string) {
     e.preventDefault();
 
     if (filmNameInput === "") {

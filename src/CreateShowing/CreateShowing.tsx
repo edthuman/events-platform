@@ -4,7 +4,7 @@ import FilmPreview from "./FilmPreview";
 import FilmSearchForm from "./FilmSearchForm";
 
 function CreateShowing() {
-    const [filmDetails, setFilmDetails] = useState<{} | FoundFilmDetails>({});
+    const [filmDetails, setFilmDetails] = useState<FoundFilmDetails>({});
     const [isSearchRequired, setIsSearchRequired] = useState(true)
 
     return isSearchRequired ? (

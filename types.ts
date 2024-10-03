@@ -16,7 +16,7 @@ export type Showing = {
     poster: string
 }
 
-export type FoundFilmDetails = {
+export type FoundFilmDetails = {} | {
     title: string
     year: string
     actors: string
