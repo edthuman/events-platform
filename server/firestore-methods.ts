@@ -1,8 +1,8 @@
 import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { SetIsLoading, Showing } from "../types";
+import { BooleanStateSetter, Showing } from "../types";
 
-export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoading) {
+export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter) {
     try {
         const showingsCollection = collection(database, "showings")  
         const showingsQuery = query(showingsCollection)

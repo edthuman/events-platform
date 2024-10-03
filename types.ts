@@ -24,4 +24,4 @@ export type FoundFilmDetails = {
     poster: string
 }
 
-export type SetIsLoading = React.Dispatch<React.SetStateAction<boolean>>
+export type BooleanStateSetter = React.Dispatch<React.SetStateAction<boolean>>
