@@ -1,6 +1,7 @@
 import { FoundFilmDetails } from "../../types"
 
 function FilmPreview({filmDetails}: {filmDetails: FoundFilmDetails}) {
+    // TypeScript errors can be ignored - component only renders when these properties exist
     return <>
         <p>Details found:</p>
         <p>Title: {filmDetails.title}</p>
