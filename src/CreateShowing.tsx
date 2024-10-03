@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { findFilm } from "../server/omdb-methods"
+import { FoundFilmDetails } from "../types"
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY
 
 function CreateShowing() {
     const [filmNameInput, setFilmNameInput] = useState("")
-    const [filmDetails, setFilmDetails] = useState({})
+    const [filmDetails, setFilmDetails] = useState<{} | FoundFilmDetails>({})
 
     function handleFilmNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         setFilmNameInput(e.target.value)

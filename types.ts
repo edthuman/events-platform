@@ -15,3 +15,11 @@ export type Showing = {
     datetime: Timestamp
     poster: string
 }
+
+export type FoundFilmDetails = {
+    title: string
+    year: string
+    actors: string
+    director: string
+    poster: string
+}
