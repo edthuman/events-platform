@@ -28,21 +28,16 @@ export async function getFilmDetails(omdbKey: string, filmName: string) {
     }
 }
 
-export async function findFilm(omdbKey: string, e: React.FormEvent<HTMLFormElement>){
-    e.preventDefault()
-
-    const filmName = e.target[0].value
-
+export async function findFilm(omdbKey: string, filmName: string){
     const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`)
 
-    const { Actors, Director, Plot, Poster, Title, Year  } = response.data
+    const { Actors, Director, Poster, Title, Year  } = response.data
 
     return {
         title: Title,
         year: Year,
         actors: Actors,
         director: Director,
-        poster: Poster,
-        plot: Plot
+        poster: Poster
     }
 }
