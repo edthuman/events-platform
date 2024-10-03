@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { getDate, getTime } from "../../utils/datetime-utils";
-import { getShowingDetails } from "../../server/firestore-methods";
+import { getSingleShowing } from "../../server/firestore-methods";
 import { getFilmDetails } from "../../server/omdb-methods";
 import "./SingleShowing.css";
 
@@ -16,7 +16,7 @@ function SingleShowing() {
 
     useEffect(() => {
         (async () => {
-            const showingDetails = await getShowingDetails(
+            const showingDetails = await getSingleShowing(
                 firestore,
                 showingId
             );

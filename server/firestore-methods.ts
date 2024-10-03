@@ -29,7 +29,7 @@ export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoa
     }
 }
 
-export async function getShowingDetails(database: Firestore, showingId: string | undefined) {
+export async function getSingleShowing(database: Firestore, showingId: string | undefined) {
     if (showingId === undefined) {
         return { error: "No showing ID given" }
     }
