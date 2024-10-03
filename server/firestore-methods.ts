@@ -1,8 +1,6 @@
 import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { Showing } from "../types";
-
-type SetIsLoading = React.Dispatch<React.SetStateAction<boolean>>
+import { SetIsLoading, Showing } from "../types";
 
 export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoading) {
     try {
