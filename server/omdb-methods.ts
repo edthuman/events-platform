@@ -36,14 +36,15 @@ export async function findFilm(omdbKey: string, filmName: string){
             return { error: "No film found with that name, please try again" }
         }
 
-        const { Actors, Director, Poster, Title, Year  } = response.data
-
+        const { Actors, Director, Poster, Title, Year, imdbID } = response.data
+        
         return {
             title: Title,
             year: Year,
             actors: Actors,
             director: Director,
-            poster: Poster
+            poster: Poster,
+            imdbId: imdbID
         }
     }
     catch (err) {

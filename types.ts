@@ -22,6 +22,7 @@ export type FoundFilmDetails = {} | {
     actors: string
     director: string
     poster: string
+    imdbId: string
 }
 
 export type BooleanStateSetter = React.Dispatch<React.SetStateAction<boolean>>
