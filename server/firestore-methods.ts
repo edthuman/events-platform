@@ -24,7 +24,7 @@ export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoa
     }
     catch (err) {
         setIsLoading(false)
-        return { error: "Error retrieving showings" }
+        return []
 
     }
 }
