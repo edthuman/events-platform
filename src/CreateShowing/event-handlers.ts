@@ -29,3 +29,12 @@ export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmN
 export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
     setIsSearchRequired(false)
 }
+
+export function handleDateInput(e: React.ChangeEvent<HTMLInputElement>, setDateInput: StringStateSetter) {
+    const dateRegex = /\d\d-\d\d-\d\d/
+    const dateTyped = e.target.value
+
+    if (dateRegex.test(dateTyped)) {
+        setDateInput(e.target.value)
+    }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { FoundFilmDetails } from "../../types"
 import "./EventForm.css"
+import { handleDateInput } from "./event-handlers"
 
 function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
     function getCurrentDate() {
@@ -11,15 +12,6 @@ function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
     const currentDate = getCurrentDate()
     const [dateInput, setDateInput] = useState(currentDate)
 
-    function handleDateInput(e: React.ChangeEvent<HTMLInputElement>) {
-        const dateRegex = /\d\d-\d\d-\d\d/
-        const dateTyped = e.target.value
-
-        if (dateRegex.test(dateTyped)) {
-            setDateInput(e.target.value)
-        }
-    }
-
     return <>
         <h1>Fill out events details here:</h1>
         <form id="event-form">
@@ -29,7 +21,7 @@ function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
             </div>
             <div className="form-element">
                 <label htmlFor="date">Date:</label>
-                <input id="date" onChange={handleDateInput} value={dateInput} type="date" min={currentDate} max={"2999-12-31"}/>
+                <input id="date" onChange={(e) => handleDateInput(e, setDateInput)} value={dateInput} type="date" min={currentDate} max={"2999-12-31"}/>
             </div>
         </form>
     </>
