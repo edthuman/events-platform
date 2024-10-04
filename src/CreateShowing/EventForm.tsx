@@ -2,13 +2,9 @@ import { useState } from "react"
 import { FoundFilmDetails } from "../../types"
 import "./EventForm.css"
 import { handleDateInput } from "./event-handlers"
+import { getCurrentDate } from "./utils"
 
 function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
-    function getCurrentDate() {
-        const date = new Date().toLocaleDateString()
-        return date.slice(-4) + "-" + date.slice(3, 5) + "-" + date.slice(0, 2)
-    }
-
     const currentDate = getCurrentDate()
     const [dateInput, setDateInput] = useState(currentDate)
 
