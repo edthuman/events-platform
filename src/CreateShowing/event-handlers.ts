@@ -7,25 +7,22 @@ export function handleFilmNameInput(e: ChangeEvent, setFilmNameInput: StringStat
     setFilmNameInput(e.target.value);
 }
 
-export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setError: StringStateSetter, setFilmDetails: SetFilmDetails, omdbKey: string) {
+export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string) {
     e.preventDefault();
 
     if (filmNameInput === "") {
-        setError("No name given")
-        setFilmDetails({})
+        setFilmDetails({ error: "No name given" })
         return
     }
 
     const fetchedFilmDetails = await getFilmPreview(omdbKey, filmNameInput);
 
     if (fetchedFilmDetails.error) {
-        setError(fetchedFilmDetails.error)
-        setFilmDetails({})
+        setFilmDetails({ error: fetchedFilmDetails.error })
         return
     }
 
     setFilmDetails(fetchedFilmDetails);
-    setError("")
 }
 
 export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
