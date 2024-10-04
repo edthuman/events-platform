@@ -3,7 +3,7 @@ import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
 import { Showing, SingleShowingResponse } from "./firestore-types"
 
-export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter) {
+export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
         const showingsCollection = collection(database, "showings")  
         const showingsQuery = query(showingsCollection)
