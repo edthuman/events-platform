@@ -17,12 +17,8 @@ export type Showing = {
     imdbId: string
 }
 
-export type FoundFilmDetails = {} | {
-    title: string
-    year: string
-    actors: string
-    director: string
-    poster: string
+export type ErrorMessage = {
+    error: string
 }
 
 export type BooleanStateSetter = React.Dispatch<React.SetStateAction<boolean>>

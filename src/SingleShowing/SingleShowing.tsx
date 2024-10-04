@@ -5,13 +5,14 @@ import { getDate, getTime } from "../../utils/datetime-utils";
 import { getSingleShowing } from "../../server/firestore-methods";
 import { getFilmDetails } from "../../server/omdb-methods";
 import "./SingleShowing.css";
+import { FilmDetailsResponse } from "../../server/omdb-types";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
 function SingleShowing() {
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
-    const [filmDetails, setFilmDetails] = useState<any>(null);
+    const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({ error: "" });
     const firestore = useContext(FirebaseContext);
 
     useEffect(() => {
@@ -32,7 +33,7 @@ function SingleShowing() {
             }
         })();
     }, [showing]);
-
+    
     return !showing || !filmDetails ? (
         <h1>Loading...</h1>
     ) : showing.error ? (
@@ -56,7 +57,7 @@ function SingleShowing() {
             <p>Genre(s): {filmDetails.genre}</p>
             <p>Plot: {filmDetails.plot}</p>
             <a
-                href={`https://www.imdb.com/title/${filmDetails.imdbId}`}
+                href={`https://www.imdb.com/title/${showing.imdbId}`}
                 target="_blank"
             >
                 Read more about the film on IMDb
