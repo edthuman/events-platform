@@ -1,17 +1,22 @@
 import { useState } from "react"
 import "./EventForm.css"
-import { handleDateInput, handleEventFormSubmit, handleTimeInput } from "./event-handlers"
+import { handleDateInput, handleEventFormSubmit, handleTextInput, handleTimeInput } from "./event-handlers"
 import { getCurrentDate } from "./utils"
 import { FilmPreviewDetails } from "../../server/omdb-types"
 
 function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const currentDate = getCurrentDate()
+    const [eventNameInput, setEventNameInput] = useState("My Event")
     const [dateInput, setDateInput] = useState(currentDate)
     const [timeInput, setTimeInput] = useState("00:00")
 
     return <>
         <h1>Fill out events details here:</h1>
         <form id="event-form" onSubmit={handleEventFormSubmit}>
+            <div className="form-element">
+                <label htmlFor="event-name">Name of Event:</label>
+                <input id="event-name" onChange={(e)=>handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text"/>
+            </div>
             <div className="form-element">
                 <label htmlFor="film-name">Film:</label>
                 <input id="film-name" value={filmDetails.title} type="text" readOnly/>
