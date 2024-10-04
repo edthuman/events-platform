@@ -3,11 +3,13 @@ import { getFilmPreview } from "../../server/omdb-methods";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
+type FormSubmitEvent = React.FormEvent<HTMLFormElement>
+
 export function handleFilmNameInput(e: ChangeEvent, setFilmNameInput: StringStateSetter) {
     setFilmNameInput(e.target.value);
 }
 
-export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string) {
+export async function findFilmDetails(e: FormSubmitEvent, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string) {
     e.preventDefault();
 
     if (filmNameInput === "") {
@@ -38,6 +40,6 @@ export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter)
     }
 }
 
-export function handleEventFormSubmit(e: React.FormEvent<HTMLFormElement>){
+export function handleEventFormSubmit(e: FormSubmitEvent){
     e.preventDefault()
 }
