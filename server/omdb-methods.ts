@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FilmDetailsResponse } from "./omdb-types"
+import { FilmDetailsResponse, FilmPreviewResponse } from "./omdb-types"
 
 export async function getFilmDetails(omdbKey: string, imdbId: string): Promise<FilmDetailsResponse>{
     try {
@@ -30,7 +30,7 @@ export async function getFilmDetails(omdbKey: string, imdbId: string): Promise<F
     }
 }
 
-export async function findFilm(omdbKey: string, filmName: string){
+export async function findFilm(omdbKey: string, filmName: string): Promise<FilmPreviewResponse>{
     try {
         const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`)
 
@@ -46,7 +46,8 @@ export async function findFilm(omdbKey: string, filmName: string){
             actors: Actors,
             director: Director,
             poster: Poster,
-            imdbId: imdbID
+            imdbId: imdbID,
+            error: ""
         }
     }
     catch (err) {

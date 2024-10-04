@@ -12,3 +12,15 @@ export type FilmDetails = {
 }
 
 export type FilmDetailsResponse = FilmDetails | ErrorMessage
+
+export type FilmPreview = {
+    title: string
+    year: string
+    actors: string
+    director: string
+    poster: string
+    imdbId: string
+    error: ""
+}
+
+export type FilmPreviewResponse = FilmPreview | ErrorMessage
