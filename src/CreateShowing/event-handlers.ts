@@ -1,5 +1,5 @@
 import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../types";
-import { findFilm } from "../../server/omdb-methods";
+import { getFilmPreview } from "../../server/omdb-methods";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -16,7 +16,7 @@ export async function findFilmDetails(e: React.FormEvent<HTMLFormElement>, filmN
         return
     }
 
-    const fetchedFilmDetails = await findFilm(omdbKey, filmNameInput);
+    const fetchedFilmDetails = await getFilmPreview(omdbKey, filmNameInput);
 
     if (fetchedFilmDetails.error) {
         setError(fetchedFilmDetails.error)

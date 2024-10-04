@@ -30,7 +30,7 @@ export async function getFilmDetails(omdbKey: string, imdbId: string): Promise<F
     }
 }
 
-export async function findFilm(omdbKey: string, filmName: string): Promise<FilmPreviewResponse>{
+export async function getFilmPreview(omdbKey: string, filmName: string): Promise<FilmPreviewResponse>{
     try {
         const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`)
 
