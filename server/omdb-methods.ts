@@ -1,16 +1,16 @@
 import axios from "axios";
 
-export async function getFilmDetails(omdbKey: string, filmName: string) {
+export async function getFilmDetails(omdbKey: string, imdbId: string){
     try {
         const response: any = await axios.get(
-            `https://www.omdbapi.com/?apikey=${omdbKey}&t=${filmName}`
+            `https://www.omdbapi.com/?apikey=${omdbKey}&i=${imdbId}`
         );
     
         if (response.data.Response === "False") {
             return { error: "Film details could not be retrieved" }
         }
-
-        const { Director, Runtime, Genre, Plot, Rated, Year, imdbID } =
+        
+        const { Director, Runtime, Genre, Plot, Rated, Title, Year } =
             response.data;
 
         return {
@@ -19,8 +19,8 @@ export async function getFilmDetails(omdbKey: string, filmName: string) {
             genre: Genre,
             plot: Plot,
             rating: Rated,
-            year: Year,
-            imdbId: imdbID,
+            title: Title,
+            year: Year
         };
     }
     catch (err) {

@@ -27,7 +27,7 @@ function SingleShowing() {
     useEffect(() => {
         (async () => {
             if (showing) {
-                const filmDetails = await getFilmDetails(omdbKey, showing.film);
+                const filmDetails = await getFilmDetails(omdbKey, showing.imdbId);
                 setFilmDetails(filmDetails);
             }
         })();
@@ -44,11 +44,11 @@ function SingleShowing() {
             <h1>{showing.name}</h1>
             <p>{getDate(showing.datetime)}</p>
             <p>{getTime(showing.datetime)}</p>
-            <img src={`${showing.poster}`} alt={`Poster for ${showing.film}`} />
+            <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} />
             <p>{showing.description}</p>
             <h2>Movie Details</h2>
             <p>
-                {showing.film} ({filmDetails.year})
+                {filmDetails.title} ({filmDetails.year})
             </p>
             <p>Rated: {filmDetails.rating}</p>
             <p>Runtime: {filmDetails.runtime}</p>

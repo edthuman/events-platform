@@ -14,6 +14,7 @@ export type Showing = {
     description: string
     datetime: Timestamp
     poster: string
+    imdbId: string
 }
 
 export type FoundFilmDetails = {} | {
@@ -22,7 +23,6 @@ export type FoundFilmDetails = {} | {
     actors: string
     director: string
     poster: string
-    imdbId: string
 }
 
 export type BooleanStateSetter = React.Dispatch<React.SetStateAction<boolean>>
