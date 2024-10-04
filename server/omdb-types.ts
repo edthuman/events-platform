@@ -13,7 +13,7 @@ export type FilmDetails = {
 
 export type FilmDetailsResponse = FilmDetails | ErrorMessage
 
-export type FilmPreview = {
+export type FilmPreviewDetails = {
     title: string
     year: string
     actors: string
@@ -23,4 +23,4 @@ export type FilmPreview = {
     error: ""
 }
 
-export type FilmPreviewResponse = FilmPreview | ErrorMessage
+export type FilmPreviewResponse = FilmPreviewDetails | ErrorMessage
