@@ -1,6 +1,7 @@
 import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { BooleanStateSetter, Showing } from "../types";
+import { BooleanStateSetter } from "../types";
+import { Showing, SingleShowingResponse } from "./firestore-types"
 
 export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter) {
     try {
@@ -27,7 +28,7 @@ export async function getAllShowings(database: Firestore, setIsLoading: BooleanS
     }
 }
 
-export async function getSingleShowing(database: Firestore, showingId: string | undefined) {
+export async function getSingleShowing(database: Firestore, showingId: string | undefined): Promise<SingleShowingResponse> {
     if (showingId === undefined) {
         return { error: "No showing ID given" }
     }

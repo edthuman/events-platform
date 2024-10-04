@@ -1,4 +1,3 @@
-import { Timestamp } from "@firebase/firestore"
 import { FilmDetailsResponse } from "./server/omdb-types"
 
 export type User = {
@@ -7,16 +6,6 @@ export type User = {
 }
 
 export type SetUser = React.Dispatch<React.SetStateAction<User>>
-
-export type Showing = {
-    id: string
-    name: string
-    film: string
-    description: string
-    datetime: Timestamp
-    poster: string
-    imdbId: string
-}
 
 export type ErrorMessage = {
     error: string
