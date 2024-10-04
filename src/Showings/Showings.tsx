@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import ShowingCard from "./ShowingCard";
 import FirebaseContext from "../../hooks/FirebaseContext";
-import { Showing } from "../../types";
 import { getAllShowings } from "../../server/firestore-methods";
+import { Showing } from "../../server/firestore-types";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);

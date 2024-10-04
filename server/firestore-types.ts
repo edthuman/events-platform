@@ -2,6 +2,7 @@ import { Timestamp } from "@firebase/firestore"
 import { ErrorMessage } from "../types"
 
 export type Showing = {
+    id: string
     name: string
     film: string
     description: string
