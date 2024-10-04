@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { FoundFilmDetails } from "../../types";
 import FilmSearchForm from "./FilmSearchForm";
 import EventForm from "./EventForm";
+import { FilmPreviewResponse } from "../../server/omdb-types";
 
 function CreateShowing() {
-    const [filmDetails, setFilmDetails] = useState<FoundFilmDetails>({});
+    // TypeScript error on EventForm component can be ignored - isSearchRequired is only set to true when filmDetails are of type FilmPreviewDetails
+    const [filmDetails, setFilmDetails] = useState<FilmPreviewResponse>({ error: "" });
     const [isSearchRequired, setIsSearchRequired] = useState(true)
 
     return isSearchRequired ? (
