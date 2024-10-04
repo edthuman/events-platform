@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { FoundFilmDetails } from "../../types"
 import "./EventForm.css"
 import { handleDateInput } from "./event-handlers"
 import { getCurrentDate } from "./utils"
+import { FilmPreviewDetails } from "../../server/omdb-types"
 
-function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
+function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const currentDate = getCurrentDate()
     const [dateInput, setDateInput] = useState(currentDate)
 

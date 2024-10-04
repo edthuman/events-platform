@@ -1,7 +1,6 @@
-import { FoundFilmDetails } from "../../types"
+import { FilmPreviewDetails } from "../../server/omdb-types"
 
-function FilmPreview({filmDetails}: {filmDetails: FoundFilmDetails}) {
-    // TypeScript errors can be ignored - component only renders when these properties exist
+function FilmPreview({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     return <>
         <p>Details found:</p>
         <p>Title: {filmDetails.title}</p>
