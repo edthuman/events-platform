@@ -1,5 +1,5 @@
+import { Showing } from "../../server/firestore-types"
 import { FilmDetails } from "../../server/omdb-types"
-import { Showing } from "../../types"
 import { getDate, getTime } from "../../utils/datetime-utils"
 
 function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: FilmDetails}) {
