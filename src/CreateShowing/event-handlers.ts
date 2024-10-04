@@ -1,5 +1,7 @@
 import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../types";
 import { getFilmPreview } from "../../server/omdb-methods";
+import { postShowing } from "../../server/firestore-methods";
+import { Firestore, Timestamp } from "@firebase/firestore";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -56,6 +58,18 @@ export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter)
     }
 }
 
-export function handleEventFormSubmit(e: FormSubmitEvent) {
+export function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore) {
     e.preventDefault()
+
+    const elements = e.target.elements
+
+    const eventName = elements["event-name"].value
+    const description = elements.description.value
+    const date = elements.date.value
+    const time = elements.time.value
+
+    const fullDate = new Date(`${date}T${time}Z`)
+    const dateTime = Timestamp.fromDate(fullDate)
+
+    postShowing(firestore, eventName, dateTime, description, film, imdbId, posterUrl)
 }
