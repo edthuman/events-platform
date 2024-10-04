@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./EventForm.css"
 import { handleDateInput, handleEventFormSubmit, handleTextInput, handleTimeInput } from "./event-handlers"
 import { getCurrentDate } from "./utils"
 import { FilmPreviewDetails } from "../../server/omdb-types"
+import FirebaseContext from "../../hooks/FirebaseContext"
 
 function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const currentDate = getCurrentDate()
@@ -10,10 +11,12 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const [descriptionInput, setDescriptionInput] = useState("")
     const [dateInput, setDateInput] = useState(currentDate)
     const [timeInput, setTimeInput] = useState("00:00")
-
+    const { title, imdbId, poster } = filmDetails
+    const firestore = useContext(FirebaseContext)
+    
     return <>
         <h1>Fill out events details here:</h1>
-        <form id="event-form" onSubmit={handleEventFormSubmit}>
+        <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore)}>
             <div className="form-element">
                 <label htmlFor="event-name">Name of Event:</label>
                 <input id="event-name" onChange={(e) => handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text" placeholder="My Event"/>
@@ -24,7 +27,7 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
             </div>
             <div className="form-element">
                 <label htmlFor="film-name">Film:</label>
-                <input id="film-name" value={filmDetails.title} type="text" readOnly/>
+                <input id="film-name" value={title} type="text" readOnly/>
             </div>
             <div className="form-element">
                 <label htmlFor="date">Date:</label>
@@ -32,8 +35,9 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
             </div>
             <div className="form-element">
                 <label htmlFor="time">Time:</label>
-                <input type="time" value={timeInput} onChange={(e) => handleTimeInput(e, setTimeInput)}/>
+                <input id="time" type="time" value={timeInput} onChange={(e) => handleTimeInput(e, setTimeInput)}/>
             </div>
+            <button type="submit">Create event</button>
         </form>
     </>
 }
