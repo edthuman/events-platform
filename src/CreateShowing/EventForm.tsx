@@ -13,10 +13,11 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const [timeInput, setTimeInput] = useState("00:00")
     const { title, imdbId, poster } = filmDetails
     const firestore = useContext(FirebaseContext)
-    
+    const [error, setError] = useState("")
+
     return <>
         <h1>Fill out events details here:</h1>
-        <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore)}>
+        <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore, setError)}>
             <div className="form-element">
                 <label htmlFor="event-name">Name of Event:</label>
                 <input id="event-name" onChange={(e) => handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text" placeholder="My Event"/>
@@ -39,6 +40,7 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
             </div>
             <button type="submit">Create event</button>
         </form>
+        { error ? <p>{error}</p> : null}
     </>
 }
 
