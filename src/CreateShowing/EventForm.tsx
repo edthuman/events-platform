@@ -6,7 +6,8 @@ import { FilmPreviewDetails } from "../../server/omdb-types"
 
 function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
     const currentDate = getCurrentDate()
-    const [eventNameInput, setEventNameInput] = useState("My Event")
+    const [eventNameInput, setEventNameInput] = useState("")
+    const [descriptionInput, setDescriptionInput] = useState("")
     const [dateInput, setDateInput] = useState(currentDate)
     const [timeInput, setTimeInput] = useState("00:00")
 
@@ -15,7 +16,11 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
         <form id="event-form" onSubmit={handleEventFormSubmit}>
             <div className="form-element">
                 <label htmlFor="event-name">Name of Event:</label>
-                <input id="event-name" onChange={(e)=>handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text"/>
+                <input id="event-name" onChange={(e) => handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text" placeholder="My Event"/>
+            </div>
+            <div className="form-element">
+                <label htmlFor="description">Event Description:</label>
+                <input id="description" onChange={(e) => handleTextInput(e, setDescriptionInput)} value={descriptionInput} type="text" placeholder="Description of event"/>
             </div>
             <div className="form-element">
                 <label htmlFor="film-name">Film:</label>
