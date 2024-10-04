@@ -1,4 +1,4 @@
-import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore";
+import { addDoc, collection, doc, Firestore, getDocs, query, Timestamp } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
 import { Showing, SingleShowingResponse } from "./firestore-types"
@@ -51,4 +51,10 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
     catch (err){
         return { error: "Something went wrong whilst retrieving showing details" }
     }
+}
+
+export async function postShowing(database: Firestore, name: string, datetime: Timestamp, description: string, film: string, imdbId: string, poster: string) {
+    const showingsCollection = collection(database, "showings")
+    
+    await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] } )
 }
