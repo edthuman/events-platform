@@ -40,6 +40,22 @@ export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter)
     }
 }
 
-export function handleEventFormSubmit(e: FormSubmitEvent){
+export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter) {
+    const timeRegex = /\d\d:\d\d/
+    const timeTyped = e.target.value
+
+    if (!timeRegex.test(timeTyped)) {
+        return
+    }
+
+    const hourTyped = Number(timeTyped.slice(0,2))
+    const minsTyped = Number(timeTyped.slice(-2))
+    
+    if (hourTyped < 24 && minsTyped < 60) {
+        setTimeInput(timeTyped)
+    }
+}
+
+export function handleEventFormSubmit(e: FormSubmitEvent) {
     e.preventDefault()
 }
