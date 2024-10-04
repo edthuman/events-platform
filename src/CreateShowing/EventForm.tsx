@@ -17,7 +17,7 @@ function EventForm({filmDetails}: {filmDetails: FoundFilmDetails}) {
             </div>
             <div className="form-element">
                 <label htmlFor="date">Date:</label>
-                <input id="date" onChange={(e) => handleDateInput(e, setDateInput)} value={dateInput} type="date" min={currentDate} max={"2999-12-31"}/>
+                <input id="date" onChange={(e) => handleDateInput(e, setDateInput)} value={dateInput} type="date" min={currentDate} max={"2099-12-31"}/>
             </div>
         </form>
     </>
