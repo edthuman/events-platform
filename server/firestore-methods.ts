@@ -57,9 +57,13 @@ export async function postShowing(database: Firestore, name: string, datetime: T
     try {
         const showingsCollection = collection(database, "showings")
     
-        await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] })
+        const response = await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] })
 
-        return { error: "" }
+        if (!response.id) {
+            return { error: "Event posting was unsuccessful"}
+        }
+
+        return { id: response.id, error: "" }
     }
     catch (err) {
         return { error: "Something went wrong whilst posting event" }
