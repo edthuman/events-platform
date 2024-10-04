@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { findFilmDetails, handleFilmFound, handleFilmNameInput } from "./event-handlers";
+import { findFilmDetails, handleFilmFound, handleTextInput } from "./event-handlers";
 import FilmPreview from "./FilmPreview";
 import { BooleanStateSetter, SetFilmDetails } from "../../types";
 import { FilmPreviewResponse } from "../../server/omdb-types";
@@ -18,7 +18,7 @@ function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {fi
             <input
                 id="film-name"
                 type="text"
-                onChange={(e) => handleFilmNameInput(e, setFilmNameInput)}
+                onChange={(e) => handleTextInput(e, setFilmNameInput)}
                 value={filmNameInput}
             />
             <button type="submit">Find Film</button>

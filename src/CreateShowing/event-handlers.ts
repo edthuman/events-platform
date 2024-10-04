@@ -5,8 +5,8 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 type FormSubmitEvent = React.FormEvent<HTMLFormElement>
 
-export function handleFilmNameInput(e: ChangeEvent, setFilmNameInput: StringStateSetter) {
-    setFilmNameInput(e.target.value);
+export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter) {
+    setTextInput(e.target.value);
 }
 
 export async function findFilmDetails(e: FormSubmitEvent, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string) {
