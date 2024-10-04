@@ -54,7 +54,14 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
 }
 
 export async function postShowing(database: Firestore, name: string, datetime: Timestamp, description: string, film: string, imdbId: string, poster: string) {
-    const showingsCollection = collection(database, "showings")
+    try {
+        const showingsCollection = collection(database, "showings")
     
-    await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] } )
+        await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] })
+
+        return { error: "" }
+    }
+    catch (err) {
+        return { error: "Something went wrong whilst posting event" }
+    }
 }
