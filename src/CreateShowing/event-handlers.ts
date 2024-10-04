@@ -58,7 +58,7 @@ export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter)
     }
 }
 
-export function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore) {
+export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter) {
     e.preventDefault()
 
     const elements = e.target.elements
@@ -68,8 +68,15 @@ export function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: 
     const date = elements.date.value
     const time = elements.time.value
 
+    
+
     const fullDate = new Date(`${date}T${time}Z`)
     const dateTime = Timestamp.fromDate(fullDate)
 
-    postShowing(firestore, eventName, dateTime, description, film, imdbId, posterUrl)
+    const response = await postShowing(firestore, eventName, dateTime, description, film, imdbId, posterUrl)
+
+    if (response.error) {
+        setError(response.error)
+        return
+    }
 }
