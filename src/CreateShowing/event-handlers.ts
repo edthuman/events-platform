@@ -37,3 +37,7 @@ export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter)
         setDateInput(e.target.value)
     }
 }
+
+export function handleEventFormSubmit(e: React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+}

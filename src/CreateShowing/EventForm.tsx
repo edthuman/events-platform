@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "./EventForm.css"
-import { handleDateInput } from "./event-handlers"
+import { handleDateInput, handleEventFormSubmit } from "./event-handlers"
 import { getCurrentDate } from "./utils"
 import { FilmPreviewDetails } from "../../server/omdb-types"
 
@@ -10,7 +10,7 @@ function EventForm({filmDetails}: {filmDetails: FilmPreviewDetails}) {
 
     return <>
         <h1>Fill out events details here:</h1>
-        <form id="event-form">
+        <form id="event-form" onSubmit={handleEventFormSubmit}>
             <div className="form-element">
                 <label htmlFor="film-name">Film:</label>
                 <input id="film-name" value={filmDetails.title} type="text" readOnly/>
