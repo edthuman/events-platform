@@ -78,7 +78,12 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         setError("Invalid date or time given")
         return
     }
-    
+
+    const error = getEventDetailsError(eventName, description)
+    if (error) {
+        setError(error)
+        return
+    }
 
     const response = await postShowing(firestore, eventName, dateTime, description, film, imdbId, posterUrl)
 
