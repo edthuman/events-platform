@@ -91,4 +91,6 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         setError(response.error)
         return
     }
+
+    setError("")
 }
