@@ -1,10 +1,9 @@
-import { collection, doc, Firestore, getDocs, query } from "@firebase/firestore";
+import { addDoc, collection, doc, Firestore, getDocs, query, Timestamp } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { Showing } from "../types";
+import { BooleanStateSetter } from "../types";
+import { Showing, SingleShowingResponse } from "./firestore-types"
 
-type SetIsLoading = React.Dispatch<React.SetStateAction<boolean>>
-
-export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoading) {
+export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
         const showingsCollection = collection(database, "showings")  
         const showingsQuery = query(showingsCollection)
@@ -29,7 +28,7 @@ export async function getAllShowings(database: Firestore, setIsLoading: SetIsLoa
     }
 }
 
-export async function getSingleShowing(database: Firestore, showingId: string | undefined) {
+export async function getSingleShowing(database: Firestore, showingId: string | undefined): Promise<SingleShowingResponse> {
     if (showingId === undefined) {
         return { error: "No showing ID given" }
     }
@@ -51,5 +50,22 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
     }
     catch (err){
         return { error: "Something went wrong whilst retrieving showing details" }
+    }
+}
+
+export async function postShowing(database: Firestore, name: string, datetime: Timestamp, description: string, film: string, imdbId: string, poster: string) {
+    try {
+        const showingsCollection = collection(database, "showings")
+    
+        const response = await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] })
+
+        if (!response.id) {
+            return { error: "Event posting was unsuccessful"}
+        }
+
+        return { id: response.id, error: "" }
+    }
+    catch (err) {
+        return { error: "Something went wrong whilst posting event" }
     }
 }

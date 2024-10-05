@@ -1,8 +1,8 @@
-import { Showing } from "../../types"
 import "./ShowingCard.css"
 import { getDate, getTime } from "../../utils/datetime-utils"
+import { Showing } from "../../server/firestore-types"
 
-function ShowingCard({showing}: {showing: Showing}) {
+function ShowingCard({showing}: { showing: Showing }) {
     const {datetime} = showing
     const day = getDate(datetime)
     const time = getTime(datetime)
