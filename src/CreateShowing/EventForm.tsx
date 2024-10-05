@@ -4,9 +4,9 @@ import { handleDateInput, handleEventFormSubmit, handleTextInput, handleTimeInpu
 import { getCurrentDate } from "./utils"
 import { FilmPreviewDetails } from "../../server/omdb-types"
 import FirebaseContext from "../../hooks/FirebaseContext"
-import { StringStateSetter } from "../../types"
+import { BooleanStateSetter, StringStateSetter } from "../../types"
 
-function EventForm({filmDetails, setShowingId}: {filmDetails: FilmPreviewDetails, setShowingId: StringStateSetter}) {
+function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: FilmPreviewDetails, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter}) {
     const currentDate = getCurrentDate()
     const [eventNameInput, setEventNameInput] = useState("")
     const [descriptionInput, setDescriptionInput] = useState("")
@@ -18,7 +18,7 @@ function EventForm({filmDetails, setShowingId}: {filmDetails: FilmPreviewDetails
 
     return <>
         <h1>Fill out events details here:</h1>
-        <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore, setError, setShowingId)}>
+        <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore, setError, setShowingId, setIsPosting)}>
             <div className="form-element">
                 <label htmlFor="event-name">Name of Event:</label>
                 <input id="event-name" onChange={(e) => handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text" placeholder="My Event"/>

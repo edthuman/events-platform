@@ -9,17 +9,19 @@ function CreateShowing() {
     const [filmDetails, setFilmDetails] = useState<FilmPreviewResponse>({ error: "" });
     const [isSearchRequired, setIsSearchRequired] = useState(true)
     const [showingId, setShowingId] = useState("")
+    const [isPosting, setIsPosting] = useState(false)
 
     return isSearchRequired ? (
         <FilmSearchForm filmDetails={filmDetails} setFilmDetails={setFilmDetails} setIsSearchRequired={setIsSearchRequired}/>
     ) : (
+        isPosting ? (
+        <h1>Loading...</h1>
+    ) : (
         showingId === "" ? (
-    <>
-        <EventForm filmDetails={filmDetails} setShowingId={setShowingId}/>
-    </>
-    ) : ( <>
-        <PostingSuccessMessage showingId={showingId}/>
-    </>
+            <EventForm filmDetails={filmDetails} setShowingId={setShowingId} setIsPosting={setIsPosting}/>
+        ) : ( 
+            <PostingSuccessMessage showingId={showingId}/>
+        )
     )
     )
 }

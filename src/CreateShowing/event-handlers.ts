@@ -59,8 +59,9 @@ export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter)
     }
 }
 
-export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter, setShowingId: StringStateSetter) {
+export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter) {
     e.preventDefault()
+    setIsPosting(true)
 
     const elements = e.target.elements
 
@@ -76,12 +77,14 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
     }
     catch {
         setError("Invalid date or time given")
+        setIsPosting(false)
         return
     }
 
     const error = getEventDetailsError(eventName, description)
     if (error) {
         setError(error)
+        setIsPosting(false)
         return
     }
 
@@ -89,10 +92,12 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
 
     if (response.error) {
         setError(response.error)
+        setIsPosting(false)
         return
     }
 
     // TypeScript error on response.id possibly being undefined can be ignored - response from postShowing will always have an id if error is an empty string
     setError("")
     setShowingId(response.id)
+    setIsPosting(false)
 }
