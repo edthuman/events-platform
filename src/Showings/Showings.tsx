@@ -3,6 +3,7 @@ import ShowingCard from "./ShowingCard";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { getAllShowings } from "../../server/firestore-methods";
 import { Showing } from "../../server/firestore-types";
+import Loading from "../Loading";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
@@ -20,9 +21,7 @@ function Showings() {
     }, []);
 
     return isLoading ? (
-        <>
-            <h1>Loading showings...</h1>
-        </>
+        <Loading />
     ) : showings.length === 0 ? (
         <>
             <h1>Something went wrong whilst retrieving showings</h1>

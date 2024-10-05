@@ -6,6 +6,7 @@ import { getFilmDetails } from "../../server/omdb-methods";
 import "./SingleShowing.css";
 import { FilmDetailsResponse } from "../../server/omdb-types";
 import ShowingDetails from "./ShowingDetails";
+import Loading from "../Loading";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -36,7 +37,7 @@ function SingleShowing() {
     }, [showing]);
     
     return !showing || !filmDetails ? (
-        <h1>Loading...</h1>
+        <Loading />
     ) : showing.error ? (
         <h1>{showing.error}</h1>
     ) : filmDetails.error ? (
