@@ -2,6 +2,7 @@ import { useState } from "react";
 import FilmSearchForm from "./FilmSearchForm";
 import EventForm from "./EventForm";
 import { FilmPreviewResponse } from "../../server/omdb-types";
+import PostingSuccessMessage from "./PostingSuccessMessage";
 
 function CreateShowing() {
     // TypeScript error on EventForm component can be ignored - isSearchRequired is only set to true when filmDetails are of type FilmPreviewDetails
@@ -16,8 +17,9 @@ function CreateShowing() {
     <>
         <EventForm filmDetails={filmDetails} setShowingId={setShowingId}/>
     </>
-    ) : ( 
-        <h1>Event Posted!</h1>
+    ) : ( <>
+        <PostingSuccessMessage showingId={showingId}/>
+    </>
     )
     )
 }
