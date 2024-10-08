@@ -1,10 +1,8 @@
 import { useState } from "react"
-import { Showing } from "../../server/firestore-types"
 import { handleRegistration } from "./event-handlers"
 
-function ShowingRegistration({showing}: {showing: Showing}) {
+function ShowingRegistration({id}: {id: string}) {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
-    const { id } = showing
 
     return <>
         <p>Interested in attending?</p>

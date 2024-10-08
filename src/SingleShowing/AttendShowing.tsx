@@ -16,7 +16,7 @@ function AttendShowing({showing}: {showing: Showing}) {
             isUserAttending ? (
                 <p>You are registered for this event</p>
             ) : (
-                <ShowingRegistration />
+                <ShowingRegistration showing={showing}/>
         ))
     )
 }
