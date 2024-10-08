@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Login.css"
 
 function Login() {
@@ -6,18 +7,18 @@ function Login() {
             <h1>Events Platform</h1>
             <p>How would you like to log in?</p>
             <div id="login-links">
-                <a
-                    href="/create-showing"
+                <Link
+                    to="/create-showing"
                     className="login-link"
                 >
                     Staff
-                </a>
-                <a
-                    href="/showings"
+                </Link>
+                <Link
+                    to="/showings"
                     className="login-link"
                 >
                     Non-Staff
-                </a>
+                </Link>
             </div>
         </>
     );

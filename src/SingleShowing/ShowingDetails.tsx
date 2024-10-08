@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Showing } from "../../server/firestore-types"
 import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
@@ -18,12 +19,12 @@ function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: 
         <p>Directed by: {filmDetails.director}</p>
         <p>Genre(s): {filmDetails.genre}</p>
         <p>Plot: {filmDetails.plot}</p>
-        <a
-            href={`https://www.imdb.com/title/${showing.imdbId}`}
+        <Link
+            to={`https://www.imdb.com/title/${showing.imdbId}`}
             target="_blank"
         >
             Read more about the film on IMDb
-        </a>
+        </Link>
     </>
 }
 
