@@ -1,9 +1,16 @@
+import { Firestore } from "@firebase/firestore"
+import { addAttendee } from "../../server/firestore-methods"
 import { BooleanStateSetter } from "../../types"
 
-export function handleRegistration(setIsButtonDisabled: BooleanStateSetter, id: string){
+export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, firebase: Firestore, username: string, showingId: string){
     setIsButtonDisabled(true)
     
-    // add user to attendees 
+    const response = await addAttendee(firebase, username, showingId)
+
+    if (response.error) {
+        setIsButtonDisabled(false)
+        return
+    }
 
     setIsButtonDisabled(false)
 }
