@@ -9,12 +9,15 @@ function RegisterButton({setIsError, setIsRegistered, id} : {setIsError: Boolean
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const firebase = useContext(FirebaseContext)
 
-    return <button 
-        onClick={() => handleRegistration(setIsButtonDisabled, setIsError, setIsRegistered, firebase, username, id)} 
-        disabled={isButtonDisabled}
-    >
-        Register
-    </button>
+    return <>
+        <p>Interested in attending?</p>
+        <button 
+            onClick={() => handleRegistration(setIsButtonDisabled, setIsError, setIsRegistered, firebase, username, id)} 
+            disabled={isButtonDisabled}
+        >
+            Register
+        </button>
+    </>
 }
 
 export default RegisterButton
