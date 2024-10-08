@@ -13,3 +13,7 @@ export type Showing = {
 }
 
 export type SingleShowingResponse = Showing | ErrorMessage
+
+export type UpdateResponse = {
+    error: boolean 
+}
