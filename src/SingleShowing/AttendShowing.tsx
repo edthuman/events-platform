@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import UserContext from "../../hooks/UserContext"
 import { Showing } from "../../server/firestore-types";
+import ShowingRegistration from "./ShowingRegistration";
 
 function AttendShowing({showing}: {showing: Showing}) {
     const { user } = useContext(UserContext)
@@ -12,8 +13,11 @@ function AttendShowing({showing}: {showing: Showing}) {
         user.role === "staff" ? (
             <p>You must be non-staff to register for an event</p>
         ): (
-            isUserAttending ? <p>You are registered for this event</p> : <p>Register for this event?</p>
-        )
+            isUserAttending ? (
+                <p>You are registered for this event</p>
+            ) : (
+                <ShowingRegistration />
+        ))
     )
 }
 
