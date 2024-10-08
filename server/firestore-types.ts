@@ -9,6 +9,7 @@ export type Showing = {
     datetime: Timestamp
     poster: string
     imdbId: string
+    attendees: string[]
 }
 
 export type SingleShowingResponse = Showing | ErrorMessage
