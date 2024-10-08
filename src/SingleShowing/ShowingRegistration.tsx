@@ -3,7 +3,7 @@ import RegisterButton from "./RegisterButton"
 import RegisteredMessage from "./RegisteredMessage"
 
 function ShowingRegistration({id}: {id: string}) {
-    const [isError, setIsError] = useState(true)
+    const [isError, setIsError] = useState(false)
     const [isRegistered, setIsRegistered] = useState(false)
 
     return <>
