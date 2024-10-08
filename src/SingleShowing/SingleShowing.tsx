@@ -7,6 +7,7 @@ import "./SingleShowing.css";
 import { FilmDetailsResponse } from "../../server/omdb-types";
 import ShowingDetails from "./ShowingDetails";
 import Loading from "../Loading";
+import AttendShowing from "./AttendShowing";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -42,8 +43,10 @@ function SingleShowing() {
         <h1>{showing.error}</h1>
     ) : filmDetails.error ? (
         <h1>{filmDetails.error}</h1>
-    ) : (
+    ) : (<>
+        <AttendShowing />
         <ShowingDetails showing={showing} filmDetails={filmDetails}/>
+        </>
     );
 }
 
