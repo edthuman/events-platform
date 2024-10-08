@@ -4,13 +4,13 @@ import UserContext from "../../hooks/UserContext"
 import FirebaseContext from "../../hooks/FirebaseContext"
 import { BooleanStateSetter } from "../../types"
 
-function RegisterButton({setIsError, id} : {setIsError: BooleanStateSetter, id: string}) {
+function RegisterButton({setIsError, setIsRegistered, id} : {setIsError: BooleanStateSetter, setIsRegistered: BooleanStateSetter, id: string}) {
     const {user: {username}} = useContext(UserContext)
     const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const firebase = useContext(FirebaseContext)
 
     return <button 
-        onClick={() => handleRegistration(setIsButtonDisabled, setIsError, firebase, username, id)} 
+        onClick={() => handleRegistration(setIsButtonDisabled, setIsError, setIsRegistered, firebase, username, id)} 
         disabled={isButtonDisabled}
     >
         Register

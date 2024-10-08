@@ -2,7 +2,7 @@ import { Firestore } from "@firebase/firestore"
 import { addAttendee } from "../../server/firestore-methods"
 import { BooleanStateSetter } from "../../types"
 
-export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, firebase: Firestore, username: string, showingId: string){
+export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsRegistered: BooleanStateSetter, firebase: Firestore, username: string, showingId: string){
     setIsButtonDisabled(true)
     setIsError(false)
     
@@ -14,5 +14,5 @@ export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter
         return
     }
 
-    setIsButtonDisabled(false)
+    setIsRegistered(true)
 }

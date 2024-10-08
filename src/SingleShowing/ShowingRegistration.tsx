@@ -8,7 +8,7 @@ function ShowingRegistration({id}: {id: string}) {
 
     return <>
         <p>Interested in attending?</p>
-        {isRegistered ? <RegisteredMessage /> : <RegisterButton setIsError={setIsError} id={id} />}
+        {isRegistered ? <RegisteredMessage /> : <RegisterButton setIsError={setIsError} setIsRegistered={setIsRegistered} id={id} />}
         {isError ? <p>Error occurred during registration, please try again</p> : null}
     </>
 }
