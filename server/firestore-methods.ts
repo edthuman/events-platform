@@ -44,7 +44,7 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
         }
         
         return {
-            id: showingData.id,
+            id: showingId,
             ...showingData
         }
     }
