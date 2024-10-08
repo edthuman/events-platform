@@ -44,8 +44,8 @@ function SingleShowing() {
     ) : filmDetails.error ? (
         <h1>{filmDetails.error}</h1>
     ) : (<>
-        <AttendShowing />
-        <ShowingDetails showing={showing} filmDetails={filmDetails}/>
+        <AttendShowing showing={showing} />
+        <ShowingDetails showing={showing} filmDetails={filmDetails} />
         </>
     );
 }
