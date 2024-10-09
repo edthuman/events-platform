@@ -1,8 +1,10 @@
 import { FilmDetailsResponse } from "./server/omdb-types"
 
 export type User = {
-    role: string
+    role: "non-staff" | "staff" | "guest"
     username: string
+    email: string
+    token?: string
 }
 
 export type SetUser = React.Dispatch<React.SetStateAction<User>>
