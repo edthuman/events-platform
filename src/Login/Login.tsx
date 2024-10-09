@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
 import "./Login.css"
 import { useContext } from "react";
 import UserContext from "../../hooks/UserContext";
 import { handleLogin } from "./event-handlers";
+import CreateShowingLink from "./CreateShowingLink";
+import ViewShowingsLink from "./ViewShowingsLink";
 
 function Login() {
     const {user, setUser} = useContext(UserContext)
@@ -17,23 +18,15 @@ function Login() {
                 Non-Staff log in
             </button>
         </>
-    ) : <>
-    <h1>Login Successful</h1>
-    <div id="login-links">
-                <Link
-                    to="/create-showing"
-                    className="login-link"
-                >
-                    Create Showing
-                </Link>
-                <Link
-                    to="/showings"
-                    className="login-link"
-                >
-                    View Showings
-                </Link>
+    ) : (
+        <>
+            <h1>Login Successful</h1>
+            <div id="login-links">
+                        <CreateShowingLink />
+                        <ViewShowingsLink />
             </div>
-    </>
+        </>
+    )
 }
 
 export default Login;
