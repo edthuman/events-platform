@@ -10,6 +10,10 @@ export async function getGoogleAuthorisation() {
         const result = await signInWithPopup(auth, provider)
         const { email } = result.user
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (!credential) {
+            return { error: true }
+        }
+        
         const token = credential.accessToken;
         
         return { 
