@@ -4,7 +4,7 @@ import ViewShowingsLink from "./ViewShowingsLink"
 
 function SuccessfulLoginLinks({user}: {user: User}) {
     return <>
-        <h1>Login Successful</h1>
+        <p>Login Successful</p>
         <div id="login-links">
             { user.role === "staff" ? <CreateShowingLink /> : null}
             <ViewShowingsLink />

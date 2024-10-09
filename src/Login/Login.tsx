@@ -6,20 +6,23 @@ import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 
 function Login() {
     const {user, setUser} = useContext(UserContext)
-    
-    return !user.email ? (
-        <>
-            <h1>Events Platform</h1>
-            <button onClick={() => handleLogin(setUser, "staff")}>
-                Staff log in
-            </button>
-            <button onClick={() => handleLogin(setUser, "non-staff")}>
-                Non-Staff log in
-            </button>
-        </>
-    ) : (
-        <SuccessfulLoginLinks user={user}/>
-    )
+
+    return <>
+        <h1>Events Platform</h1>
+        {!user.email ? (
+            <>
+                
+                <button onClick={() => handleLogin(setUser, "staff")}>
+                    Staff log in
+                </button>
+                <button onClick={() => handleLogin(setUser, "non-staff")}>
+                    Non-Staff log in
+                </button>
+            </>
+        ) : (
+            <SuccessfulLoginLinks user={user}/>
+        )}
+    </>
 }
 
 export default Login;
