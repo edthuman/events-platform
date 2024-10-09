@@ -2,8 +2,7 @@ import "./Login.css"
 import { useContext } from "react";
 import UserContext from "../../hooks/UserContext";
 import { handleLogin } from "./event-handlers";
-import CreateShowingLink from "./CreateShowingLink";
-import ViewShowingsLink from "./ViewShowingsLink";
+import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 
 function Login() {
     const {user, setUser} = useContext(UserContext)
@@ -19,13 +18,7 @@ function Login() {
             </button>
         </>
     ) : (
-        <>
-            <h1>Login Successful</h1>
-            <div id="login-links">
-                        <CreateShowingLink />
-                        <ViewShowingsLink />
-            </div>
-        </>
+        <SuccessfulLoginLinks user={user}/>
     )
 }
 
