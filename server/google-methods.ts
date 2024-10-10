@@ -71,19 +71,24 @@ export async function checkShowingInCalendar(
         "Content-Type": "application/json",
     };
 
-    const response = await axios.get(url, { headers });
-    const events = response.data.items;
-    const isOnCalendar = events.findIndex((event: any) => {
-        const nameMatches = event.summary === showing.name;
-        const descriptionMatches = event.description === showing.description;
+    try {
+        const response = await axios.get(url, { headers });
+        const events = response.data.items;
+        const isOnCalendar = events.findIndex((event: any) => {
+            const nameMatches = event.summary === showing.name;
+            const descriptionMatches = event.description === showing.description;
 
-        return nameMatches && descriptionMatches;
-    });
+            return nameMatches && descriptionMatches;
+        });
 
-    if (isOnCalendar === -1) {
+        if (isOnCalendar === -1) {
+            setIsLoading(false);
+            return;
+        }
+        setIsNotInCalendar(false);
         setIsLoading(false);
-        return;
     }
-    setIsNotInCalendar(false);
-    setIsLoading(false);
+    catch (err) {
+        setIsLoading(false)
+    }
 }
