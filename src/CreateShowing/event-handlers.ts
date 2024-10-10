@@ -84,7 +84,15 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
     
     const durationSeconds = getDurationSeconds(duration)
     const endSeconds = startDate.seconds + durationSeconds
-    const endDate = new Timestamp(endSeconds, 0)
+
+    let endDate
+    try {
+        endDate = new Timestamp(endSeconds, 0)
+    } catch (err) {
+        setError("Invalid duration")
+        setIsPosting(false)
+        return
+    }
 
     const error = getEventDetailsError(eventName, description)
     if (error) {
