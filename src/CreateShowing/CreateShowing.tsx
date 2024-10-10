@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FilmSearchForm from "./FilmSearchForm/FilmSearchForm";
+import FilmSearch from "./FilmSearch/FilmSearch";
 import EventForm from "./EventForm";
 import { FilmPreviewResponse } from "../../server/omdb-types";
 import PostSuccessMessage from "./PostSuccessMessage";
@@ -15,7 +15,7 @@ function CreateShowing() {
     const [isPosting, setIsPosting] = useState(false);
 
     return isSearchRequired ? (
-        <FilmSearchForm
+        <FilmSearch
             filmDetails={filmDetails}
             setFilmDetails={setFilmDetails}
             setIsSearchRequired={setIsSearchRequired}

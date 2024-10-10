@@ -7,7 +7,7 @@ import NameSearch from "./NameSearch";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
-function FilmSearchForm({
+function FilmSearch({
     filmDetails,
     setFilmDetails,
     setIsSearchRequired,
@@ -39,4 +39,4 @@ function FilmSearchForm({
     );
 }
 
-export default FilmSearchForm;
+export default FilmSearch;
