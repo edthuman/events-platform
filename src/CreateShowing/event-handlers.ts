@@ -12,26 +12,34 @@ export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter)
     setTextInput(e.target.value);
 }
 
-export async function findFilmDetails(e: FormSubmitEvent, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string) {
+export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, isNameSearch: boolean) {
     e.preventDefault();
+    setIsLoading(true)
 
-    if (filmNameInput === "") {
+    if (searchInput === "") {
         setFilmDetails({ error: "No name given" })
+        setIsLoading(false)
         return
     }
 
-    const fetchedFilmDetails = await getFilmPreview(omdbKey, filmNameInput);
+    const fetchedFilmDetails = await getFilmPreview(omdbKey, searchInput, isNameSearch);
 
     if (fetchedFilmDetails.error) {
         setFilmDetails({ error: fetchedFilmDetails.error })
+        setIsLoading(false)
         return
     }
 
     setFilmDetails(fetchedFilmDetails);
+    setIsLoading(false)
 }
 
 export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
     setIsSearchRequired(false)
+}
+
+export function handleIncorrectFilmFound(setFilmDetails: any) {
+    setFilmDetails({ error: "" })
 }
 
 export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter) {
