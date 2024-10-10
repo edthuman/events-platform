@@ -1,28 +1,39 @@
-import { Firestore } from "@firebase/firestore"
-import { addAttendee } from "../../server/firestore-methods"
-import { BooleanStateSetter } from "../../types"
-import { addToCalendar } from "../../server/firebase-auth-methods"
-import { Showing } from "../../server/firestore-types"
+import { Firestore } from "@firebase/firestore";
+import { addAttendee } from "../../server/firestore-methods";
+import { BooleanStateSetter } from "../../types";
+import { addToCalendar } from "../../server/google-methods";
+import { Showing } from "../../server/firestore-types";
 
-export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string){
-    setIsButtonDisabled(true)
-    setIsError(false)
-    
-    const response = await addAttendee(firebase, email, showingId)
+export async function handleRegistration(
+    setIsButtonDisabled: BooleanStateSetter,
+    setIsError: BooleanStateSetter,
+    setIsUserAttending: BooleanStateSetter,
+    firebase: Firestore,
+    email: string,
+    showingId: string
+) {
+    setIsButtonDisabled(true);
+    setIsError(false);
+
+    const response = await addAttendee(firebase, email, showingId);
 
     if (response.error) {
-        setIsError(true)
-        setIsButtonDisabled(false)
-        return
+        setIsError(true);
+        setIsButtonDisabled(false);
+        return;
     }
 
-    setIsUserAttending(true)
+    setIsUserAttending(true);
 }
 
-export async function handleAddToCalendarClick(showing: Showing, token: string, setIsNotInCalendar: BooleanStateSetter) {
-    const response = await addToCalendar(showing, token)
+export async function handleAddToCalendarClick(
+    showing: Showing,
+    token: string,
+    setIsNotInCalendar: BooleanStateSetter
+) {
+    const response = await addToCalendar(showing, token);
     if (response.error) {
-        return
+        return;
     }
-    setIsNotInCalendar(false)
+    setIsNotInCalendar(false);
 }
