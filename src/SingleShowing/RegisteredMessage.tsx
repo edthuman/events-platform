@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Showing } from "../../server/firestore-types";
 import { handleAddToCalendarClick } from "./event-handlers";
 import UserContext from "../../hooks/UserContext";
@@ -16,25 +16,31 @@ function RegisteredMessage({
     const {
         user: { token },
     } = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState("")
     const buttonText = isNotInCalendar ? "Add to Google calendar" : "Event is in your calendar"
+    const isButtonDisabled = !isNotInCalendar || isLoading
 
     return (
         <>
             <p>You are registered for this event</p>
-            {(
-                <button
-                    onClick={() =>
-                        handleAddToCalendarClick(
-                            showing,
-                            token,
-                            setIsNotInCalendar
-                        )
-                    }
-                    disabled={!isNotInCalendar}
-                >
-                    {buttonText}
-                </button>
-            )}
+            <button
+                onClick={() =>
+                    handleAddToCalendarClick(
+                        showing,
+                        token,
+                        setIsNotInCalendar,
+                        setIsLoading,
+                        setError
+                    )
+                }
+                disabled={isButtonDisabled}
+            >
+                {buttonText}
+            </button>
+            {error ? (
+                <p>{error}</p>
+            ) : null}
         </>
     );
 }
