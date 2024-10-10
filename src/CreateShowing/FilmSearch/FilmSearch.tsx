@@ -17,14 +17,11 @@ function FilmSearch({
     setIsSearchRequired: BooleanStateSetter;
 }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [isSearchingByName, setIsSearchingByName] = useState(true)
 
     return (
         <>
             <h1>Start A New Event!</h1>
-            {isSearchingByName ? (
-                <SearchForm setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} setIsSearchingByName={setIsSearchingByName}/>
-            ): null}
+            <SearchForm setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} />
             {isLoading ? (
                 <Loading />
             ) : (
