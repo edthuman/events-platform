@@ -3,17 +3,19 @@ import { findFilmDetails, handleFilmFound, handleTextInput } from "./event-handl
 import FilmPreview from "./FilmPreview";
 import { BooleanStateSetter, SetFilmDetails } from "../../types";
 import { FilmPreviewResponse } from "../../server/omdb-types";
+import Loading from "../Loading";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
 function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {filmDetails: FilmPreviewResponse, setFilmDetails: SetFilmDetails, setIsSearchRequired: BooleanStateSetter}) {
     // TypeScript error on FilmPreview component can be ignored - filmDetails having more than 1 key means it has type FilmPreviewDetails
     const [filmNameInput, setFilmNameInput] = useState("");
+    const [isLoading, setIsLoading] = useState(false)
 
     return <>
         <h1>Start A New Event!</h1>
         <p>Search by film name:</p>
-        <form onSubmit={(e) => findFilmDetails(e, filmNameInput, setFilmDetails, omdbKey)}>
+        <form onSubmit={(e) => findFilmDetails(e, filmNameInput, setFilmDetails, omdbKey, setIsLoading)}>
             <label htmlFor="film-name">Name:</label>
             <input
                 id="film-name"
@@ -23,15 +25,21 @@ function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {fi
             />
             <button type="submit">Find Film</button>
         </form>
-        {filmDetails.error ? <p>{filmDetails.error}</p> : null}
-        {Object.keys(filmDetails).length > 1 ? (
-                <>
-                    <FilmPreview filmDetails={filmDetails}/>
-                    <p>Are these details correct?</p>
-                    <button onClick={() => handleFilmFound(setIsSearchRequired)}>Yes</button>
-                    <button onClick={() => console.log("No")}>No</button>
-                </>
-        ) : null }
+        {isLoading ? (
+            <Loading />
+        ) : (
+            <>
+                {filmDetails.error ? <p>{filmDetails.error}</p> : null}
+                {Object.keys(filmDetails).length > 1 ? (
+                        <>
+                            <FilmPreview filmDetails={filmDetails}/>
+                            <p>Are these details correct?</p>
+                            <button onClick={() => handleFilmFound(setIsSearchRequired)}>Yes</button>
+                            <button onClick={() => console.log("No")}>No</button>
+                        </>
+                ) : null}
+            </>
+        )}
     </>
 }
 
