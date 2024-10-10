@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import UserContext from "../../hooks/UserContext"
 import { Showing } from "../../server/firestore-types";
 import ShowingRegistration from "./ShowingRegistration";
@@ -6,8 +6,9 @@ import RegisteredMessage from "./RegisteredMessage";
 
 function AttendShowing({showing}: {showing: Showing}) {
     const { user } = useContext(UserContext)
-    const isUserAttending = showing.attendees.includes(user.email)
-    
+    const isUserInAttendees = showing.attendees.includes(user.email)
+    const [isUserAttending, setIsUserAttending] = useState(isUserInAttendees)
+
     return user.role === "guest" ? (
         <p>Please log in to register for event</p>
     ) : (
@@ -17,7 +18,7 @@ function AttendShowing({showing}: {showing: Showing}) {
             isUserAttending ? (
                 <RegisteredMessage showing={showing} token={user.token}/>
             ) : (
-                <ShowingRegistration id={showing.id}/>
+                <ShowingRegistration id={showing.id} setIsUserAttending={setIsUserAttending}/>
         ))
     )
 }

@@ -1,17 +1,14 @@
 import { useState } from "react"
 import RegisterButton from "./RegisterButton"
-import RegisteredMessage from "./RegisteredMessage"
+import { BooleanStateSetter } from "../../types"
 
-function ShowingRegistration({id}: {id: string}) {
+function ShowingRegistration({id, setIsUserAttending}: {id: string, setIsUserAttending: BooleanStateSetter}) {
     const [isError, setIsError] = useState(false)
-    const [isRegistered, setIsRegistered] = useState(false)
 
-    return isRegistered ? (
-        <RegisteredMessage />
-    ) : (<>
-        <RegisterButton setIsError={setIsError} setIsRegistered={setIsRegistered} id={id} />
+    return <>
+        <RegisterButton setIsError={setIsError} setIsUserAttending={setIsUserAttending} id={id} />
         {isError ? <p>Error occurred during registration, please try again</p> : null}
-    </>)
+    </>
 }
 
 export default ShowingRegistration
