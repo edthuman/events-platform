@@ -6,8 +6,8 @@ import RegisteredMessage from "./RegisteredMessage";
 
 function AttendShowing({showing}: {showing: Showing}) {
     const { user } = useContext(UserContext)
-    const isUserAttending = showing.attendees.includes(user.username)
-
+    const isUserAttending = showing.attendees.includes(user.email)
+    
     return user.role === "guest" ? (
         <p>Please log in to register for event</p>
     ) : (
@@ -15,7 +15,7 @@ function AttendShowing({showing}: {showing: Showing}) {
             <p>You must be non-staff to register for an event</p>
         ): (
             isUserAttending ? (
-                <RegisteredMessage />
+                <RegisteredMessage showing={showing} token={user.token}/>
             ) : (
                 <ShowingRegistration id={showing.id}/>
         ))
