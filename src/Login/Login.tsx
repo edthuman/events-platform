@@ -1,42 +1,28 @@
+import "./Login.css"
 import { useContext } from "react";
 import UserContext from "../../hooks/UserContext";
-import "./Login.css"
+import { handleLogin } from "./event-handlers";
+import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 
 function Login() {
-    const { setUser } = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext)
 
-    const staffUser = {
-        role: "staff",
-        username: "test",
-    };
-
-    const nonStaffUser = {
-        role: "non-staff",
-        username: "test",
-    };
-
-    return (
-        <>
-            <h1>Events Platform</h1>
-            <p>How would you like to log in?</p>
-            <div id="login-links">
-                <a
-                    href="/create-showing"
-                    onClick={() => setUser(staffUser)}
-                    className="login-link"
-                >
-                    Staff
-                </a>
-                <a
-                    href="/showings"
-                    onClick={() => setUser(nonStaffUser)}
-                    className="login-link"
-                >
-                    Non-Staff
-                </a>
-            </div>
-        </>
-    );
+    return <>
+        <h1>Events Platform</h1>
+        {!user.email ? (
+            <>
+                
+                <button onClick={() => handleLogin(setUser, "staff")}>
+                    Staff log in
+                </button>
+                <button onClick={() => handleLogin(setUser, "non-staff")}>
+                    Non-Staff log in
+                </button>
+            </>
+        ) : (
+            <SuccessfulLoginLinks user={user}/>
+        )}
+    </>
 }
 
 export default Login;

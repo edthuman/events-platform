@@ -1,7 +1,7 @@
-import { addDoc, collection, doc, Firestore, getDocs, query, Timestamp } from "@firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, query, Timestamp, updateDoc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
-import { Showing, SingleShowingResponse } from "./firestore-types"
+import { Showing, SingleShowingResponse, UpdateResponse } from "./firestore-types"
 
 export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
@@ -44,7 +44,7 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
         }
         
         return {
-            id: showingData.id,
+            id: showingId,
             ...showingData
         }
     }
@@ -53,11 +53,11 @@ export async function getSingleShowing(database: Firestore, showingId: string | 
     }
 }
 
-export async function postShowing(database: Firestore, name: string, datetime: Timestamp, description: string, film: string, imdbId: string, poster: string) {
+export async function postShowing(database: Firestore, name: string, startDate: Timestamp, endDate: Timestamp, description: string, film: string, imdbId: string, poster: string) {
     try {
         const showingsCollection = collection(database, "showings")
     
-        const response = await addDoc(showingsCollection, { name, datetime, description, film, imdbId, poster, attendees: [] })
+        const response = await addDoc(showingsCollection, { name, startDate, endDate, description, film, imdbId, poster, attendees: [] })
 
         if (!response.id) {
             return { error: "Event posting was unsuccessful"}
@@ -67,5 +67,21 @@ export async function postShowing(database: Firestore, name: string, datetime: T
     }
     catch (err) {
         return { error: "Something went wrong whilst posting event" }
+    }
+}
+
+export async function addAttendee(database: Firestore, username: string, showingId: string): Promise<UpdateResponse> {
+    try {
+        const addAttendeeInstruction = arrayUnion(username)
+
+        const showingDocument = doc(database, `showings/${showingId}`)
+
+        await updateDoc(showingDocument, { attendees: addAttendeeInstruction })
+        // updateDoc returns undefined when successful, otherwise errors
+
+        return { error: false }
+    }
+    catch (err) {
+        return { error: true }
     }
 }

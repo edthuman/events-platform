@@ -6,9 +6,15 @@ export type Showing = {
     name: string
     film: string
     description: string
-    datetime: Timestamp
+    startDate: Timestamp
+    endDate: Timestamp
     poster: string
     imdbId: string
+    attendees: string[]
 }
 
 export type SingleShowingResponse = Showing | ErrorMessage
+
+export type UpdateResponse = {
+    error: boolean 
+}

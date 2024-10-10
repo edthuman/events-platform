@@ -2,7 +2,7 @@ import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../typ
 import { getFilmPreview } from "../../server/omdb-methods";
 import { postShowing } from "../../server/firestore-methods";
 import { Firestore, Timestamp } from "@firebase/firestore";
-import { getEventDetailsError } from "./utils";
+import { getDurationSeconds, getEventDetailsError } from "./utils";
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -69,14 +69,27 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
     const description = elements.description.value
     const date = elements.date.value
     const time = elements.time.value
+    const duration = elements.duration.value
 
-    let dateTime: Timestamp
+    let startDate: Timestamp
     try {
-        const fullDate = new Date(`${date}T${time}Z`)
-        dateTime = Timestamp.fromDate(fullDate)
+        const fullStartDate = new Date(`${date}T${time}Z`)
+        startDate = Timestamp.fromDate(fullStartDate)
     }
     catch {
         setError("Invalid date or time given")
+        setIsPosting(false)
+        return
+    }
+    
+    const durationSeconds = getDurationSeconds(duration)
+    const endSeconds = startDate.seconds + durationSeconds
+
+    let endDate
+    try {
+        endDate = new Timestamp(endSeconds, 0)
+    } catch (err) {
+        setError("Invalid duration")
         setIsPosting(false)
         return
     }
@@ -88,7 +101,7 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         return
     }
 
-    const response = await postShowing(firestore, eventName, dateTime, description, film, imdbId, posterUrl)
+    const response = await postShowing(firestore, eventName, startDate, endDate, description, film, imdbId, posterUrl)
 
     if (response.error) {
         setError(response.error)

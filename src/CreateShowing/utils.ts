@@ -12,3 +12,10 @@ export function getEventDetailsError(eventName: string, description: string): st
     }
     return ""
 }
+
+export function getDurationSeconds(duration: string) {
+    const hours = Number(duration.slice(0,2))
+    const mins = Number(duration.slice(3))
+    const seconds = (hours * 3600) + (mins * 60)
+    return seconds
+}

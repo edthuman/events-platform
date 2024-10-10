@@ -17,7 +17,7 @@ const firebaseConfig = {
 }
 
 function App() {
-    const [user, setUser] = useState<User>({ role: "guest", username: "guest" })
+    const [user, setUser] = useState<User>({ role: "guest", username: "guest", email: "" })
     const firebaseApp = initializeApp(firebaseConfig)
     const firestore = getFirestore(firebaseApp)
 

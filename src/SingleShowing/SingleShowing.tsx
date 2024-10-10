@@ -7,6 +7,9 @@ import "./SingleShowing.css";
 import { FilmDetailsResponse } from "../../server/omdb-types";
 import ShowingDetails from "./ShowingDetails";
 import Loading from "../Loading";
+import AttendShowing from "./AttendShowing";
+import { checkShowingInCalendar } from "../../server/google-methods";
+import UserContext from "../../hooks/UserContext";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -14,15 +17,20 @@ function SingleShowing() {
     // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
-    const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({ error: "" });
+    const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({
+        error: "",
+    });
     const firestore = useContext(FirebaseContext);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isNotInCalendar, setIsNotInCalendar] = useState(true);
+    const [calendarError, setCalendarError] = useState("")
+    const {
+        user: { token },
+    } = useContext(UserContext);
 
     useEffect(() => {
         (async () => {
-            const showingDetails = await getSingleShowing(
-                firestore,
-                showingId
-            );
+            const showingDetails = await getSingleShowing(firestore, showingId);
             setShowing(showingDetails);
         })();
     }, []);
@@ -30,20 +38,40 @@ function SingleShowing() {
     useEffect(() => {
         (async () => {
             if (showing) {
-                const filmDetails = await getFilmDetails(omdbKey, showing.imdbId);
+                checkShowingInCalendar(
+                    showing,
+                    token,
+                    setIsNotInCalendar,
+                    setIsLoading,
+                    setCalendarError
+                );
+
+                const filmDetails = await getFilmDetails(
+                    omdbKey,
+                    showing.imdbId
+                );
                 setFilmDetails(filmDetails);
             }
         })();
     }, [showing]);
-    
-    return !showing || !filmDetails ? (
+
+    return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
         <h1>{showing.error}</h1>
     ) : filmDetails.error ? (
         <h1>{filmDetails.error}</h1>
+    ) : calendarError ? (
+        <h1>{calendarError}</h1>
     ) : (
-        <ShowingDetails showing={showing} filmDetails={filmDetails}/>
+        <>
+            <AttendShowing
+                showing={showing}
+                isNotInCalendar={isNotInCalendar}
+                setIsNotInCalendar={setIsNotInCalendar}
+            />
+            <ShowingDetails showing={showing} filmDetails={filmDetails} />
+        </>
     );
 }
 

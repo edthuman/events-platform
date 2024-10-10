@@ -12,6 +12,7 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
     const [descriptionInput, setDescriptionInput] = useState("")
     const [dateInput, setDateInput] = useState(currentDate)
     const [timeInput, setTimeInput] = useState("00:00")
+    const [durationInput, setDurationInput] = useState("00:30")
     const { title, imdbId, poster } = filmDetails
     const firestore = useContext(FirebaseContext)
     const [error, setError] = useState("")
@@ -36,8 +37,12 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
                 <input id="date" onChange={(e) => handleDateInput(e, setDateInput)} value={dateInput} type="date" min={currentDate} max={"2099-12-31"}/>
             </div>
             <div className="form-element">
-                <label htmlFor="time">Time:</label>
+                <label htmlFor="time">Start Time:</label>
                 <input id="time" type="time" value={timeInput} onChange={(e) => handleTimeInput(e, setTimeInput)}/>
+            </div>
+            <div className="form-element">
+                <label htmlFor="duration">Event Duration:</label>
+                <input id="duration" type="time" value={durationInput} onChange={(e) => handleTimeInput(e, setDurationInput)} min="00:30"/>
             </div>
             <button type="submit">Create event</button>
         </form>
