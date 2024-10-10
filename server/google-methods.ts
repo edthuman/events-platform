@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { Showing } from "./firestore-types";
-import { BooleanStateSetter } from "../types";
+import { BooleanStateSetter, StringStateSetter } from "../types";
 
 export async function getGoogleAuthorisation() {
     try {
@@ -62,7 +62,8 @@ export async function checkShowingInCalendar(
     showing: Showing,
     token: string,
     setIsNotInCalendar: BooleanStateSetter,
-    setIsLoading: BooleanStateSetter
+    setIsLoading: BooleanStateSetter,
+    setCalendarError: StringStateSetter
 ) {
     const url =
         "https://www.googleapis.com/calendar/v3/calendars/primary/events";
@@ -89,6 +90,7 @@ export async function checkShowingInCalendar(
         setIsLoading(false);
     }
     catch (err) {
+        setCalendarError("Error occurred whilst connecting to Google Calendar")
         setIsLoading(false)
     }
 }

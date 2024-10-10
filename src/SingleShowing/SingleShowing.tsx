@@ -23,6 +23,7 @@ function SingleShowing() {
     const firestore = useContext(FirebaseContext);
     const [isLoading, setIsLoading] = useState(true);
     const [isNotInCalendar, setIsNotInCalendar] = useState(true);
+    const [calendarError, setCalendarError] = useState("")
     const {
         user: { token },
     } = useContext(UserContext);
@@ -41,7 +42,8 @@ function SingleShowing() {
                     showing,
                     token,
                     setIsNotInCalendar,
-                    setIsLoading
+                    setIsLoading,
+                    setCalendarError
                 );
 
                 const filmDetails = await getFilmDetails(
@@ -59,6 +61,8 @@ function SingleShowing() {
         <h1>{showing.error}</h1>
     ) : filmDetails.error ? (
         <h1>{filmDetails.error}</h1>
+    ) : calendarError ? (
+        <h1>{calendarError}</h1>
     ) : (
         <>
             <AttendShowing
