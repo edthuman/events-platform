@@ -4,9 +4,9 @@ import { Showing } from "../../server/firestore-types"
 import { Link } from "react-router-dom"
 
 function ShowingCard({showing}: { showing: Showing }) {
-    const {datetime} = showing
-    const day = getDate(datetime)
-    const time = getTime(datetime)
+    const {startDate} = showing
+    const day = getDate(startDate)
+    const time = getTime(startDate)
 
     return <Link to={`/showing/${showing.id}`} target="_self">
         <div className="showing-card" >

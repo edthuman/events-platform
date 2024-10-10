@@ -6,7 +6,7 @@ export type Showing = {
     name: string
     film: string
     description: string
-    datetime: Timestamp
+    startDate: Timestamp
     poster: string
     imdbId: string
     attendees: string[]
