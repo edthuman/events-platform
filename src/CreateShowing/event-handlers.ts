@@ -38,6 +38,10 @@ export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
     setIsSearchRequired(false)
 }
 
+export function handleIncorrectFilmFound(setFilmDetails: any) {
+    setFilmDetails({ error: "" })
+}
+
 export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter) {
     const dateRegex = /\d\d-\d\d-\d\d/
     const dateTyped = e.target.value
