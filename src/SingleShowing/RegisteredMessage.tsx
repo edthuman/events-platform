@@ -16,10 +16,12 @@ function RegisteredMessage({
     const {
         user: { token },
     } = useContext(UserContext);
+    const buttonText = isNotInCalendar ? "Add to Google calendar" : "Event is in your calendar"
+
     return (
         <>
             <p>You are registered for this event</p>
-            {isNotInCalendar ? (
+            {(
                 <button
                     onClick={() =>
                         handleAddToCalendarClick(
@@ -28,10 +30,11 @@ function RegisteredMessage({
                             setIsNotInCalendar
                         )
                     }
+                    disabled={!isNotInCalendar}
                 >
-                    Add to Google Calendar
+                    {buttonText}
                 </button>
-            ) : null}
+            )}
         </>
     );
 }
