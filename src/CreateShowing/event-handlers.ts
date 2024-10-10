@@ -12,17 +12,17 @@ export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter)
     setTextInput(e.target.value);
 }
 
-export async function findFilmDetails(e: FormSubmitEvent, filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter) {
+export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter) {
     e.preventDefault();
     setIsLoading(true)
 
-    if (filmNameInput === "") {
+    if (searchInput === "") {
         setFilmDetails({ error: "No name given" })
         setIsLoading(false)
         return
     }
 
-    const fetchedFilmDetails = await getFilmPreview(omdbKey, filmNameInput);
+    const fetchedFilmDetails = await getFilmPreview(omdbKey, searchInput);
 
     if (fetchedFilmDetails.error) {
         setFilmDetails({ error: fetchedFilmDetails.error })
