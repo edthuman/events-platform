@@ -1,7 +1,7 @@
 import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, query, Timestamp, updateDoc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
-import { ErrorBoolean, Showing, SingleShowingResponse, UpdateResponse } from "./firestore-types"
+import { Showing, SingleShowingResponse, UpdateResponse } from "./firestore-types"
 
 export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
