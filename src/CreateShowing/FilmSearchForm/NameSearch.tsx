@@ -1,7 +1,7 @@
 import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../../types"
 import { findFilmDetails, handleTextInput } from "../event-handlers"
 
-function NameSearch({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFilmNameInput} : {filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, setFilmNameInput: StringStateSetter}) {
+function NameSearch({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFilmNameInput, setIsSearchingByName} : {filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, setFilmNameInput: StringStateSetter, setIsSearchingByName: BooleanStateSetter}) {
     return <>
         <p>Search by film name:</p>
         <form
@@ -23,6 +23,7 @@ function NameSearch({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFi
                 value={filmNameInput}
             />
             <button type="submit">Find Film</button>
+            <button type="button" onClick={() => setIsSearchingByName(false)}>Search by IMDb ID</button>
         </form>
     </>
 }

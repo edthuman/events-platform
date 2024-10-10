@@ -24,7 +24,7 @@ function FilmSearchForm({
         <>
             <h1>Start A New Event!</h1>
             {isSearchingByName ? (
-                <NameSearch filmNameInput={filmNameInput} setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} setFilmNameInput={setFilmNameInput}/>
+                <NameSearch filmNameInput={filmNameInput} setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} setFilmNameInput={setFilmNameInput} setIsSearchingByName={setIsSearchingByName}/>
             ): null}
             {isLoading ? (
                 <Loading />
