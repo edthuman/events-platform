@@ -15,7 +15,8 @@ function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: S
                     textInput,
                     setFilmDetails,
                     omdbKey,
-                    setIsLoading
+                    setIsLoading,
+                    isNameSearch
                 )
             }
         >
