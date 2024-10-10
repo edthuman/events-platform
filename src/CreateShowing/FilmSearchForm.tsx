@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { findFilmDetails, handleFilmFound, handleTextInput } from "./event-handlers";
-import FilmPreview from "./FilmPreview";
+import { findFilmDetails, handleTextInput } from "./event-handlers";
 import { BooleanStateSetter, SetFilmDetails } from "../../types";
 import { FilmPreviewResponse } from "../../server/omdb-types";
 import Loading from "../Loading";
+import FilmSearchResponse from "./FilmSearchResponse";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
 function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {filmDetails: FilmPreviewResponse, setFilmDetails: SetFilmDetails, setIsSearchRequired: BooleanStateSetter}) {
-    // TypeScript error on FilmPreview component can be ignored - filmDetails having more than 1 key means it has type FilmPreviewDetails
     const [filmNameInput, setFilmNameInput] = useState("");
     const [isLoading, setIsLoading] = useState(false)
 
@@ -28,17 +27,7 @@ function FilmSearchForm({filmDetails, setFilmDetails, setIsSearchRequired} : {fi
         {isLoading ? (
             <Loading />
         ) : (
-            <>
-                {filmDetails.error ? <p>{filmDetails.error}</p> : null}
-                {Object.keys(filmDetails).length > 1 ? (
-                        <>
-                            <FilmPreview filmDetails={filmDetails}/>
-                            <p>Are these details correct?</p>
-                            <button onClick={() => handleFilmFound(setIsSearchRequired)}>Yes</button>
-                            <button onClick={() => console.log("No")}>No</button>
-                        </>
-                ) : null}
-            </>
+            <FilmSearchResponse filmDetails={filmDetails} setFilmDetails={setFilmDetails} setIsSearchRequired={setIsSearchRequired}/>
         )}
     </>
 }
