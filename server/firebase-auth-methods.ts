@@ -32,24 +32,29 @@ export async function getGoogleAuthorisation() {
 export async function addToCalendar(showing: Showing, token: string) {
     const { name,  datetime, description } = showing
     const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
-    const startDate = datetime.toDate()
     
-    const eventDetails = {
-        summary: name,
-        description,
-        htmlLink: `http://localhost:5173${showing.id}`,
-        start: {
-            dateTime: startDate
-        },
-        end: {
-            dateTime: startDate
-        }
-    }
-
     const headers = {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
     }
 
-    await axios.post(url, eventDetails, { headers })
+    try {
+        const startDate = datetime.toDate()
+        
+        const eventDetails = {
+            summary: name,
+            description,
+            htmlLink: `http://localhost:5173${showing.id}`,
+            start: {
+                dateTime: startDate
+            },
+            end: {
+                dateTime: startDate
+            }
+        }
+
+        await axios.post(url, eventDetails, { headers })
+    } catch (error) {
+        console.error(error)
+    }
 }
