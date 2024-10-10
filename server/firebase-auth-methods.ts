@@ -54,7 +54,8 @@ export async function addToCalendar(showing: Showing, token: string) {
         }
 
         await axios.post(url, eventDetails, { headers })
+        return { error: "" }
     } catch (error) {
-        console.error(error)
+        return {error: "Something went wrong whilst adding to calendar"}
     }
 }
