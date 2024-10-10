@@ -3,7 +3,7 @@ import { BooleanStateSetter, SetFilmDetails } from "../../../types";
 import { FilmPreviewResponse } from "../../../server/omdb-types";
 import Loading from "../../Loading";
 import FilmSearchResponse from "./FilmSearchResponse";
-import NameSearch from "./NameSearch";
+import SearchForm from "./SearchForm";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -24,7 +24,7 @@ function FilmSearch({
         <>
             <h1>Start A New Event!</h1>
             {isSearchingByName ? (
-                <NameSearch filmNameInput={filmNameInput} setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} setFilmNameInput={setFilmNameInput} setIsSearchingByName={setIsSearchingByName}/>
+                <SearchForm filmNameInput={filmNameInput} setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} setFilmNameInput={setFilmNameInput} setIsSearchingByName={setIsSearchingByName}/>
             ): null}
             {isLoading ? (
                 <Loading />

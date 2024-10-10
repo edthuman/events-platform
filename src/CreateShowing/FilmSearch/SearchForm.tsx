@@ -1,7 +1,7 @@
 import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../../types"
 import { findFilmDetails, handleTextInput } from "../event-handlers"
 
-function NameSearch({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFilmNameInput, setIsSearchingByName} : {filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, setFilmNameInput: StringStateSetter, setIsSearchingByName: BooleanStateSetter}) {
+function SearchForm({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFilmNameInput, setIsSearchingByName} : {filmNameInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, setFilmNameInput: StringStateSetter, setIsSearchingByName: BooleanStateSetter}) {
     return <>
         <p>Search by film name:</p>
         <form
@@ -28,4 +28,4 @@ function NameSearch({filmNameInput, setFilmDetails, omdbKey, setIsLoading, setFi
     </>
 }
 
-export default NameSearch
+export default SearchForm
