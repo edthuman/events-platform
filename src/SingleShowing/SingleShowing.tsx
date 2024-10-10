@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
+import ErrorMessage from "./ErrorMessage";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -58,11 +59,11 @@ function SingleShowing() {
     return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
-        <h1>{showing.error}</h1>
+        <ErrorMessage error={showing.error} />
     ) : filmDetails.error ? (
-        <h1>{filmDetails.error}</h1>
+        <ErrorMessage error={filmDetails.error} />
     ) : calendarError ? (
-        <h1>{calendarError}</h1>
+        <ErrorMessage error={calendarError} />
     ) : (
         <>
             <AttendShowing

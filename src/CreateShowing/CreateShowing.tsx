@@ -2,7 +2,7 @@ import { useState } from "react";
 import FilmSearchForm from "./FilmSearchForm";
 import EventForm from "./EventForm";
 import { FilmPreviewResponse } from "../../server/omdb-types";
-import PostingSuccessMessage from "./PostingSuccessMessage";
+import PostSuccessMessage from "./PostSuccessMessage";
 import Loading from "../Loading";
 
 function CreateShowing() {
@@ -21,7 +21,7 @@ function CreateShowing() {
         showingId === "" ? (
             <EventForm filmDetails={filmDetails} setShowingId={setShowingId} setIsPosting={setIsPosting}/>
         ) : ( 
-            <PostingSuccessMessage showingId={showingId}/>
+            <PostSuccessMessage showingId={showingId}/>
         )
     )
     )
