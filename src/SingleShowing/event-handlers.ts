@@ -4,11 +4,11 @@ import { BooleanStateSetter } from "../../types"
 import { addToCalendar } from "../../server/firebase-auth-methods"
 import { Showing } from "../../server/firestore-types"
 
-export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsRegistered: BooleanStateSetter, firebase: Firestore, username: string, showingId: string){
+export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsRegistered: BooleanStateSetter, firebase: Firestore, email: string, showingId: string){
     setIsButtonDisabled(true)
     setIsError(false)
     
-    const response = await addAttendee(firebase, username, showingId)
+    const response = await addAttendee(firebase, email, showingId)
 
     if (response.error) {
         setIsError(true)
