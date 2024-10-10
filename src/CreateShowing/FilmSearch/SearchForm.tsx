@@ -2,31 +2,33 @@ import { useState } from "react";
 import { BooleanStateSetter, SetFilmDetails } from "../../../types"
 import { findFilmDetails, handleTextInput } from "../event-handlers"
 
-function SearchForm({setFilmDetails, omdbKey, setIsLoading, setIsSearchingByName} : {setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, setIsSearchingByName: BooleanStateSetter}) {
-    const [filmNameInput, setFilmNameInput] = useState("");
+function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter}) {
+    const [isNameSearch, setIsNameSearch] = useState(true)
+    const [textInput, setTextInput] = useState("");
 
     return <>
-        <p>Search by film name:</p>
+        <p>Search by {isNameSearch ? "name" : "IMDb ID"}:</p>
         <form
             onSubmit={(e) =>
                 findFilmDetails(
                     e,
-                    filmNameInput,
+                    textInput,
                     setFilmDetails,
                     omdbKey,
                     setIsLoading
                 )
             }
         >
-            <label htmlFor="film-name">Name:</label>
+            
+            <label htmlFor={`film-${isNameSearch ? "name" : "id"}`}>{isNameSearch ? "Name" : "IMDb ID"}:</label>
             <input
-                id="film-name"
+                id={`film-${isNameSearch ? "name" : "id"}`}
                 type="text"
-                onChange={(e) => handleTextInput(e, setFilmNameInput)}
-                value={filmNameInput}
+                onChange={(e) => handleTextInput(e, setTextInput)}
+                value={textInput}
             />
             <button type="submit">Find Film</button>
-            <button type="button" onClick={() => setIsSearchingByName(false)}>Search by IMDb ID</button>
+            <button type="button" onClick={() => setIsNameSearch((currValue: boolean) => !currValue)}>Search by {isNameSearch ? "IMDb ID": "film name"}</button>
         </form>
     </>
 }
