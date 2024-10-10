@@ -19,6 +19,10 @@ export async function handleRegistration(setIsButtonDisabled: BooleanStateSetter
     setIsRegistered(true)
 }
 
-export function handleAddToCalendarClick(showing: Showing, token: string) {
-    addToCalendar(showing, token)
+export async function handleAddToCalendarClick(showing: Showing, token: string, setIsNotInCalendar: BooleanStateSetter) {
+    const response = await addToCalendar(showing, token)
+    if (response.error) {
+        return
+    }
+    setIsNotInCalendar(false)
 }
