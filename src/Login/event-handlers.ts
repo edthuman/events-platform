@@ -1,5 +1,6 @@
 import { createUser } from "../../server/firestore-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
+import { StringStateSetter } from "../../types";
 
 export async function handleLogin(
     setUser: React.SetStateAction<any>,
@@ -11,17 +12,35 @@ export async function handleLogin(
     });
 }
 
-export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>) {
+export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
     e.preventDefault()
+    setError("")
     
-    const {elements} = e.target
+    const { elements } = e.target
     
     const email = elements.email.value
     const password = elements.password.value
+
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+    if (!emailRegex.test(email)) {
+        setError("Must give a valid email")
+        return
+    }
+
+    if (password.length < 6) {
+        setError("Password must be longer than six characters")
+        return
+    }
+    if (password.length > 30) {
+        setError("Password must be 30 characters or fewer")
+        return
+    }
 
     const response = await createUser(email, password)
     setUser({
         role: "guest",
         email: response.email
     })
+    setError("")
 }
