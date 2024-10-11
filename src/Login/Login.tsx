@@ -1,12 +1,12 @@
 import "./Login.css"
 import { useContext, useState } from "react";
 import UserContext from "../../hooks/UserContext";
-import { handleLogin, handleSignUpClick } from "./event-handlers";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 import SignUpForm from "./SignUpForm";
+import GoogleLogin from "./GoogleLogin";
 
 function Login() {
-    const {user, setUser} = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const [isSigningUp, setIsSigningUp] = useState(false)
 
     return <>
@@ -15,13 +15,8 @@ function Login() {
             isSigningUp ? (
                 <SignUpForm />
             ) : (
-                <>   
-                    <button onClick={() => handleLogin(setUser, "staff")}>
-                        Staff log in
-                    </button>
-                    <button onClick={() => handleLogin(setUser, "non-staff")}>
-                        Non-Staff log in
-                    </button>
+                <>
+                    <GoogleLogin/>
                     <button onClick={()=>setIsSigningUp(true)}>Sign up</button>
                 </>
             )
