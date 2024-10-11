@@ -35,6 +35,11 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     }
 
     const response = await createUser(email, password)
+    if (response.error) {
+        setError(response.error)
+        return
+    }
+    
     setUser({
         role: "guest",
         email: response.email
