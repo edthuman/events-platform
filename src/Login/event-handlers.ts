@@ -81,3 +81,9 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
     })
     setError("")
 }
+
+export function handleRoleInputChange(e: ChangeEvent, setRoleInput: StringStateSetter) {
+    const selectedRole = e.target.value
+    
+    setRoleInput(selectedRole)
+}
