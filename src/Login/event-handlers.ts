@@ -1,6 +1,6 @@
 import { createUser } from "../../server/firestore-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
-import { StringStateSetter } from "../../types";
+import { BooleanStateSetter, StringStateSetter } from "../../types";
 
 export async function handleLogin(
     setUser: React.SetStateAction<any>,
@@ -43,4 +43,9 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
         email: response.email
     })
     setError("")
+}
+
+export function handleGoogleLoginClick(setIsLoggingIn: BooleanStateSetter, setLoginType: StringStateSetter) {
+    setIsLoggingIn(true)
+    setLoginType("google")
 }
