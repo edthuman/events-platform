@@ -1,6 +1,6 @@
 import { createUser, signInUser } from "../../server/firestore-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
-import { BooleanStateSetter, StringStateSetter } from "../../types";
+import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
@@ -50,18 +50,17 @@ export function handleGoogleLoginClick(setIsLoggingIn: BooleanStateSetter, setLo
 export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
     e.preventDefault()
     setError("")
-    
+
     const { elements } = e.target
     
     const email = elements.email.value
-    const password = elements.password.value
-
     const emailError = getEmailError(email)
     if (emailError) {
         setError(emailError)
         return
     }
 
+    const password = elements.password.value
     const passwordError = getPasswordError(password)
     if (passwordError) {
         setError(passwordError)
@@ -69,8 +68,15 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
     }
 
     const response = await signInUser(email, password)
+    if (response.error) {
+        setError(response.error)
+        return
+    }
+
+    const role = elements.role.value
+
     setUser({
-        role: "guest",
+        role,
         email: response.email
     })
     setError("")
