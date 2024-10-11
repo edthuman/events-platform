@@ -97,10 +97,22 @@ export async function createUser(email: string, password: string) {
 }
 
 export async function signInUser(email: string, password: string) {
-    const auth = getAuth()
-    const response = await signInWithEmailAndPassword(auth, email, password)
-    return {
-        email: response.user.email,
-        error: ""
+    try {
+        const auth = getAuth()
+        const response = await signInWithEmailAndPassword(auth, email, password)
+        if (!response) {
+            return { error: "Something went wrong during log in" }
+        }
+        
+        return {
+            email: response.user.email,
+            error: ""
+        }
+    }
+    catch (err: any) {
+        if (err.code === "auth/invalid-credential") {
+            return { error: "No user found with given details" }
+        }
+        return { error: "Something went wrong during log in" }
     }
 }
