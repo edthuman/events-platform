@@ -8,10 +8,6 @@ type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 type FormSubmitEvent = React.FormEvent<HTMLFormElement>
 
-export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter) {
-    setTextInput(e.target.value);
-}
-
 export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, isNameSearch: boolean) {
     e.preventDefault();
     setIsLoading(true)

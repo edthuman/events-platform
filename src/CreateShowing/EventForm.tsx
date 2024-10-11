@@ -1,10 +1,11 @@
 import { useContext, useState } from "react"
 import "./EventForm.css"
-import { handleDateInput, handleEventFormSubmit, handleTextInput, handleTimeInput } from "./event-handlers"
+import { handleDateInput, handleEventFormSubmit, handleTimeInput } from "./event-handlers"
 import { getCurrentDate } from "./utils"
 import { FilmPreviewDetails } from "../../server/omdb-types"
 import FirebaseContext from "../../hooks/FirebaseContext"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
+import { handleTextInput } from "../event-handler"
 
 function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: FilmPreviewDetails, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter}) {
     const currentDate = getCurrentDate()
