@@ -1,6 +1,7 @@
 import { createUser } from "../../server/firestore-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
 import { BooleanStateSetter, StringStateSetter } from "../../types";
+import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
@@ -21,19 +22,15 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     const email = elements.email.value
     const password = elements.password.value
 
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-    if (!emailRegex.test(email)) {
-        setError("Must give a valid email")
+    const emailError = getEmailError(email)
+    if (emailError) {
+        setError(emailError)
         return
     }
 
-    if (password.length < 6) {
-        setError("Password must be longer than six characters")
-        return
-    }
-    if (password.length > 30) {
-        setError("Password must be 30 characters or fewer")
+    const passwordError = getPasswordError(password)
+    if (passwordError) {
+        setError(passwordError)
         return
     }
 
