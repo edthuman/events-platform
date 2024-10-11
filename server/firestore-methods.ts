@@ -2,7 +2,7 @@ import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, query, Timesta
 import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
 import { Showing, SingleShowingResponse, UpdateResponse } from "./firestore-types"
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
@@ -90,6 +90,15 @@ export async function addAttendee(database: Firestore, username: string, showing
 export async function createUser(email: string, password: string) {
     const auth = getAuth()
     const response = await createUserWithEmailAndPassword(auth, email, password)
+    return {
+        email: response.user.email,
+        error: ""
+    }
+}
+
+export async function signInUser(email: string, password: string) {
+    const auth = getAuth()
+    const response = await signInWithEmailAndPassword(auth, email, password)
     return {
         email: response.user.email,
         error: ""
