@@ -2,7 +2,7 @@ import { createUser } from "../../server/firestore-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
 import { BooleanStateSetter, StringStateSetter } from "../../types";
 
-export async function handleLogin(
+export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
     role: "staff" | "non-staff"
 ) {
@@ -48,4 +48,8 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
 export function handleGoogleLoginClick(setIsLoggingIn: BooleanStateSetter, setLoginType: StringStateSetter) {
     setIsLoggingIn(true)
     setLoginType("google")
+}
+
+export function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
+    
 }
