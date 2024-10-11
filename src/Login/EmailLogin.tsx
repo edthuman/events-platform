@@ -8,15 +8,16 @@ function EmailLogin() {
     const [error, setError] = useState("");
 
     return <>
+        {error ? <p>{error}</p> : null}
         <form id="sign-up-form" onSubmit={(e) => handleEmailLogin(e, setUser, setError)}>
             <EmailFormElements />
+            <button type="submit">
+                Sign in as Staff
+            </button>
+            <button type="submit">
+                Sign in as Non-staff
+            </button>
         </form>
-        <button onClick={() => console.log("sign in as staff")}>
-            Sign in as Staff
-        </button>
-        <button onClick={() => console.log("sign in as non-staff")}>
-            Sign in as Non-staff
-        </button>
     </>
 }
 
