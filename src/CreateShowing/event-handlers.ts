@@ -1,10 +1,8 @@
-import { BooleanStateSetter, SetFilmDetails, StringStateSetter } from "../../types";
+import { BooleanStateSetter, ChangeEvent, SetFilmDetails, StringStateSetter } from "../../types";
 import { getFilmPreview } from "../../server/omdb-methods";
 import { postShowing } from "../../server/firestore-methods";
 import { Firestore, Timestamp } from "@firebase/firestore";
 import { getDurationSeconds, getEventDetailsError } from "./utils";
-
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 type FormSubmitEvent = React.FormEvent<HTMLFormElement>
 
