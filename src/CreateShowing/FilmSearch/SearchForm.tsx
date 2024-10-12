@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BooleanStateSetter, SetFilmDetails } from "../../../types"
-import { findFilmDetails, handleTextInput } from "../event-handlers"
+import { findFilmDetails } from "../event-handlers"
 import { Link } from "react-router-dom";
+import { handleTextInput } from "../../event-handler";
 
 function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter}) {
     const [isNameSearch, setIsNameSearch] = useState(true)

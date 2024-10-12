@@ -1,24 +1,37 @@
 import "./Login.css"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../hooks/UserContext";
-import { handleLogin } from "./event-handlers";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
+import SignUpForm from "./SignUpForm";
+import { handleGoogleLoginClick } from "./event-handlers";
+import GoogleLogin from "./GoogleLogin";
+import EmailLogin from "./EmailLogin";
 
 function Login() {
-    const {user, setUser} = useContext(UserContext)
+    const { user } = useContext(UserContext)
+    const [isSigningUp, setIsSigningUp] = useState(false)
+    const [isLoggingIn, setIsLoggingIn] = useState(false)
+    const [loginType, setLoginType] = useState("email")
 
     return <>
         <h1>Events Platform</h1>
         {!user.email ? (
-            <>
-                
-                <button onClick={() => handleLogin(setUser, "staff")}>
-                    Staff log in
-                </button>
-                <button onClick={() => handleLogin(setUser, "non-staff")}>
-                    Non-Staff log in
-                </button>
-            </>
+            isSigningUp ? (
+                <SignUpForm />
+            ) : (
+            isLoggingIn ? (
+                loginType === "google" ? (
+                    <GoogleLogin />
+                ) : (
+                    <EmailLogin />
+                )
+            ) : (
+                <>
+                    <button onClick={() => setIsSigningUp(true)}>Sign up</button>
+                    <button onClick={() => handleGoogleLoginClick(setIsLoggingIn, setLoginType)}>Log in with Google account</button>
+                    <button onClick={() => setIsLoggingIn(true)}>Log in with Email</button>
+                </>
+            ))
         ) : (
             <SuccessfulLoginLinks user={user}/>
         )}
