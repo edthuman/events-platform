@@ -9,6 +9,11 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Page page="Showings"/>
+
+    },
+    {
+        path: "/",
+        element: <Showings />,
     },
     {
         path: "/showings",
