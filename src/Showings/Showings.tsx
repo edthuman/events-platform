@@ -24,11 +24,11 @@ function Showings() {
         <Loading />
     ) : showings.length === 0 ? (
         <>
-            <h1>Something went wrong whilst retrieving showings</h1>
+            <h2>Something went wrong whilst retrieving showings</h2>
         </>
     ) : (
         <>
-            <h1>Upcoming Showings</h1>
+            <h2>Upcoming Showings</h2>
             {showings.map((showing) => (
                 <ShowingCard showing={showing} key={showing.id} />
             ))}

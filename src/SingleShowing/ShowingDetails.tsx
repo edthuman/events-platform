@@ -5,7 +5,7 @@ import { getDate, getTime } from "../../utils/datetime-utils"
 
 function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: FilmDetails}) {
     return <>
-        <h1>{showing.name}</h1>
+        <h2>{showing.name}</h2>
         <p>{getDate(showing.startDate)}</p>
         <p>{getTime(showing.startDate)}</p>
         <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} />

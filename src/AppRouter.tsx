@@ -1,33 +1,31 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Showings from "./Showings/Showings";
-import Login from "./Login/Login";
-import SingleShowing from "./SingleShowing/SingleShowing";
-import CreateShowing from "./CreateShowing/CreateShowing";
+import Page from "./Page";
 
 const router = createBrowserRouter([
     {
-        path: "/login",
-        element: <Login />,
+        path: "/",
+        element: <Page page="Showings"/>
+
     },
     {
-        path: "/",
-        element: <Showings />,
+        path: "/login",
+        element: <Page page="Login"/>
     },
     {
         path: "/showings",
-        element: <Showings />,
+        element: <Page page="Showings"/>
     },
     {
         path: "/showing",
-        element: <SingleShowing />,
+        element: <Page page="SingleShowing"/>
     },
     {
         path: "/showing/:showing_id",
-        element: <SingleShowing />,
+        element: <Page page="SingleShowing"/>
     },
     {
         path: "/create-showing",
-        element: <CreateShowing />,
+        element: <Page page="CreateShowing"/>
     },
 ]);
 

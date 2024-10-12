@@ -19,7 +19,7 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
     const [error, setError] = useState("")
 
     return <>
-        <h1>Fill out events details here:</h1>
+        <h2>Fill out events details here:</h2>
         <form id="event-form" onSubmit={(e)=>handleEventFormSubmit(e, title, imdbId, poster, firestore, setError, setShowingId, setIsPosting)}>
             <div className="form-element">
                 <label htmlFor="event-name">Name of Event:</label>

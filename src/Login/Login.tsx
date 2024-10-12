@@ -13,12 +13,10 @@ function Login() {
     const [isLoggingIn, setIsLoggingIn] = useState(false)
     const [loginType, setLoginType] = useState("email")
 
-    return <>
-        <h1>Events Platform</h1>
-        {!user.email ? (
-            isSigningUp ? (
-                <SignUpForm />
-            ) : (
+    return !user.email ? (
+        isSigningUp ? (
+            <SignUpForm />
+        ) : (
             isLoggingIn ? (
                 loginType === "google" ? (
                     <GoogleLogin />
@@ -31,11 +29,9 @@ function Login() {
                     <button onClick={() => handleGoogleLoginClick(setIsLoggingIn, setLoginType)}>Log in with Google account</button>
                     <button onClick={() => setIsLoggingIn(true)}>Log in with Email</button>
                 </>
-            ))
-        ) : (
+        ))) : (
             <SuccessfulLoginLinks user={user}/>
-        )}
-    </>
+    )
 }
 
 export default Login;

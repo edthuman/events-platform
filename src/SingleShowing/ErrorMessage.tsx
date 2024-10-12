@@ -1,6 +1,6 @@
 function ErrorMessage({ error }: { error: string }) {
     return <>
-        <h1>Error occurred</h1>
+        <h2>Error occurred</h2>
         <p>{error}</p>
     </>
 }
