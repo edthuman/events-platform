@@ -8,7 +8,7 @@ export async function handleGoogleLogin(
     role: "staff" | "non-staff"
 ) {
     getGoogleAuthorisation().then((response) => {
-        setUser({ ...response, role });
+        setUser({ ...response, isGoogleAccount: true, role });
         return;
     });
 }
@@ -42,7 +42,8 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     
     setUser({
         role: "guest",
-        email: response.email
+        email: response.email,
+        isGoogleAccount: false
     })
     setError("")
 }
@@ -82,7 +83,8 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
 
     setUser({
         role,
-        email: response.email
+        email: response.email,
+        isGoogleAccount: false
     })
     setError("")
 }

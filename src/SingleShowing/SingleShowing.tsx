@@ -25,9 +25,8 @@ function SingleShowing() {
     const [isLoading, setIsLoading] = useState(true);
     const [isNotInCalendar, setIsNotInCalendar] = useState(true);
     const [calendarError, setCalendarError] = useState("")
-    const {
-        user: { token },
-    } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+    const { token } = user
 
     useEffect(() => {
         (async () => {
@@ -38,7 +37,7 @@ function SingleShowing() {
 
     useEffect(() => {
         (async () => {
-            if (showing) {
+            if (showing && user.isGoogleAccount) {
                 checkShowingInCalendar(
                     showing,
                     token,
@@ -46,16 +45,17 @@ function SingleShowing() {
                     setIsLoading,
                     setCalendarError
                 );
-
+            } else if (showing) {
                 const filmDetails = await getFilmDetails(
                     omdbKey,
                     showing.imdbId
                 );
                 setFilmDetails(filmDetails);
+                setIsLoading(false)
             }
         })();
     }, [showing]);
-
+    console.log( showing, filmDetails, isLoading)
     return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
