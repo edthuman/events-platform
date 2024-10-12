@@ -1,4 +1,4 @@
-import { createUser, signInUser } from "../../server/firestore-methods";
+import { createUser, signInUser } from "../../server/firebase-auth-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
 import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";

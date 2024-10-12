@@ -2,7 +2,6 @@ import { addDoc, arrayUnion, collection, doc, Firestore, getDocs, query, Timesta
 import { getDoc } from "firebase/firestore";
 import { BooleanStateSetter } from "../types";
 import { Showing, SingleShowingResponse, UpdateResponse } from "./firestore-types"
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export async function getAllShowings(database: Firestore, setIsLoading: BooleanStateSetter): Promise<Showing[]> {
     try {
@@ -84,47 +83,5 @@ export async function addAttendee(database: Firestore, username: string, showing
     }
     catch (err) {
         return { error: true }
-    }
-}
-
-export async function createUser(email: string, password: string) {
-    try {
-        const auth = getAuth()
-        const response = await createUserWithEmailAndPassword(auth, email, password)
-        if (!response.user.email) {
-            return { error: "Something went wrong whilst creating login" }
-        }
-
-        return {
-            email: response.user.email,
-            error: ""
-        }
-    }
-    catch (err: any) {
-        if (err.code === "auth/email-already-in-use") {
-            return { error: "A user already exists with that email" }
-        }
-        return { error: "Something went wrong whilst creating login" }
-    }
-}
-
-export async function signInUser(email: string, password: string) {
-    try {
-        const auth = getAuth()
-        const response = await signInWithEmailAndPassword(auth, email, password)
-        if (!response) {
-            return { error: "Something went wrong during login" }
-        }
-        
-        return {
-            email: response.user.email,
-            error: ""
-        }
-    }
-    catch (err: any) {
-        if (err.code === "auth/invalid-credential") {
-            return { error: "No user found with given details" }
-        }
-        return { error: "Something went wrong during login" }
     }
 }
