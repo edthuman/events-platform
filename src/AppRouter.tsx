@@ -6,8 +6,12 @@ import CreateShowing from "./CreateShowing/CreateShowing";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/login",
         element: <Login />,
+    },
+    {
+        path: "/",
+        element: <Showings />,
     },
     {
         path: "/showings",

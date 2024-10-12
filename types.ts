@@ -3,6 +3,7 @@ import { FilmDetailsResponse } from "./server/omdb-types"
 export type User = {
     role: "non-staff" | "staff" | "guest"
     email: string
+    isGoogleAccount: boolean
     token?: string
 }
 
