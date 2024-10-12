@@ -3,17 +3,13 @@ import Page from "./Page";
 
 const router = createBrowserRouter([
     {
-        path: "/Login",
-        element: <Page page="Login"/>
-    },
-    {
         path: "/",
         element: <Page page="Showings"/>
 
     },
     {
-        path: "/",
-        element: <Showings />,
+        path: "/login",
+        element: <Page page="Login"/>
     },
     {
         path: "/showings",
