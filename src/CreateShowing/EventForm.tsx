@@ -56,7 +56,7 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
             {priceType === "set" ? (
                 <div className="form-element">
                     <label htmlFor="price">Ticket Price (£):</label>
-                    <input id="price" value={priceInput} type="text" placeholder="0" onChange={e => handlePriceInput(e, setPriceInput)}/>
+                    <input id="price" value={priceInput} type="text" placeholder="0" onChange={e => handlePriceInput(e, setPriceInput, setError)}/>
                 </div>
                 ) : null}
             <button type="submit">Create event</button>

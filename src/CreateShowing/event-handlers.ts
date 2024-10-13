@@ -121,12 +121,15 @@ export function handlePriceTypeInput(e: ChangeEvent, setPriceType: StringStateSe
     setPriceType(e.target.value)
 }
 
-export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter) {
+export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter, setError: StringStateSetter) {
+    setError("")
     const priceInput = e.target.value
-    const nonPriceRegex = /[^\d\.]/
+    const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
     const isInvalidCharacter = nonPriceRegex.test(priceInput)
-    
+
     if (!isInvalidCharacter) {
-        setPriceInput(priceInput)
+        setError("Invalid price entered (max. £1000)")
+        return
     }
+    setPriceInput(priceInput)
 }
