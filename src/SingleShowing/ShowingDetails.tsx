@@ -4,10 +4,19 @@ import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
 
 function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: FilmDetails}) {
+    let price = `£${showing.price}`
+    if (price === "£0") {
+        price = "Free"
+    }
+    if (price === "£any") {
+        price = "Pay what you like"
+    }
+    
     return <>
         <h2>{showing.name}</h2>
         <p>{getDate(showing.startDate)}</p>
         <p>{getTime(showing.startDate)}</p>
+        <p>{price}</p>
         <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} />
         <p>{showing.description}</p>
         <h2>Movie Details</h2>

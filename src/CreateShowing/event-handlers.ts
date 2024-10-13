@@ -67,11 +67,8 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
 
     const elements = e.target.elements
 
-    const eventName = elements["event-name"].value
-    const description = elements.description.value
     const date = elements.date.value
-    const time = elements.time.value
-    const duration = elements.duration.value
+    const time = elements.time.value    
 
     let startDate: Timestamp
     try {
@@ -84,6 +81,7 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         return
     }
     
+    const duration = elements.duration.value
     const durationSeconds = getDurationSeconds(duration)
     const endSeconds = startDate.seconds + durationSeconds
 
@@ -96,6 +94,8 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         return
     }
 
+    const eventName = elements["event-name"].value
+    const description = elements.description.value
     const error = getEventDetailsError(eventName, description)
     if (error) {
         setError(error)
@@ -103,7 +103,21 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         return
     }
 
-    const response = await postShowing(firestore, eventName, startDate, endDate, description, film, imdbId, posterUrl)
+    let price: "any" | number
+    const priceType = elements["price-type"].value
+    if (priceType === "set") {
+        const priceInput = Number(elements["price"].value)
+        if (priceInput === 0) {
+            setError("Set price must not be free")
+            setIsPosting(false)
+            return
+        }
+        price = priceInput
+    } else {
+        price = (priceType === "free" ? 0 : "any")
+    }
+
+    const response = await postShowing(firestore, eventName, startDate, endDate, description, film, imdbId, posterUrl, price)
 
     if (response.error) {
         setError(response.error)
@@ -115,4 +129,21 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
     setError("")
     setShowingId(response.id)
     setIsPosting(false)
+}
+
+export function handlePriceTypeInput(e: ChangeEvent, setPriceType: StringStateSetter) {
+    setPriceType(e.target.value)
+}
+
+export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter, setError: StringStateSetter) {
+    setError("")
+    const priceInput = e.target.value
+    const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
+    const isInvalidCharacter = nonPriceRegex.test(priceInput)
+
+    if (!isInvalidCharacter) {
+        setError("Invalid price entered (max. £1000)")
+        return
+    }
+    setPriceInput(priceInput)
 }
