@@ -55,7 +55,7 @@ function SingleShowing() {
             }
         })();
     }, [showing]);
-    console.log( showing, filmDetails, isLoading)
+    
     return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
