@@ -116,3 +116,17 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
     setShowingId(response.id)
     setIsPosting(false)
 }
+
+export function handlePriceTypeInput(e: ChangeEvent, setPriceType: StringStateSetter) {
+    setPriceType(e.target.value)
+}
+
+export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter) {
+    const priceInput = e.target.value
+    const nonPriceRegex = /[^\d\.]/
+    const isInvalidCharacter = nonPriceRegex.test(priceInput)
+    
+    if (!isInvalidCharacter) {
+        setPriceInput(priceInput)
+    }
+}
