@@ -10,6 +10,7 @@ export type Showing = {
     endDate: Timestamp
     poster: string
     imdbId: string
+    price: "any" | number
     attendees: string[]
 }
 
