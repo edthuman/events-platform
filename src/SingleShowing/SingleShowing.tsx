@@ -11,6 +11,7 @@ import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
 import ErrorMessage from "./ErrorMessage";
+import Payment from "./Payment";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
@@ -24,9 +25,10 @@ function SingleShowing() {
     const firestore = useContext(FirebaseContext);
     const [isLoading, setIsLoading] = useState(true);
     const [isNotInCalendar, setIsNotInCalendar] = useState(true);
-    const [calendarError, setCalendarError] = useState("")
+    const [calendarError, setCalendarError] = useState("");
     const { user } = useContext(UserContext);
-    const { token } = user
+    const { token } = user;
+    const [isPaying, setIsPaying] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -51,11 +53,11 @@ function SingleShowing() {
                     showing.imdbId
                 );
                 setFilmDetails(filmDetails);
-                setIsLoading(false)
+                setIsLoading(false);
             }
         })();
     }, [showing]);
-    
+
     return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
@@ -64,12 +66,15 @@ function SingleShowing() {
         <ErrorMessage error={filmDetails.error} />
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
+    ) : isPaying ? (
+        <Payment showing={showing} />
     ) : (
         <>
             <AttendShowing
                 showing={showing}
                 isNotInCalendar={isNotInCalendar}
                 setIsNotInCalendar={setIsNotInCalendar}
+                setIsPaying={setIsPaying}
             />
             <ShowingDetails showing={showing} filmDetails={filmDetails} />
         </>
