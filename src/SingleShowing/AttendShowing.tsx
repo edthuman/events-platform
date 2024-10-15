@@ -9,10 +9,12 @@ function AttendShowing({
     showing,
     isNotInCalendar,
     setIsNotInCalendar,
+    setIsPaying
 }: {
     showing: Showing;
     isNotInCalendar: boolean;
     setIsNotInCalendar: BooleanStateSetter;
+    setIsPaying: BooleanStateSetter
 }) {
     const { user } = useContext(UserContext);
     const isUserInAttendees = showing.attendees.includes(user.email);
@@ -30,8 +32,9 @@ function AttendShowing({
         />
     ) : (
         <ShowingRegistration
-            id={showing.id}
             setIsUserAttending={setIsUserAttending}
+            setIsPaying={setIsPaying}
+            showing={showing}
         />
     );
 }
