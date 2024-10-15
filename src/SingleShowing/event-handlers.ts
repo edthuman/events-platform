@@ -12,9 +12,6 @@ export async function handleRegistration(
     email: string,
     showingId: string
 ) {
-    setIsButtonDisabled(true);
-    setIsError(false);
-
     const response = await addAttendee(firebase, email, showingId);
 
     if (response.error) {
@@ -43,4 +40,16 @@ export async function handleAddToCalendarClick(
     }
     setIsNotInCalendar(false);
     setIsLoading(false)
+}
+
+export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number) {
+    setIsButtonDisabled(true)
+    setIsError(false)
+
+    if (price === 0) {
+        handleRegistration(setIsButtonDisabled, setIsError, setIsUserAttending, firebase, email, showingId)
+        return
+    }
+
+    setIsPaying(true)
 }
