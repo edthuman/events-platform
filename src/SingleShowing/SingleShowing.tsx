@@ -12,8 +12,15 @@ import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
 import ErrorMessage from "./ErrorMessage";
 import Payment from "./Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Stripe from "stripe";
+import CheckoutForm from "./CheckoutForm";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
+
+const stripePromise = loadStripe("pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx");
+const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
 
 function SingleShowing() {
     // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
@@ -29,6 +36,13 @@ function SingleShowing() {
     const { user } = useContext(UserContext);
     const { token } = user;
     const [isPaying, setIsPaying] = useState(false);
+
+    const [clientSecret, setClientSecret] = useState("")
+
+    const appearance = {
+        theme: "stripe",
+    };
+    const loader = 'auto';
 
     useEffect(() => {
         (async () => {
@@ -48,6 +62,17 @@ function SingleShowing() {
                     setCalendarError
                 );
             } else if (showing) {
+                const paymentIntent = await stripe.paymentIntents.create({
+                    amount: showing.price * 100,
+                    currency: "gbp",
+                    automatic_payment_methods: {
+                        enabled: true,
+                    },
+                });
+                
+                const secret = paymentIntent.client_secret;
+                setClientSecret(secret);
+
                 const filmDetails = await getFilmDetails(
                     omdbKey,
                     showing.imdbId
@@ -66,8 +91,10 @@ function SingleShowing() {
         <ErrorMessage error={filmDetails.error} />
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
-    ) : isPaying ? (
-        <Payment showing={showing} />
+    ) : isPaying && clientSecret ? (
+        <Elements options={{clientSecret, appearance, loader}} stripe={stripePromise}>
+            <CheckoutForm showing={showing}/>
+        </Elements>
     ) : (
         <>
             <AttendShowing
