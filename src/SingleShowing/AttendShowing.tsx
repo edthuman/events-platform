@@ -3,18 +3,22 @@ import UserContext from "../../hooks/UserContext";
 import { Showing } from "../../server/firestore-types";
 import ShowingRegistration from "./ShowingRegistration";
 import RegisteredMessage from "./RegisteredMessage";
-import { BooleanStateSetter } from "../../types";
+import { BooleanStateSetter, StringStateSetter } from "../../types";
 
 function AttendShowing({
     showing,
     isNotInCalendar,
     setIsNotInCalendar,
-    setIsPaying
+    setIsPaying,
+    donation,
+    setDonation
 }: {
     showing: Showing;
     isNotInCalendar: boolean;
     setIsNotInCalendar: BooleanStateSetter;
-    setIsPaying: BooleanStateSetter
+    setIsPaying: BooleanStateSetter;
+    donation: string;
+    setDonation: StringStateSetter;
 }) {
     const { user } = useContext(UserContext);
     const isUserInAttendees = showing.attendees.includes(user.email);
@@ -35,6 +39,8 @@ function AttendShowing({
             setIsUserAttending={setIsUserAttending}
             setIsPaying={setIsPaying}
             showing={showing}
+            donation={donation}
+            setDonation={setDonation}
         />
     );
 }
