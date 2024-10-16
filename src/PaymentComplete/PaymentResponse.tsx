@@ -99,7 +99,6 @@ const statusDetails = {
 
 function PaymentResponse() {
     const [status, setStatus] = useState("loading");
-    const [intentId, setIntentId] = useState("");
     const stripe = useStripe();
     
     useEffect(() => {
@@ -122,7 +121,6 @@ function PaymentResponse() {
             }
 
             setStatus(paymentIntent.status);
-            setIntentId(paymentIntent.id);
             
         })();
     }, [stripe]);
@@ -138,16 +136,6 @@ function PaymentResponse() {
                 {statusDetails[status].icon}
             </div>
             <h2 id="status-text">{statusDetails[status].text}</h2>
-            {intentId ? (
-                <a
-                href={`https://dashboard.stripe.com/payments/${intentId}`}
-                id="view-details"
-                rel="noopener noreferrer"
-                target="_blank"
-                >
-                View details
-                </a>
-            ) : null}
         {status === "succeeded" ? (
             <ReturnLinks />
         ) : null}
