@@ -1,6 +1,6 @@
 import { Firestore } from "@firebase/firestore";
 import { addAttendee } from "../../server/firestore-methods";
-import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
+import { BooleanStateSetter, StringStateSetter } from "../../types";
 import { addToCalendar } from "../../server/google-methods";
 import { Showing } from "../../server/firestore-types";
 
@@ -42,11 +42,13 @@ export async function handleAddToCalendarClick(
     setIsLoading(false)
 }
 
-export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any") {
+export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
     setIsButtonDisabled(true)
     setIsError(false)
-
-    if (price === 0) {
+    
+    const isDonationZero = price === "any" && Number(donation) === 0
+    const isFree = price === 0 || isDonationZero
+    if (isFree) {
         handleRegistration(setIsButtonDisabled, setIsError, setIsUserAttending, firebase, email, showingId)
         return
     }
