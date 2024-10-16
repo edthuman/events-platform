@@ -37,8 +37,8 @@ function SingleShowing() {
     const { user } = useContext(UserContext);
     const { token } = user;
     const [isPaying, setIsPaying] = useState(false);
-
     const [clientSecret, setClientSecret] = useState("");
+    const [donation, setDonation] = useState("")
 
     const appearance = {
         theme: "stripe",
@@ -62,6 +62,20 @@ function SingleShowing() {
                     setIsLoading,
                     setCalendarError
                 );
+            } else if (showing.price === "any"){
+                if (isPaying) {
+                    const paymentIntent = await stripe.paymentIntents.create({
+                        amount: Number(donation) * 100,
+                        currency: "gbp",
+                        automatic_payment_methods: {
+                            enabled: true,
+                        },
+                    });
+
+                    const secret = paymentIntent.client_secret;
+                    setClientSecret(secret);
+                }
+                setIsLoading(false)
             } else if (showing) {
                 const paymentIntent = await stripe.paymentIntents.create({
                     amount: showing.price * 100,
@@ -81,6 +95,7 @@ function SingleShowing() {
                 setFilmDetails(filmDetails);
                 setIsLoading(false);
             }
+            setIsLoading(false)
         })();
     }, [showing]);
 
@@ -97,7 +112,7 @@ function SingleShowing() {
             options={{ clientSecret, appearance, loader }}
             stripe={stripePromise}
         >
-            <CheckoutForm showing={showing} />
+            <CheckoutForm showing={showing} donation={donation}/>
         </Elements>
     ) : (
         <>
@@ -106,6 +121,9 @@ function SingleShowing() {
                 isNotInCalendar={isNotInCalendar}
                 setIsNotInCalendar={setIsNotInCalendar}
                 setIsPaying={setIsPaying}
+                donation={donation}
+                setDonation={setDonation}
+
             />
             <ShowingDetails showing={showing} filmDetails={filmDetails} />
         </>
