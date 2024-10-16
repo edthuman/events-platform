@@ -1,9 +1,6 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function ReturnLinks() {
-    const queries = useSearchParams()[0]
-    const showingId = queries.get("showing")
-
+function ReturnLinks({ showingId }:{ showingId: string }) {
     return <>
     <Link to={`/showing/${showingId}`} target="_self">
         Return to showing page
