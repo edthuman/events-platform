@@ -1,6 +1,7 @@
 import { useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
+import ReturnLinks from "./ReturnLinks";
 
 const successIcon = (
     <svg
@@ -147,6 +148,9 @@ function PaymentResponse() {
                 View details
                 </a>
             ) : null}
+        {status === "succeeded" ? (
+            <ReturnLinks />
+        ) : null}
         </div>
     ) : (
         <Loading />
