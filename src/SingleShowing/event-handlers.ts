@@ -53,17 +53,3 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
 
     setIsPaying(true)
 }
-
-export function handleDonationInput(e: ChangeEvent, setDonation: StringStateSetter, setError: StringStateSetter) {
-    setError("")
-    const donationInput = e.target.value
-    const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
-    const isInvalidCharacter = nonPriceRegex.test(donationInput)
-
-    if (!isInvalidCharacter) {
-        setError("Invalid price entered (max. £1000)")
-        return
-    }
-
-    setDonation(donationInput)
-}
