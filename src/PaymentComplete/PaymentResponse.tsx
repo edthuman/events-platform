@@ -2,12 +2,11 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import Loading from "../Loading";
 import ReturnLinks from "./ReturnLinks";
-import { handleRegistration } from "../SingleShowing/event-handlers";
 import { useSearchParams } from "react-router-dom";
 import { addAttendee } from "../../server/firestore-methods";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import UserContext from "../../hooks/UserContext";
-import ErrorMessage from "../SingleShowing/ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
 
 const successIcon = (
     <svg
@@ -106,11 +105,13 @@ const statusDetails = {
 function PaymentResponse() {
     const [status, setStatus] = useState("loading");
     const stripe = useStripe();
-    const queries = useSearchParams()[0]
-    const showingId = queries.get("showing")
-    const firebase = useContext(FirebaseContext)
-    const { user: { email }} = useContext(UserContext)
-    const [error, setError] = useState("")
+    const queries = useSearchParams()[0];
+    const showingId = queries.get("showing");
+    const firebase = useContext(FirebaseContext);
+    const {
+        user: { email },
+    } = useContext(UserContext);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -123,46 +124,47 @@ function PaymentResponse() {
             ).get("payment_intent_client_secret");
 
             if (!clientSecret) {
-                setError("Error: Payment query missing from URL")
+                setError("Error: Payment query missing from URL");
                 return;
             }
 
-            const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret)    
+            const { paymentIntent } = await stripe.retrievePaymentIntent(
+                clientSecret
+            );
             if (!paymentIntent) {
-                setError("Could not retrieve payment details")
+                setError("Could not retrieve payment details");
                 return;
             }
 
             if (!showingId) {
-                setError("No showing query given in URL")
-                return
+                setError("No showing query given in URL");
+                return;
             }
 
             if (paymentIntent.status === "succeeded") {
-                const response = await addAttendee(firebase, email, showingId)
+                const response = await addAttendee(firebase, email, showingId);
                 if (response.error) {
-                    setError("An error occurred whilst added you to the event")
-                    return
+                    setError("An error occurred whilst added you to the event");
+                    return;
                 }
             }
 
             setStatus(paymentIntent.status);
-            
         })();
     }, [stripe]);
 
     return stripe ? (
         <>
-            {error ? <ErrorMessage error={error}/> : null}
+            {error ? <ErrorMessage error={error} /> : null}
             <div
-            style={{
-                backgroundColor: statusDetails[status].iconColor,
-            }}
+                style={{
+                    backgroundColor: statusDetails[status].iconColor,
+                }}
             >
                 {statusDetails[status].icon}
             </div>
             <h2 id="status-text">{statusDetails[status].text}</h2>
-            <ReturnLinks showingId={showingId}/>
+            <ReturnLinks showingId={showingId} />
         </>
     ) : (
         <Loading />

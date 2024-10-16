@@ -10,7 +10,7 @@ import Loading from "../Loading";
 import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
@@ -18,7 +18,9 @@ import CheckoutForm from "./CheckoutForm";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 
-const stripePromise = loadStripe("pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx");
+const stripePromise = loadStripe(
+    "pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx"
+);
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
 
 function SingleShowing() {
@@ -36,12 +38,12 @@ function SingleShowing() {
     const { token } = user;
     const [isPaying, setIsPaying] = useState(false);
 
-    const [clientSecret, setClientSecret] = useState("")
+    const [clientSecret, setClientSecret] = useState("");
 
     const appearance = {
         theme: "stripe",
     };
-    const loader = 'auto';
+    const loader = "auto";
 
     useEffect(() => {
         (async () => {
@@ -68,7 +70,7 @@ function SingleShowing() {
                         enabled: true,
                     },
                 });
-                
+
                 const secret = paymentIntent.client_secret;
                 setClientSecret(secret);
 
@@ -91,8 +93,11 @@ function SingleShowing() {
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
     ) : isPaying && clientSecret ? (
-        <Elements options={{clientSecret, appearance, loader}} stripe={stripePromise}>
-            <CheckoutForm showing={showing}/>
+        <Elements
+            options={{ clientSecret, appearance, loader }}
+            stripe={stripePromise}
+        >
+            <CheckoutForm showing={showing} />
         </Elements>
     ) : (
         <>
