@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { addAttendee } from "../../server/firestore-methods";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import UserContext from "../../hooks/UserContext";
+import ErrorMessage from "../SingleShowing/ErrorMessage";
 
 const successIcon = (
     <svg
@@ -108,8 +109,9 @@ function PaymentResponse() {
     const queries = useSearchParams()[0]
     const showingId = queries.get("showing")
     const firebase = useContext(FirebaseContext)
-    const {user: { email }} = useContext(UserContext)
-    
+    const { user: { email }} = useContext(UserContext)
+    const [error, setError] = useState("")
+
     useEffect(() => {
         (async () => {
             if (!stripe) {
@@ -121,22 +123,26 @@ function PaymentResponse() {
             ).get("payment_intent_client_secret");
 
             if (!clientSecret) {
+                setError("Error: Payment query missing from URL")
                 return;
             }
 
-            const {paymentIntent} = await stripe.retrievePaymentIntent(clientSecret)    
+            const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret)    
             if (!paymentIntent) {
+                setError("Could not retrieve payment details")
                 return;
             }
 
-            if (!showingId || !email) {
+            if (!showingId) {
+                setError("No showing query given in URL")
                 return
             }
 
             if (paymentIntent.status === "succeeded") {
-                const { error } = await addAttendee(firebase, email, showingId)
-                if (error) {
-                 return   
+                const response = await addAttendee(firebase, email, showingId)
+                if (response.error) {
+                    setError("An error occurred whilst added you to the event")
+                    return
                 }
             }
 
@@ -146,9 +152,9 @@ function PaymentResponse() {
     }, [stripe]);
 
     return stripe ? (
-        <div id="payment-status">
+        <>
+            {error ? <ErrorMessage error={error}/> : null}
             <div
-            id="status-icon"
             style={{
                 backgroundColor: statusDetails[status].iconColor,
             }}
@@ -156,10 +162,8 @@ function PaymentResponse() {
                 {statusDetails[status].icon}
             </div>
             <h2 id="status-text">{statusDetails[status].text}</h2>
-        {status === "succeeded" ? (
             <ReturnLinks showingId={showingId}/>
-        ) : null}
-        </div>
+        </>
     ) : (
         <Loading />
     );
