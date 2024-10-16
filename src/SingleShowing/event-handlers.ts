@@ -1,6 +1,6 @@
 import { Firestore } from "@firebase/firestore";
 import { addAttendee } from "../../server/firestore-methods";
-import { BooleanStateSetter, StringStateSetter } from "../../types";
+import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
 import { addToCalendar } from "../../server/google-methods";
 import { Showing } from "../../server/firestore-types";
 
@@ -42,7 +42,7 @@ export async function handleAddToCalendarClick(
     setIsLoading(false)
 }
 
-export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number) {
+export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any") {
     setIsButtonDisabled(true)
     setIsError(false)
 
@@ -52,4 +52,18 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
     }
 
     setIsPaying(true)
+}
+
+export function handleDonationInput(e: ChangeEvent, setDonation: StringStateSetter, setError: StringStateSetter) {
+    setError("")
+    const donationInput = e.target.value
+    const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
+    const isInvalidCharacter = nonPriceRegex.test(donationInput)
+
+    if (!isInvalidCharacter) {
+        setError("Invalid price entered (max. £1000)")
+        return
+    }
+
+    setDonation(donationInput)
 }
