@@ -155,15 +155,15 @@ function PaymentResponse() {
 
     return stripe ? (
         <>
+            <h2>{statusDetails[status].text}</h2>
             {error ? <ErrorMessage error={error} /> : null}
             <div
                 style={{
                     backgroundColor: statusDetails[status].iconColor,
                 }}
-            >
+                >
                 {statusDetails[status].icon}
             </div>
-            <h2 id="status-text">{statusDetails[status].text}</h2>
             <ReturnLinks showingId={showingId} />
         </>
     ) : (
