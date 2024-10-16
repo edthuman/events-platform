@@ -1,7 +1,12 @@
 import { useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loading from "../Loading";
 import ReturnLinks from "./ReturnLinks";
+import { handleRegistration } from "../SingleShowing/event-handlers";
+import { useSearchParams } from "react-router-dom";
+import { addAttendee } from "../../server/firestore-methods";
+import FirebaseContext from "../../hooks/FirebaseContext";
+import UserContext from "../../hooks/UserContext";
 
 const successIcon = (
     <svg
@@ -100,6 +105,10 @@ const statusDetails = {
 function PaymentResponse() {
     const [status, setStatus] = useState("loading");
     const stripe = useStripe();
+    const queries = useSearchParams()[0]
+    const showingId = queries.get("showing")
+    const firebase = useContext(FirebaseContext)
+    const {user: { email }} = useContext(UserContext)
     
     useEffect(() => {
         (async () => {
@@ -120,6 +129,17 @@ function PaymentResponse() {
                 return;
             }
 
+            if (!showingId || !email) {
+                return
+            }
+
+            if (paymentIntent.status === "succeeded") {
+                const { error } = await addAttendee(firebase, email, showingId)
+                if (error) {
+                 return   
+                }
+            }
+
             setStatus(paymentIntent.status);
             
         })();
@@ -137,7 +157,7 @@ function PaymentResponse() {
             </div>
             <h2 id="status-text">{statusDetails[status].text}</h2>
         {status === "succeeded" ? (
-            <ReturnLinks />
+            <ReturnLinks showingId={showingId}/>
         ) : null}
         </div>
     ) : (
