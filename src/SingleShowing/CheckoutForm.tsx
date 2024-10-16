@@ -9,13 +9,13 @@ import {
 import UserContext from "../../hooks/UserContext";
 import { Showing } from "../../server/firestore-types";
 
-export default function CheckoutForm({ showing }: { showing: Showing }) {
+export default function CheckoutForm({ showing, donation }: { showing: Showing, donation: string }) {
     const stripe = useStripe();
     const elements = useElements();
-
     const [message, setMessage] = useState<null | string>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { user: { email }} = useContext(UserContext)
+    const ticketPrice = showing.price === "any" ? donation : showing.price
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,7 +53,7 @@ export default function CheckoutForm({ showing }: { showing: Showing }) {
             disabled={isLoading || !stripe || !elements}
             id="submit"
         >
-            {`Pay £${showing.price}`}
+            {`Pay £${ticketPrice}`}
         </button>
         {message ? <div id="payment-message">{message}</div> : null}
     </form>
