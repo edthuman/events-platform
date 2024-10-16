@@ -11,7 +11,6 @@ import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
 import ErrorMessage from "./ErrorMessage";
-import Payment from "./Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
