@@ -63,24 +63,29 @@ const infoIcon = (
     </svg>
 );
 
-const STATUS_CONTENT_MAP = {
+const statusDetails = {
     succeeded: {
         text: "Payment successful",
         iconColor: "#30B130",
         icon: successIcon,
     },
     processing: {
-        text: "Your payment is processing.",
+        text: "Processing payment",
         iconColor: "#6D6E78",
         icon: infoIcon,
     },
     requires_payment_method: {
-        text: "Your payment was not successful, please try again.",
+        text: "Your payment unsuccessful, please try again",
         iconColor: "#DF1B41",
         icon: errorIcon,
     },
     default: {
-        text: "Something went wrong, please try again.",
+        text: "Something went wrong, please try again",
+        iconColor: "#DF1B41",
+        icon: errorIcon,
+    },
+    canceled: {
+        text: "Payment was cancelled, please try again",
         iconColor: "#DF1B41",
         icon: errorIcon,
     },
@@ -93,10 +98,9 @@ const STATUS_CONTENT_MAP = {
 
 function PaymentResponse() {
     const [status, setStatus] = useState("loading");
-    const [intentId, setIntentId] = useState<null | string>(null);
-
+    const [intentId, setIntentId] = useState("");
     const stripe = useStripe();
-
+    
     useEffect(() => {
         (async () => {
             if (!stripe) {
@@ -111,40 +115,38 @@ function PaymentResponse() {
                 return;
             }
 
-            stripe
-                .retrievePaymentIntent(clientSecret)
-                .then(({ paymentIntent }) => {
-                    if (!paymentIntent) {
-                        return;
-                    }
+            const {paymentIntent} = await stripe.retrievePaymentIntent(clientSecret)    
+            if (!paymentIntent) {
+                return;
+            }
 
-                    setStatus(paymentIntent.status);
-                    setIntentId(paymentIntent.id);
-                });
+            setStatus(paymentIntent.status);
+            setIntentId(paymentIntent.id);
+            
         })();
     }, [stripe]);
 
     return stripe ? (
         <div id="payment-status">
             <div
-                id="status-icon"
-                style={{
-                    backgroundColor: STATUS_CONTENT_MAP[status].iconColor,
-                }}
+            id="status-icon"
+            style={{
+                backgroundColor: statusDetails[status].iconColor,
+            }}
             >
-                {STATUS_CONTENT_MAP[status].icon}
+                {statusDetails[status].icon}
             </div>
-            <h2 id="status-text">{STATUS_CONTENT_MAP[status].text}</h2>
-            {intentId && (
+            <h2 id="status-text">{statusDetails[status].text}</h2>
+            {intentId ? (
                 <a
-                    href={`https://dashboard.stripe.com/payments/${intentId}`}
-                    id="view-details"
-                    rel="noopener noreferrer"
-                    target="_blank"
+                href={`https://dashboard.stripe.com/payments/${intentId}`}
+                id="view-details"
+                rel="noopener noreferrer"
+                target="_blank"
                 >
-                    View details
+                View details
                 </a>
-            )}
+            ) : null}
         </div>
     ) : (
         <Loading />
