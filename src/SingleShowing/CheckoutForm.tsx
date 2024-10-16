@@ -29,7 +29,7 @@ export default function CheckoutForm({ showing }: { showing: Showing }) {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:5173/complete",
+                return_url: `http://localhost:5173/complete?showing=${showing.id}`,
             },
             redirect: undefined,
         });
