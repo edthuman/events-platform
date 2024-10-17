@@ -4,29 +4,32 @@ import Page from "./Page";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Page page="Showings"/>
-
+        element: <Page page="Showings" />,
     },
     {
         path: "/login",
-        element: <Page page="Login"/>
+        element: <Page page="Login" />,
     },
     {
         path: "/showings",
-        element: <Page page="Showings"/>
+        element: <Page page="Showings" />,
     },
     {
         path: "/showing",
-        element: <Page page="SingleShowing"/>
+        element: <Page page="SingleShowing" />,
     },
     {
         path: "/showing/:showing_id",
-        element: <Page page="SingleShowing"/>
+        element: <Page page="SingleShowing" />,
     },
     {
         path: "/create-showing",
-        element: <Page page="CreateShowing"/>
+        element: <Page page="CreateShowing" />,
     },
+    {
+        path: "/complete",
+        element: <Page page="PaymentComplete" />,
+    }
 ]);
 
 function AppRouter() {

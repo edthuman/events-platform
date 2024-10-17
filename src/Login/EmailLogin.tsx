@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../hooks/UserContext";
 import EmailFormElements from "./EmailFormElements";
 import { handleEmailLogin, handleRoleInputChange } from "./event-handlers";
+import "./Form.css"
 
 function EmailLogin() {
     const { setUser } = useContext(UserContext);
@@ -10,7 +11,7 @@ function EmailLogin() {
 
     return <>
         {error ? <p>{error}</p> : null}
-        <form id="sign-up-form" onSubmit={e => handleEmailLogin(e, setUser, setError)}>
+        <form className="sign-up-form" onSubmit={e => handleEmailLogin(e, setUser, setError)}>
             <label htmlFor="staff" >Staff</label>
             <input type="radio" id="staff" name="role" value="staff" checked={roleInput === "staff"} onChange={e => handleRoleInputChange(e, setRoleInput)}/>
             <label htmlFor="non-staff">Non-Staff</label>

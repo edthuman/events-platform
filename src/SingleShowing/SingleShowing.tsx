@@ -10,9 +10,19 @@ import Loading from "../Loading";
 import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Stripe from "stripe";
+import CheckoutForm from "./CheckoutForm";
+import * as uuid from "uuid"
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
+const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
+const stripePromise = loadStripe(
+    "pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx"
+);
+const idempotencyKey = uuid.v4()
 
 function SingleShowing() {
     // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
@@ -24,9 +34,17 @@ function SingleShowing() {
     const firestore = useContext(FirebaseContext);
     const [isLoading, setIsLoading] = useState(true);
     const [isNotInCalendar, setIsNotInCalendar] = useState(true);
-    const [calendarError, setCalendarError] = useState("")
+    const [calendarError, setCalendarError] = useState("");
     const { user } = useContext(UserContext);
-    const { token } = user
+    const { token } = user;
+    const [isPaying, setIsPaying] = useState(false);
+    const [clientSecret, setClientSecret] = useState("");
+    const [donation, setDonation] = useState("")
+
+    const appearance = {
+        theme: "stripe",
+    };
+    const loader = "auto";
 
     useEffect(() => {
         (async () => {
@@ -37,25 +55,68 @@ function SingleShowing() {
 
     useEffect(() => {
         (async () => {
-            if (showing && user.isGoogleAccount) {
-                checkShowingInCalendar(
-                    showing,
-                    token,
-                    setIsNotInCalendar,
-                    setIsLoading,
-                    setCalendarError
-                );
-            } else if (showing) {
+            if (showing) {
                 const filmDetails = await getFilmDetails(
                     omdbKey,
                     showing.imdbId
                 );
                 setFilmDetails(filmDetails);
-                setIsLoading(false)
+
+                if (user.isGoogleAccount) {
+                    checkShowingInCalendar(
+                        showing,
+                        token,
+                        setIsNotInCalendar,
+                        setIsLoading,
+                        setCalendarError
+                    );
+                }
             }
+            setIsLoading(false)
         })();
     }, [showing]);
-    
+
+    useEffect(() => {
+        (async() => {
+            if (isPaying) {
+                if (showing.price === "any"){
+                    const paymentIntent = await stripe.paymentIntents.create(
+                        {
+                            amount: Number(donation) * 100,
+                            currency: "gbp",
+                            automatic_payment_methods: {
+                                enabled: true,
+                            },
+                        },
+                        {
+                            idempotencyKey
+                        }
+                    );
+                    
+                    const secret = paymentIntent.client_secret;
+                    setClientSecret(secret);
+                } else if (showing.price !== 0) {
+                    const paymentIntent = await stripe.paymentIntents.create(
+                        {
+                            amount: showing.price * 100,
+                            currency: "gbp",
+                            automatic_payment_methods: {
+                                enabled: true,
+                            },
+                        },
+                        {
+                            idempotencyKey
+                        }
+                    );
+                    
+                    const secret = paymentIntent.client_secret;
+                    setClientSecret(secret);
+                }
+            }
+        }
+        )()
+        }, [isPaying])
+
     return !showing || !filmDetails || isLoading ? (
         <Loading />
     ) : showing.error ? (
@@ -64,12 +125,23 @@ function SingleShowing() {
         <ErrorMessage error={filmDetails.error} />
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
+    ) : isPaying && clientSecret ? (
+        <Elements
+            options={{ clientSecret, appearance, loader }}
+            stripe={stripePromise}
+        >
+            <CheckoutForm showing={showing} donation={donation}/>
+        </Elements>
     ) : (
         <>
             <AttendShowing
                 showing={showing}
                 isNotInCalendar={isNotInCalendar}
                 setIsNotInCalendar={setIsNotInCalendar}
+                setIsPaying={setIsPaying}
+                donation={donation}
+                setDonation={setDonation}
+
             />
             <ShowingDetails showing={showing} filmDetails={filmDetails} />
         </>

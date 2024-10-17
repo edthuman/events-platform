@@ -1,10 +1,8 @@
-import { BooleanStateSetter, ChangeEvent, SetFilmDetails, StringStateSetter } from "../../types";
+import { BooleanStateSetter, ChangeEvent, FormSubmitEvent, SetFilmDetails, StringStateSetter } from "../../types";
 import { getFilmPreview } from "../../server/omdb-methods";
 import { postShowing } from "../../server/firestore-methods";
 import { Firestore, Timestamp } from "@firebase/firestore";
 import { getDurationSeconds, getEventDetailsError } from "./utils";
-
-type FormSubmitEvent = React.FormEvent<HTMLFormElement>
 
 export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, isNameSearch: boolean) {
     e.preventDefault();
@@ -133,17 +131,4 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
 
 export function handlePriceTypeInput(e: ChangeEvent, setPriceType: StringStateSetter) {
     setPriceType(e.target.value)
-}
-
-export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter, setError: StringStateSetter) {
-    setError("")
-    const priceInput = e.target.value
-    const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
-    const isInvalidCharacter = nonPriceRegex.test(priceInput)
-
-    if (!isInvalidCharacter) {
-        setError("Invalid price entered (max. £1000)")
-        return
-    }
-    setPriceInput(priceInput)
 }
