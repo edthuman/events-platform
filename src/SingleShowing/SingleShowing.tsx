@@ -54,46 +54,48 @@ function SingleShowing() {
 
     useEffect(() => {
         (async () => {
-            if (showing && user.isGoogleAccount) {
-                checkShowingInCalendar(
-                    showing,
-                    token,
-                    setIsNotInCalendar,
-                    setIsLoading,
-                    setCalendarError
-                );
-            }
             if (showing) {
                 const filmDetails = await getFilmDetails(
                     omdbKey,
                     showing.imdbId
                 );
                 setFilmDetails(filmDetails);
-            }
-            if (showing && showing.price === "any"){
-                if (isPaying) {
+
+                if (user.isGoogleAccount) {
+                    checkShowingInCalendar(
+                        showing,
+                        token,
+                        setIsNotInCalendar,
+                        setIsLoading,
+                        setCalendarError
+                    );
+                }
+
+                if (showing.price === "any"){
+                    if (isPaying) {
+                        const paymentIntent = await stripe.paymentIntents.create({
+                            amount: Number(donation) * 100,
+                            currency: "gbp",
+                            automatic_payment_methods: {
+                                enabled: true,
+                            },
+                        });
+    
+                        const secret = paymentIntent.client_secret;
+                        setClientSecret(secret);
+                    }
+                } else if (showing.price !== 0) {
                     const paymentIntent = await stripe.paymentIntents.create({
-                        amount: Number(donation) * 100,
+                        amount: showing.price * 100,
                         currency: "gbp",
                         automatic_payment_methods: {
                             enabled: true,
                         },
                     });
-
+    
                     const secret = paymentIntent.client_secret;
                     setClientSecret(secret);
-                }
-            } else if (showing && showing.price !== 0) {
-                const paymentIntent = await stripe.paymentIntents.create({
-                    amount: showing.price * 100,
-                    currency: "gbp",
-                    automatic_payment_methods: {
-                        enabled: true,
-                    },
-                });
-
-                const secret = paymentIntent.client_secret;
-                setClientSecret(secret);
+                }   
             }
             setIsLoading(false)
         })();
