@@ -19,19 +19,16 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
     const ticketPrice = showing.price === "any" ? donation : showing.price
   
     return stripe && elements ? (
-        <form id="payment-form" onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage)}>
-            <AddressElement options={{mode: "shipping"}}/>
-            <LinkAuthenticationElement options={{defaultValues: { email }}}/>
-            <PaymentElement
-                id="payment-element"
-            />
+        <form onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage)}>
+            <AddressElement options={{mode: "shipping"}} />
+            <LinkAuthenticationElement options={{defaultValues: { email }}} />
+            <PaymentElement />
             <button
                 disabled={isLoading || !stripe || !elements}
-                id="submit"
             >
                 {`Pay £${ticketPrice}`}
             </button>
-            {message ? <div id="payment-message">{message}</div> : null}
+            {message ? <p>{message}</p> : null}
         </form>
     ) : null
 }
