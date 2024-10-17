@@ -70,7 +70,14 @@ function SingleShowing() {
                         setCalendarError
                     );
                 }
+            }
+            setIsLoading(false)
+        })();
+    }, [showing]);
 
+    useEffect(() => {
+        (async() => {
+            if (isPaying) {
                 if (showing.price === "any"){
                     if (isPaying) {
                         const paymentIntent = await stripe.paymentIntents.create({
@@ -80,7 +87,7 @@ function SingleShowing() {
                                 enabled: true,
                             },
                         });
-    
+                        
                         const secret = paymentIntent.client_secret;
                         setClientSecret(secret);
                     }
@@ -92,14 +99,14 @@ function SingleShowing() {
                             enabled: true,
                         },
                     });
-    
+                    
                     const secret = paymentIntent.client_secret;
                     setClientSecret(secret);
-                }   
+                }
             }
-            setIsLoading(false)
-        })();
-    }, [showing]);
+        }
+        )()
+        }, [isPaying])
 
     return !showing || !filmDetails || isLoading ? (
         <Loading />
