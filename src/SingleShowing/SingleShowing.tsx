@@ -62,7 +62,15 @@ function SingleShowing() {
                     setIsLoading,
                     setCalendarError
                 );
-            } else if (showing.price === "any"){
+            }
+            if (showing) {
+                const filmDetails = await getFilmDetails(
+                    omdbKey,
+                    showing.imdbId
+                );
+                setFilmDetails(filmDetails);
+            }
+            if (showing && showing.price === "any"){
                 if (isPaying) {
                     const paymentIntent = await stripe.paymentIntents.create({
                         amount: Number(donation) * 100,
@@ -75,8 +83,7 @@ function SingleShowing() {
                     const secret = paymentIntent.client_secret;
                     setClientSecret(secret);
                 }
-                setIsLoading(false)
-            } else if (showing) {
+            } else if (showing && showing.price !== 0) {
                 const paymentIntent = await stripe.paymentIntents.create({
                     amount: showing.price * 100,
                     currency: "gbp",
@@ -87,13 +94,6 @@ function SingleShowing() {
 
                 const secret = paymentIntent.client_secret;
                 setClientSecret(secret);
-
-                const filmDetails = await getFilmDetails(
-                    omdbKey,
-                    showing.imdbId
-                );
-                setFilmDetails(filmDetails);
-                setIsLoading(false);
             }
             setIsLoading(false)
         })();
