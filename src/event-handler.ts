@@ -19,7 +19,9 @@ export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSette
     setPriceInput(priceInput)
 }
 
-export function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+export async function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, setError: StringStateSetter) {
+    setError("")
     e.preventDefault()
-    signOutUser()
+    const { error } = await signOutUser()
+    setError(error)
 }
