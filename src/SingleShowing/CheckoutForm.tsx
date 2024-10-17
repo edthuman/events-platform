@@ -17,6 +17,7 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
     const [isLoading, setIsLoading] = useState(false);
     const { user: { email }} = useContext(UserContext)
     const ticketPrice = showing.price === "any" ? donation : showing.price
+    const formattedTicketPrice = Number(ticketPrice).toFixed(2)
   
     return stripe && elements ? (
         <form onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage)}>
@@ -26,7 +27,7 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
             <button
                 disabled={isLoading || !stripe || !elements}
             >
-                {`Pay £${ticketPrice}`}
+                {`Pay £${formattedTicketPrice}`}
             </button>
             {message ? <p>{message}</p> : null}
         </form>
