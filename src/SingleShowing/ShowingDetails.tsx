@@ -4,11 +4,11 @@ import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
 
 function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: FilmDetails}) {
-    let price = `£${showing.price}`
-    if (price === "£0") {
+    let price = `£${Number(showing.price).toFixed(2)}`
+    if (price === "£0.00") {
         price = "Free"
     }
-    if (price === "£any") {
+    if (price === "£NaN") {
         price = "Pay what you like"
     }
     
