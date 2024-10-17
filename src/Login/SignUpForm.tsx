@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { handleSignUpClick } from "./event-handlers";
-import "./SignUpForm.css";
+import "./Form.css";
 import UserContext from "../../hooks/UserContext";
 import EmailFormElements from "./EmailFormElements";
 
@@ -11,7 +11,7 @@ function SignUpForm() {
     return <>
         {error ? <p>{error}</p> : null}
         <form
-            id="sign-up-form"
+            className="sign-up-form"
             onSubmit={(e) => handleSignUpClick(e, setUser, setError)}
         >
             <EmailFormElements />
