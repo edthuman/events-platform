@@ -5,9 +5,9 @@ import { addToCalendar } from "../../server/google-methods";
 import { Showing } from "../../server/firestore-types";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 
-export async function handleRegistration(
+async function handleRegistration(
     setIsButtonDisabled: BooleanStateSetter,
-    setIsError: BooleanStateSetter,
+    setError: StringStateSetter,
     setIsUserAttending: BooleanStateSetter,
     firebase: Firestore,
     email: string,
@@ -16,7 +16,7 @@ export async function handleRegistration(
     const response = await addAttendee(firebase, email, showingId);
 
     if (response.error) {
-        setIsError(true);
+        setError("Error occurred during registration, please try again");
         setIsButtonDisabled(false);
         return;
     }
@@ -43,14 +43,20 @@ export async function handleAddToCalendarClick(
     setIsLoading(false)
 }
 
-export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setIsError: BooleanStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
+export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setError: StringStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
     setIsButtonDisabled(true)
-    setIsError(false)
+    setError("")
     
     const isDonationZero = price === "any" && Number(donation) === 0
     const isFree = price === 0 || isDonationZero
     if (isFree) {
-        handleRegistration(setIsButtonDisabled, setIsError, setIsUserAttending, firebase, email, showingId)
+        handleRegistration(setIsButtonDisabled, setError, setIsUserAttending, firebase, email, showingId)
+        return
+    }
+
+    if (Number(donation) < 0.5) {
+        setError("Payment must be either £0.00 or above £0.50")
+        setIsButtonDisabled(false)
         return
     }
 
