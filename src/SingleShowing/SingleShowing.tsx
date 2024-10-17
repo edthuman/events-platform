@@ -15,14 +15,12 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
-import * as uuid from "uuid"
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
 const stripePromise = loadStripe(
     "pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx"
 );
-const idempotencyKey = uuid.v4()
 
 function SingleShowing() {
     // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
@@ -87,9 +85,6 @@ function SingleShowing() {
                             automatic_payment_methods: {
                                 enabled: true,
                             },
-                        },
-                        {
-                            idempotencyKey
                         }
                     );
                     
@@ -103,9 +98,6 @@ function SingleShowing() {
                             automatic_payment_methods: {
                                 enabled: true,
                             },
-                        },
-                        {
-                            idempotencyKey
                         }
                     );
                     
