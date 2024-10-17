@@ -1,12 +1,21 @@
 import { Link, useLocation } from "react-router-dom"
 import "./Header.css"
+import UserContext from "../hooks/UserContext"
+import { useContext, useState } from "react"
+import { handleLogOutClick } from "./event-handler"
 
 function Header() {
-    const {pathname} = useLocation()
+    const { pathname } = useLocation()
+    const { user, setUser } = useContext(UserContext)
+    const isLoginLinkRequired = pathname !== "/login" && !user.email
+    const isLogOutButtonRequired = pathname !== "/login" && user.email
+    const [error, setError] = useState("")
 
     return <>
         <h1>Community Cinema</h1>
-        {pathname !== "/login" ? <Link to="/login" id="login-button">Login</Link> : null}
+        {isLoginLinkRequired ? <Link to="/login" id="login-button">Login</Link> : null}
+        {isLogOutButtonRequired? <button onClick={e => handleLogOutClick(e, setError, setUser)}>Log Out</button> : null}
+        {error ? <p>{error}</p> : null}
     </>
 }
 
