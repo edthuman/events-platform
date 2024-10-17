@@ -15,13 +15,14 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
+import * as uuid from "uuid"
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
-
+const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
 const stripePromise = loadStripe(
     "pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx"
 );
-const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
+const idempotencyKey = uuid.v4()
 
 function SingleShowing() {
     // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
@@ -79,26 +80,34 @@ function SingleShowing() {
         (async() => {
             if (isPaying) {
                 if (showing.price === "any"){
-                    if (isPaying) {
-                        const paymentIntent = await stripe.paymentIntents.create({
+                    const paymentIntent = await stripe.paymentIntents.create(
+                        {
                             amount: Number(donation) * 100,
                             currency: "gbp",
                             automatic_payment_methods: {
                                 enabled: true,
                             },
-                        });
-                        
-                        const secret = paymentIntent.client_secret;
-                        setClientSecret(secret);
-                    }
-                } else if (showing.price !== 0) {
-                    const paymentIntent = await stripe.paymentIntents.create({
-                        amount: showing.price * 100,
-                        currency: "gbp",
-                        automatic_payment_methods: {
-                            enabled: true,
                         },
-                    });
+                        {
+                            idempotencyKey
+                        }
+                    );
+                    
+                    const secret = paymentIntent.client_secret;
+                    setClientSecret(secret);
+                } else if (showing.price !== 0) {
+                    const paymentIntent = await stripe.paymentIntents.create(
+                        {
+                            amount: showing.price * 100,
+                            currency: "gbp",
+                            automatic_payment_methods: {
+                                enabled: true,
+                            },
+                        },
+                        {
+                            idempotencyKey
+                        }
+                    );
                     
                     const secret = paymentIntent.client_secret;
                     setClientSecret(secret);
