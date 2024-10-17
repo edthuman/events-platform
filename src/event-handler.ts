@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { StringStateSetter } from "../types";
+import { signOutUser } from "../server/firebase-auth-methods";
 
 export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter) {
     setTextInput(e.target.value);
@@ -16,4 +17,9 @@ export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSette
         return
     }
     setPriceInput(priceInput)
+}
+
+export function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault()
+    signOutUser()
 }
