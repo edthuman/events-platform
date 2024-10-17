@@ -1,10 +1,8 @@
-import { BooleanStateSetter, ChangeEvent, SetFilmDetails, StringStateSetter } from "../../types";
+import { BooleanStateSetter, ChangeEvent, FormSubmitEvent, SetFilmDetails, StringStateSetter } from "../../types";
 import { getFilmPreview } from "../../server/omdb-methods";
 import { postShowing } from "../../server/firestore-methods";
 import { Firestore, Timestamp } from "@firebase/firestore";
 import { getDurationSeconds, getEventDetailsError } from "./utils";
-
-type FormSubmitEvent = React.FormEvent<HTMLFormElement>
 
 export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, isNameSearch: boolean) {
     e.preventDefault();

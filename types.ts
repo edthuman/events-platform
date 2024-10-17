@@ -20,3 +20,5 @@ export type StringStateSetter = React.Dispatch<React.SetStateAction<string>>
 export type SetFilmDetails = React.Dispatch<React.SetStateAction<FilmDetailsResponse>>
 
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
+export type FormSubmitEvent = React.FormEvent<HTMLFormElement>
