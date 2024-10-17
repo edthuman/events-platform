@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export async function createUser(email: string, password: string) {
     try {
@@ -39,5 +39,16 @@ export async function signInUser(email: string, password: string) {
             return { error: "No user found with given details" }
         }
         return { error: "Something went wrong during login" }
+    }
+}
+
+export async function signOutUser() {
+    try {
+        const auth = getAuth()
+        await signOut(auth)
+        return ""
+    }
+    catch (err) {
+        return { error: "Log out failed" }
     }
 }
