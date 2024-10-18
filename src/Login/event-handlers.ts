@@ -1,6 +1,6 @@
 import { createUser, signInUser } from "../../server/firebase-auth-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
-import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
+import { ChangeEvent, StringStateSetter } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
@@ -46,11 +46,6 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
         isGoogleAccount: false
     })
     setError("")
-}
-
-export function handleGoogleLoginClick(setIsLoggingIn: BooleanStateSetter, setLoginType: StringStateSetter) {
-    setIsLoggingIn(true)
-    setLoginType("google")
 }
 
 export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
