@@ -8,14 +8,12 @@ import { BooleanStateSetter, StringStateSetter } from "../../types";
 function AttendShowing({
     showing,
     isNotInCalendar,
-    setIsNotInCalendar,
     setIsPaying,
     donation,
     setDonation
 }: {
     showing: Showing;
     isNotInCalendar: boolean;
-    setIsNotInCalendar: BooleanStateSetter;
     setIsPaying: BooleanStateSetter;
     donation: string;
     setDonation: StringStateSetter;
@@ -32,7 +30,6 @@ function AttendShowing({
         <RegisteredMessage
             showing={showing}
             isNotInCalendar={isNotInCalendar}
-            setIsNotInCalendar={setIsNotInCalendar}
         />
     ) : (
         <ShowingRegistration

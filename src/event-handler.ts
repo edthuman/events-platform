@@ -24,7 +24,7 @@ export async function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, M
     e.preventDefault()
     const { error } = await signOutUser()
 
-    if (error !== "") {
+    if (error === "") {
         setUser({ role: "guest", email: "", isGoogleAccount: false })
     }
 

@@ -129,7 +129,6 @@ function SingleShowing() {
             <AttendShowing
                 showing={showing}
                 isNotInCalendar={isNotInCalendar}
-                setIsNotInCalendar={setIsNotInCalendar}
                 setIsPaying={setIsPaying}
                 donation={donation}
                 setDonation={setDonation}
