@@ -7,9 +7,11 @@ export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
     role: "staff" | "non-staff"
 ) {
-    getGoogleAuthorisation().then((response) => {
-        setUser({ ...response, isGoogleAccount: true, role });
-        return;
+    const response = await getGoogleAuthorisation()
+    setUser({
+        ...response,
+        isGoogleAccount: true,
+        role 
     });
 }
 
