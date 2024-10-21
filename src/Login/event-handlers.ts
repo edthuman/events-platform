@@ -1,6 +1,6 @@
 import { createUser, signInUser } from "../../server/firebase-auth-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
-import { StringStateSetter, User } from "../../types";
+import { SetUser, StringStateSetter, User } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
@@ -92,4 +92,12 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
     })
     
     setError("")
+}
+
+export function handleRoleSelection(setUser: SetUser, newRole: "non-staff" | "staff") {
+    setUser((currUser: User) => {
+        const newUser = {...currUser}
+        newUser.role = newRole
+        return newUser
+    })
 }

@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../hooks/UserContext";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 import SignUpForm from "./SignUpForm";
-import { handleGoogleLogin } from "./event-handlers";
+import { handleGoogleLogin, handleRoleSelection } from "./event-handlers";
 import EmailLogin from "./EmailLogin";
 import { User } from "../../types"
 
@@ -12,14 +12,7 @@ function Login() {
     const [isSigningUp, setIsSigningUp] = useState(false)
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
-    
-    function handleRoleSelection(newRole: "non-staff" | "staff") {
-        setUser((currUser: User) => {
-            const newUser = {...currUser}
-            newUser.role = newRole
-            return newUser
-        })
-    }
+
 
     return user.email ? (
         <SuccessfulLoginLinks user={user}/>
@@ -27,8 +20,8 @@ function Login() {
         user.role === "guest" ? (
         <>
             <p>How are you logging in today?</p>
-            <button onClick={() => handleRoleSelection("staff")}>Staff</button>
-            <button onClick={() => handleRoleSelection("non-staff")}>Non-staff</button>
+            <button onClick={() => handleRoleSelection(setUser, "staff")}>Staff</button>
+            <button onClick={() => handleRoleSelection(setUser, "non-staff")}>Non-staff</button>
         </>
     ) : (
         <>
