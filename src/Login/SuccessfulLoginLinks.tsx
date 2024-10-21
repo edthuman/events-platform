@@ -1,17 +1,18 @@
 import { useContext } from "react"
-import { handleLogOutClick } from "../event-handler"
 import CreateShowingLink from "./CreateShowingLink"
 import ViewShowingsLink from "./ViewShowingsLink"
 import UserContext from "../../hooks/UserContext"
+import { StringStateSetter } from "../../types"
+import LogOutButton from "../LogOutButton"
 
-function SuccessfulLoginLinks() {
-    const { user, setUser } = useContext(UserContext)
+function SuccessfulLoginLinks({ setError }: { setError: StringStateSetter }) {
+    const { user } = useContext(UserContext)
     return <>
         <p>You are logged in</p>
         <div id="login-links">
             { user.role === "staff" ? <CreateShowingLink /> : null}
             <ViewShowingsLink />
-            <button onClick={e => handleLogOutClick(e, setError, setUser)}>Log Out</button>
+            <LogOutButton setError={setError}/>
         </div>
     </>
 }
