@@ -37,7 +37,7 @@ function Login() {
         <>
             {error ? <p>{error}</p> : null}
             {isSigningUp ? (
-                <SignUpForm />
+                <SignUpForm setError={setError}/>
             ) : (
                 isEmailLogin ? (
                     <EmailLogin />
