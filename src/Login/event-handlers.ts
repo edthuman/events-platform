@@ -49,10 +49,12 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
         return
     }
     
-    setUser({
-        role: "guest",
-        email: response.email,
-        isGoogleAccount: false
+    setUser((currUser: User) => {
+        return {
+            role: currUser.role,
+            email: response.email,
+            isGoogleAccount: false
+        }
     })
     setError("")
 }
