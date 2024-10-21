@@ -89,11 +89,14 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
     }
 
     setUser((currUser: User) => {
-        return {
+        const user = {
             role: currUser.role,
             email: response.email,
             isGoogleAccount: false
         }
+        
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        return user
     })
     
     setError("")
