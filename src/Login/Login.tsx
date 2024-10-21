@@ -5,7 +5,6 @@ import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 import SignUpForm from "./SignUpForm";
 import { handleGoogleLogin, handleRoleSelection } from "./event-handlers";
 import EmailLogin from "./EmailLogin";
-import { User } from "../../types"
 
 function Login() {
     const { user, setUser } = useContext(UserContext)
