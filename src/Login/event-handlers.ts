@@ -5,14 +5,21 @@ import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
-    role: "staff" | "non-staff"
+    role: "staff" | "non-staff",
+    setError: StringStateSetter
 ) {
-    const response = await getGoogleAuthorisation()
-    setUser({
-        ...response,
-        isGoogleAccount: true,
-        role 
-    });
+    try {
+        const response = await getGoogleAuthorisation()
+
+        setUser({
+            ...response,
+            isGoogleAccount: true,
+            role 
+        });
+    }
+    catch (err) {
+        setError("Something went wrong during sign in")
+    }
 }
 
 export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {

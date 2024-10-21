@@ -11,6 +11,7 @@ function Login() {
     const { user, setUser } = useContext(UserContext)
     const [isSigningUp, setIsSigningUp] = useState(false)
     const [isEmailLogin, setIsEmailLogin] = useState(false)
+    const [error, setError] = useState("")
     
     function updateUserRole(newRole: "non-staff" | "staff") {
         setUser((currUser: User) => {
@@ -30,18 +31,22 @@ function Login() {
             <button onClick={() => updateUserRole("non-staff")}>Non-staff</button>
         </>
     ) : (
-        isSigningUp ? (
-            <SignUpForm />
-        ) : (
-            isEmailLogin ? (
-                <EmailLogin />
-            ) : (
         <>
-            <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
-            <button onClick={() => handleGoogleLogin(setUser, user.role)}>Sign in with Google</button>
-            <button onClick={() => setIsSigningUp(true)}>Sign up</button>
-        </> 
-        )))
+            {error ? <p>{error}</p> : null}
+            {isSigningUp ? (
+                <SignUpForm />
+            ) : (
+                isEmailLogin ? (
+                    <EmailLogin />
+                ) : (
+                <>
+                    <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
+                    <button onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
+                    <button onClick={() => setIsSigningUp(true)}>Sign up</button>
+                </> 
+            ))}
+        </>
+        )
     )
 }
 
