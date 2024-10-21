@@ -11,11 +11,14 @@ export async function handleGoogleLogin(
     try {
         const response = await getGoogleAuthorisation()
 
-        setUser({
+        const user = {
             ...response,
             isGoogleAccount: true,
             role 
-        });
+        }
+
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        setUser(user);
     }
     catch (err) {
         setError("Something went wrong during sign in")
@@ -50,11 +53,14 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     }
     
     setUser((currUser: User) => {
-        return {
+        const user = {
             role: currUser.role,
             email: response.email,
             isGoogleAccount: false
         }
+        
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        return user
     })
     setError("")
 }
@@ -86,11 +92,14 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
     }
 
     setUser((currUser: User) => {
-        return {
+        const user = {
             role: currUser.role,
             email: response.email,
             isGoogleAccount: false
         }
+        
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        return user
     })
     
     setError("")

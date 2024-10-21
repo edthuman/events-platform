@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { SetUser, StringStateSetter } from "../types";
+import { SetUser, StringStateSetter, User } from "../types";
 import { signOutUser } from "../server/firebase-auth-methods";
 
 export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter) {
@@ -25,7 +25,9 @@ export async function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, M
     const { error } = await signOutUser()
 
     if (error === "") {
-        setUser({ role: "guest", email: "", isGoogleAccount: false })
+        const user: User = { role: "guest", email: "", isGoogleAccount: false }
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        setUser(user)
     }
 
     setError(error)
