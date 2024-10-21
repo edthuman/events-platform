@@ -1,37 +1,58 @@
 import "./Login.css"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../hooks/UserContext";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 import SignUpForm from "./SignUpForm";
-import { handleGoogleLoginClick } from "./event-handlers";
-import GoogleLogin from "./GoogleLogin";
+import { handleGoogleLogin, handleRoleSelection } from "./event-handlers";
 import EmailLogin from "./EmailLogin";
+import { User } from "../../types";
 
 function Login() {
-    const { user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     const [isSigningUp, setIsSigningUp] = useState(false)
-    const [isLoggingIn, setIsLoggingIn] = useState(false)
-    const [loginType, setLoginType] = useState("email")
+    const [isEmailLogin, setIsEmailLogin] = useState(false)
+    const [error, setError] = useState("")
 
-    return !user.email ? (
-        isSigningUp ? (
-            <SignUpForm />
+    useEffect(() => {
+        if (!user.email) {
+            setUser((currUser: User) => {
+                return {
+                    ...currUser,
+                    role: "guest",
+                }
+            })
+        }
+    }, [])
+
+    return <>
+        {error ? <p>{error}</p> : null}
+        {user.email ? (
+            <SuccessfulLoginLinks setError={setError}/>
+        ) :(
+            user.role === "guest" ? (
+            <>
+                <p>How are you logging in today?</p>
+                <button onClick={() => handleRoleSelection(setUser, "staff")}>Staff</button>
+                <button onClick={() => handleRoleSelection(setUser, "non-staff")}>Non-staff</button>
+            </>
         ) : (
-            isLoggingIn ? (
-                loginType === "google" ? (
-                    <GoogleLogin />
+            <>
+                {isSigningUp ? (
+                    <SignUpForm setError={setError}/>
                 ) : (
-                    <EmailLogin />
-                )
-            ) : (
-                <>
-                    <button onClick={() => setIsSigningUp(true)}>Sign up</button>
-                    <button onClick={() => handleGoogleLoginClick(setIsLoggingIn, setLoginType)}>Log in with Google account</button>
-                    <button onClick={() => setIsLoggingIn(true)}>Log in with Email</button>
-                </>
-        ))) : (
-            <SuccessfulLoginLinks user={user}/>
-    )
+                    isEmailLogin ? (
+                        <EmailLogin setError={setError}/>
+                    ) : (
+                    <>
+                        <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
+                        <button onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
+                        <button onClick={() => setIsSigningUp(true)}>Sign up</button>
+                    </> 
+                ))}
+            </>
+            )
+        )}
+    </>
 }
 
 export default Login;

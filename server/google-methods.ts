@@ -29,35 +29,6 @@ export async function getGoogleAuthorisation() {
     }
 }
 
-export async function addToCalendar(showing: Showing, token: string) {
-    const { name, startDate, endDate, description } = showing;
-    const url =
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events";
-
-    const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-    };
-
-    try {
-        const start = { dateTime: startDate.toDate() };
-        const end = { dateTime: endDate.toDate() };
-
-        const eventDetails = {
-            summary: name,
-            description,
-            htmlLink: `http://localhost:5173${showing.id}`,
-            start,
-            end,
-        };
-
-        await axios.post(url, eventDetails, { headers });
-        return { error: "" };
-    } catch (error) {
-        return { error: "Something went wrong whilst adding to calendar" };
-    }
-}
-
 export async function checkShowingInCalendar(
     showing: Showing,
     token: string,

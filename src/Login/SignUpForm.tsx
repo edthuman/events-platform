@@ -3,13 +3,12 @@ import { handleSignUpClick } from "./event-handlers";
 import "./Form.css";
 import UserContext from "../../hooks/UserContext";
 import EmailFormElements from "./EmailFormElements";
+import { StringStateSetter } from "../../types";
 
-function SignUpForm() {
+function SignUpForm({ setError }: { setError: StringStateSetter }) {
     const { setUser } = useContext(UserContext);
-    const [error, setError] = useState("");
 
     return <>
-        {error ? <p>{error}</p> : null}
         <form
             className="sign-up-form"
             onSubmit={(e) => handleSignUpClick(e, setUser, setError)}

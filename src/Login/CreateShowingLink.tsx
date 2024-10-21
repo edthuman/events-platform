@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function CreateShowingLink() {
     return <Link to="/create-showing" className="login-link">
-        Create Showing
+        Create a showing
     </Link>
 }
 

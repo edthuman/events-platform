@@ -1,16 +1,25 @@
 import { createUser, signInUser } from "../../server/firebase-auth-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
-import { BooleanStateSetter, ChangeEvent, StringStateSetter } from "../../types";
+import { SetUser, StringStateSetter, User } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";
 
 export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
-    role: "staff" | "non-staff"
+    role: "staff" | "non-staff",
+    setError: StringStateSetter
 ) {
-    getGoogleAuthorisation().then((response) => {
-        setUser({ ...response, isGoogleAccount: true, role });
-        return;
-    });
+    try {
+        const response = await getGoogleAuthorisation()
+
+        setUser({
+            ...response,
+            isGoogleAccount: true,
+            role 
+        });
+    }
+    catch (err) {
+        setError("Something went wrong during sign in")
+    }
 }
 
 export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
@@ -40,17 +49,14 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
         return
     }
     
-    setUser({
-        role: "guest",
-        email: response.email,
-        isGoogleAccount: false
+    setUser((currUser: User) => {
+        return {
+            role: currUser.role,
+            email: response.email,
+            isGoogleAccount: false
+        }
     })
     setError("")
-}
-
-export function handleGoogleLoginClick(setIsLoggingIn: BooleanStateSetter, setLoginType: StringStateSetter) {
-    setIsLoggingIn(true)
-    setLoginType("google")
 }
 
 export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
@@ -79,18 +85,21 @@ export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setU
         return
     }
 
-    const role = elements.role.value
-
-    setUser({
-        role,
-        email: response.email,
-        isGoogleAccount: false
+    setUser((currUser: User) => {
+        return {
+            role: currUser.role,
+            email: response.email,
+            isGoogleAccount: false
+        }
     })
+    
     setError("")
 }
 
-export function handleRoleInputChange(e: ChangeEvent, setRoleInput: StringStateSetter) {
-    const selectedRole = e.target.value
-    
-    setRoleInput(selectedRole)
+export function handleRoleSelection(setUser: SetUser, newRole: "non-staff" | "staff") {
+    setUser((currUser: User) => {
+        const newUser = {...currUser}
+        newUser.role = newRole
+        return newUser
+    })
 }

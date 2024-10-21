@@ -1,8 +1,6 @@
 import { Firestore } from "@firebase/firestore";
 import { addAttendee } from "../../server/firestore-methods";
 import { BooleanStateSetter, FormSubmitEvent, StringStateSetter } from "../../types";
-import { addToCalendar } from "../../server/google-methods";
-import { Showing } from "../../server/firestore-types";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 
 async function handleRegistration(
@@ -22,25 +20,6 @@ async function handleRegistration(
     }
 
     setIsUserAttending(true);
-}
-
-export async function handleAddToCalendarClick(
-    showing: Showing,
-    token: string,
-    setIsNotInCalendar: BooleanStateSetter,
-    setIsLoading: BooleanStateSetter,
-    setError: StringStateSetter
-) {
-    setError("")
-    setIsLoading(true)
-    const response = await addToCalendar(showing, token);
-    if (response.error) {
-        setIsLoading(false)
-        setError("Something went wrong whilst adding to calendar")
-        return;
-    }
-    setIsNotInCalendar(false);
-    setIsLoading(false)
 }
 
 export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setError: StringStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
