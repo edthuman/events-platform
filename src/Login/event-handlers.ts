@@ -11,11 +11,14 @@ export async function handleGoogleLogin(
     try {
         const response = await getGoogleAuthorisation()
 
-        setUser({
+        const user = {
             ...response,
             isGoogleAccount: true,
             role 
-        });
+        }
+
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        setUser(user);
     }
     catch (err) {
         setError("Something went wrong during sign in")
