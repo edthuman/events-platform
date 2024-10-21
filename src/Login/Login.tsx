@@ -13,7 +13,7 @@ function Login() {
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
     
-    function updateUserRole(newRole: "non-staff" | "staff") {
+    function handleRoleSelection(newRole: "non-staff" | "staff") {
         setUser((currUser: User) => {
             const newUser = {...currUser}
             newUser.role = newRole
@@ -27,8 +27,8 @@ function Login() {
         user.role === "guest" ? (
         <>
             <p>How are you logging in today?</p>
-            <button onClick={() => updateUserRole("staff")}>Staff</button>
-            <button onClick={() => updateUserRole("non-staff")}>Non-staff</button>
+            <button onClick={() => handleRoleSelection("staff")}>Staff</button>
+            <button onClick={() => handleRoleSelection("non-staff")}>Non-staff</button>
         </>
     ) : (
         <>
