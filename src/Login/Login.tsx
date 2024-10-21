@@ -24,33 +24,35 @@ function Login() {
         }
     }, [])
 
-    return user.email ? (
-        <SuccessfulLoginLinks/>
-    ) :(
-        user.role === "guest" ? (
-        <>
-            <p>How are you logging in today?</p>
-            <button onClick={() => handleRoleSelection(setUser, "staff")}>Staff</button>
-            <button onClick={() => handleRoleSelection(setUser, "non-staff")}>Non-staff</button>
-        </>
-    ) : (
-        <>
-            {error ? <p>{error}</p> : null}
-            {isSigningUp ? (
-                <SignUpForm setError={setError}/>
-            ) : (
-                isEmailLogin ? (
-                    <EmailLogin setError={setError}/>
+    return <>
+        {error ? <p>{error}</p> : null}
+        {user.email ? (
+            <SuccessfulLoginLinks setError={setError}/>
+        ) :(
+            user.role === "guest" ? (
+            <>
+                <p>How are you logging in today?</p>
+                <button onClick={() => handleRoleSelection(setUser, "staff")}>Staff</button>
+                <button onClick={() => handleRoleSelection(setUser, "non-staff")}>Non-staff</button>
+            </>
+        ) : (
+            <>
+                {isSigningUp ? (
+                    <SignUpForm setError={setError}/>
                 ) : (
-                <>
-                    <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
-                    <button onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
-                    <button onClick={() => setIsSigningUp(true)}>Sign up</button>
-                </> 
-            ))}
-        </>
-        )
-    )
+                    isEmailLogin ? (
+                        <EmailLogin setError={setError}/>
+                    ) : (
+                    <>
+                        <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
+                        <button onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
+                        <button onClick={() => setIsSigningUp(true)}>Sign up</button>
+                    </> 
+                ))}
+            </>
+            )
+        )}
+    </>
 }
 
 export default Login;
