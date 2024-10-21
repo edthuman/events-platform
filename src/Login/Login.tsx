@@ -1,10 +1,11 @@
 import "./Login.css"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../hooks/UserContext";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
 import SignUpForm from "./SignUpForm";
 import { handleGoogleLogin, handleRoleSelection } from "./event-handlers";
 import EmailLogin from "./EmailLogin";
+import { User } from "../../types";
 
 function Login() {
     const { user, setUser } = useContext(UserContext)
@@ -12,6 +13,16 @@ function Login() {
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
 
+    useEffect(() => {
+        if (!user.email) {
+            setUser((currUser: User) => {
+                return {
+                    ...currUser,
+                    role: "guest",
+                }
+            })
+        }
+    }, [])
 
     return user.email ? (
         <SuccessfulLoginLinks user={user}/>
