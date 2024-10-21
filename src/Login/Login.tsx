@@ -25,7 +25,7 @@ function Login() {
     }, [])
 
     return user.email ? (
-        <SuccessfulLoginLinks user={user}/>
+        <SuccessfulLoginLinks/>
     ) :(
         user.role === "guest" ? (
         <>
