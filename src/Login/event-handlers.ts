@@ -53,11 +53,14 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     }
     
     setUser((currUser: User) => {
-        return {
+        const user = {
             role: currUser.role,
             email: response.email,
             isGoogleAccount: false
         }
+        
+        window.sessionStorage.setItem("user", JSON.stringify(user))
+        return user
     })
     setError("")
 }
