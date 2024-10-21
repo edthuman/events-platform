@@ -1,15 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import UserContext from "../../hooks/UserContext";
 import EmailFormElements from "./EmailFormElements";
 import { handleEmailLogin } from "./event-handlers";
 import "./Form.css"
+import { StringStateSetter } from "../../types";
 
-function EmailLogin() {
+function EmailLogin({ setError }: { setError: StringStateSetter }) {
     const { setUser } = useContext(UserContext);
-    const [error, setError] = useState("");
 
     return <>
-        {error ? <p>{error}</p> : null}
         <form className="sign-up-form" onSubmit={e => handleEmailLogin(e, setUser, setError)}>
             <EmailFormElements />
             <button type="submit">

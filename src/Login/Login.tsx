@@ -40,7 +40,7 @@ function Login() {
                 <SignUpForm setError={setError}/>
             ) : (
                 isEmailLogin ? (
-                    <EmailLogin />
+                    <EmailLogin setError={setError}/>
                 ) : (
                 <>
                     <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
