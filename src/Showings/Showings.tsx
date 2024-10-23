@@ -23,9 +23,10 @@ function Showings() {
     return isLoading ? (
         <Loading />
     ) : showings.length === 0 ? (
-        <>
+        <div className="py-20">
             <p>Something went wrong whilst retrieving showings</p>
-        </>
+            <p className="pt-10">Please reload the page</p>
+        </div>
     ) : (
         <>
             <h1>Upcoming Showings</h1>
