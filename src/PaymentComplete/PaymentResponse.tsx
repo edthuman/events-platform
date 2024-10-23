@@ -156,7 +156,7 @@ function PaymentResponse() {
     return stripe ? (
         <>
             <h2>{statusDetails[status].text}</h2>
-            {error ? <ErrorMessage error={error} /> : null}
+            {error ? <p>{error}</p> : null}
             <div
                 style={{
                     backgroundColor: statusDetails[status].iconColor,
