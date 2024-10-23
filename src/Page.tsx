@@ -1,5 +1,5 @@
 import CreateShowing from "./CreateShowing/CreateShowing";
-import Header from "./Header";
+import Header from "./Header/Header";
 import Login from "./Login/Login";
 import PaymentComplete from "./PaymentComplete/PaymentComplete";
 import Showings from "./Showings/Showings";
@@ -18,7 +18,7 @@ function Page({ page }: { page: Page }) {
         Showings,
         SingleShowing,
         CreateShowing,
-        PaymentComplete
+        PaymentComplete,
     };
 
     const CurrentPage = pages[page];
