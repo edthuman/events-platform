@@ -13,7 +13,7 @@ function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: 
     }
     
     return <>
-        <h2>{showing.name}</h2>
+        <h1>{showing.name}</h1>
         <p>{getDate(showing.startDate)}</p>
         <p>{getTime(showing.startDate)}</p>
         <p>{price}</p>

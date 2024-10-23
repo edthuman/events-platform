@@ -155,7 +155,7 @@ function PaymentResponse() {
 
     return stripe ? (
         <>
-            <h2>{statusDetails[status].text}</h2>
+            <h1>{statusDetails[status].text}</h1>
             {error ? <p>{error}</p> : null}
             <div
                 style={{
