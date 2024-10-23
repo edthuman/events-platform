@@ -14,11 +14,11 @@ function Header() {
     return (
         <>
             <div className="flex justify-between">
-                <h1 className="text-3xl font-bold size-9/12 pl-5">
+                <Link to="/" className="text-3xl font-bold size-9/12 pl-5 hover:text-[#adadad]">
                     Community
                     <br />
                     Cinema
-                </h1>
+                </Link>
                 {isLoginLinkRequired ? (
                     <LogInButton/>
                 ) : null}
