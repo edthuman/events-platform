@@ -7,10 +7,10 @@ function ShowingCard({showing}: { showing: Showing }) {
     const day = getDate(startDate)
 
     return <Link to={`/showing/${showing.id}`} target="_self">
-        <div className="mb-10 flex flex-col items-center py-4 bg-[#195477] hover:bg-[#10374e]">
+        <div className="mb-10 flex flex-col items-center mb-9 py-4 bg-[#23658e] drop-shadow-xl hover:bg-[#66889c] rounded-lg">
             <img src={`${showing.poster}`} alt={`Movie poster for ${showing.film}`} className="size-10/12"/>
-            <p>{showing.name}</p>
-            <p>{day}</p>
+            <p className="text-2.5xl pt-2">{showing.name}</p>
+            <p className="text-2.5xl">{day}</p>
         </div>
     </Link>
 }
