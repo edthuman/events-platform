@@ -14,7 +14,7 @@ function RegisterButton({setError, setIsUserAttending, id, setIsPaying, price, d
     return <>
         {isAnyPrice ? <DonationForm donation={donation} setDonation={setDonation}/> : null}
         <button className="attend_button mt-4" onClick={() => handleBuyTicketClick(setIsPaying, setIsButtonDisabled, setError, setIsUserAttending, firebase, email, id, price, donation)} disabled={isButtonDisabled}>
-            Buy Ticket
+            {price === 0 ? "Get": "Buy"} Ticket
         </button>
     </>
 }
