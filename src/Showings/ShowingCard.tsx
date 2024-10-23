@@ -8,7 +8,7 @@ function ShowingCard({showing}: { showing: Showing }) {
 
     return <Link to={`/showing/${showing.id}`} target="_self">
         <div className="mb-10 flex flex-col items-center py-4 bg-[#195477] hover:bg-[#10374e]">
-            <img src={`${showing.poster}`} alt={`Movie post for ${showing.film}`} className="size-10/12"/>
+            <img src={`${showing.poster}`} alt={`Movie poster for ${showing.film}`} className="size-10/12"/>
             <p>{showing.name}</p>
             <p>{day}</p>
         </div>
