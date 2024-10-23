@@ -4,6 +4,7 @@ import { Showing } from "../../server/firestore-types";
 import ShowingRegistration from "./ShowingRegistration";
 import RegisteredMessage from "./RegisteredMessage";
 import { BooleanStateSetter, StringStateSetter } from "../../types";
+import UnregisteredMessage from "./UnregisteredMessage";
 
 function AttendShowing({
     showing,
@@ -23,9 +24,9 @@ function AttendShowing({
     const [isUserAttending, setIsUserAttending] = useState(isUserInAttendees);
 
     return user.role === "guest" ? (
-        <p>Please log in to register for event</p>
+        <UnregisteredMessage message="Please log in to register for event"/>
     ) : user.role === "staff" ? (
-        <p>You must be non-staff to register for an event</p>
+        <UnregisteredMessage message="You must be non-staff to register for an event"/>
     ) : isUserAttending ? (
         <RegisteredMessage
             showing={showing}
