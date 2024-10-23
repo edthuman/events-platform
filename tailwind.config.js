@@ -7,7 +7,8 @@ export default {
   theme: {
     colors: {
       blue: "#195477",
-      off_white: "#f3f3f3"
+      off_white: "#f3f3f3",
+      grey: "#adadad"
     },
     extend: {},
   },
