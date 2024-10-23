@@ -4,6 +4,7 @@ import FirebaseContext from "../../hooks/FirebaseContext";
 import { getAllShowings } from "../../server/firestore-methods";
 import { Showing } from "../../server/firestore-types";
 import Loading from "../Loading";
+import ShowingLoadFailed from "./ShowingLoadFailed";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
@@ -23,10 +24,7 @@ function Showings() {
     return isLoading ? (
         <Loading />
     ) : showings.length === 0 ? (
-        <div className="py-20">
-            <p>Something went wrong whilst retrieving showings</p>
-            <p className="pt-10">Please reload the page</p>
-        </div>
+        <ShowingLoadFailed />
     ) : (
         <>
             <h1>Upcoming Showings</h1>
