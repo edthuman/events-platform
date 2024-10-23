@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .attend_button {
+        padding: 0.75em 0;
+        width: 58.333333%;
+        margin: auto;
+        margin-bottom: 1.25rem;
+        display: block;
+        border-radius: 0.5rem;
+        background-color: #34393f;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+    .attend_button:hover {
+        background-color: #59626d;
+    }
+  }
