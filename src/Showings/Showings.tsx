@@ -27,10 +27,12 @@ function Showings() {
         <ShowingLoadFailed />
     ) : (
         <>
-            <h1>Upcoming Showings</h1>
-            {showings.map((showing) => (
-                <ShowingCard showing={showing} key={showing.id} />
-            ))}
+            <h1 className="text-3xl my-7">Upcoming Showings</h1>
+            <div className="flex flex-wrap justify-center">
+                {showings.map((showing) => (
+                    <ShowingCard showing={showing} key={showing.id} />
+                ))}
+            </div>
         </>
     );
 }
