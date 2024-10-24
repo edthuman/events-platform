@@ -142,17 +142,7 @@ function SingleShowing() {
             <CheckoutForm showing={showing} donation={donation}/>
         </Elements>
     ) : (
-        <>
-            <AttendShowing
-                showing={showing}
-                isNotInCalendar={isNotInCalendar}
-                setIsPaying={setIsPaying}
-                donation={donation}
-                setDonation={setDonation}
-
-            />
-            <ShowingDetails showing={showing} filmDetails={filmDetails} />
-        </>
+        <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation}/>
     );
 }
 

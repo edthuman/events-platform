@@ -2,8 +2,10 @@ import { Link } from "react-router-dom"
 import { Showing } from "../../server/firestore-types"
 import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
+import AttendShowing from "./AttendShowing"
+import { BooleanStateSetter, StringStateSetter } from "../../types"
 
-function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: FilmDetails}) {
+function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation}: {showing: Showing, filmDetails: FilmDetails, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter}) {
     let price = `£${Number(showing.price).toFixed(2)}`
     if (price === "£0.00") {
         price = "Free"
@@ -23,6 +25,14 @@ function ShowingDetails({showing, filmDetails}: {showing: Showing, filmDetails: 
                 <p>{price}</p>
             </div>
         </div>
+        <AttendShowing
+                showing={showing}
+                isNotInCalendar={isNotInCalendar}
+                setIsPaying={setIsPaying}
+                donation={donation}
+                setDonation={setDonation}
+
+        />
         <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 pb-4"/>
         <p className="text-2xl pb-10">{showing.description}</p>
         <h2 className="text-3xl pb-3">Movie Details</h2>
