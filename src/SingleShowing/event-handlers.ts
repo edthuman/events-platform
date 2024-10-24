@@ -63,7 +63,7 @@ export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, element
     if (error.type === "card_error" || error.type === "validation_error") {
         setMessage(error.message);
     } else {
-        setMessage("An unexpected error occurred.");
+        setMessage("An unexpected error occurred");
     }
 
     setIsLoading(false);
