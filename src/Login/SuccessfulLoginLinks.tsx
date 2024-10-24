@@ -9,7 +9,7 @@ function SuccessfulLoginLinks({ setError }: { setError: StringStateSetter }) {
     const { user } = useContext(UserContext)
     return <>
         <p>You are logged in</p>
-        <div id="login-links">
+        <div>
             { user.role === "staff" ? <CreateShowingLink /> : null}
             <ViewShowingsLink />
             <LogOutButton setError={setError}/>
