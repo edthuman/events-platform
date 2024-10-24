@@ -8,7 +8,8 @@ export default {
     colors: {
       blue: "#195477",
       off_white: "#f3f3f3",
-      grey: "#adadad"
+      grey: "#adadad",
+      black: "#000000"
     },
     extend: {},
   },
