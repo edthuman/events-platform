@@ -25,13 +25,13 @@ function Login() {
     }, [])
 
     return <>
-        {error ? <p>{error}</p> : null}
+        {error ? <p className="text-xl mt-6 py-1 rounded-lg bg-[#a62d1f] w-5/6 mx-auto">{error}</p> : null}
         {user.email ? (
             <SuccessfulLoginLinks setError={setError}/>
         ) :(
             user.role === "guest" ? (
             <>
-                <h2 className="text-2xl no-underline pt-8 pb-2">How are you logging in today?</h2>
+                <h2 className="text-2xl no-underline pb-2 pt-8">How are you logging in today?</h2>
                 <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "staff")}>
                     Staff
                 </button>
