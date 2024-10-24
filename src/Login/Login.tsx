@@ -25,7 +25,7 @@ function Login() {
     }, [])
 
     return <>
-        {error ? <p className="text-xl mt-6 py-1 rounded-lg bg-[#a62d1f] w-5/6 mx-auto">{error}</p> : null}
+        {error ? <p className="text-xl mt-6 py-1 rounded-lg bg-red w-5/6 mx-auto">{error}</p> : null}
         {user.email ? (
             <SuccessfulLoginLinks setError={setError}/>
         ) :(
