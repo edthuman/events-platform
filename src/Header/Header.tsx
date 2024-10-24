@@ -13,11 +13,9 @@ function Header() {
 
     return (
         <>
-            <div className="flex justify-between">
+            <div className="flex justify-between ">
                 <Link to="/" className="text-3xl font-bold size-9/12 pl-5 hover:text-grey">
-                    Community
-                    <br />
-                    Cinema
+                    <p className="w-min">Community<br/>Cinema</p>
                 </Link>
                 {isLoginLinkRequired ? (
                     <LogInButton/>
