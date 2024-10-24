@@ -15,12 +15,12 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
     }
     
     return <>
-        <Link to="/showings" className="hover:text-grey">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
-        <h1 className="text-5xl mt-8 mb-5">{showing.name}</h1>
-        <div className="grid grid-cols-2 grid-rows-2 px-8 pb-3">
+        <Link to="/showings" className="block text-left hover:text-grey mt-2">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
+        <h1 className="text-5xl mt-5 mb-5">{showing.name}</h1>
+        <div className="grid grid-cols-2 grid-rows-2 px-8">
             <div className="row-span-2 text-left text-lg">
                 <p className="pb-3">{getDate(showing.startDate)}</p>
-                <p className="pb-3">{getTime(showing.startDate)}</p>
+                <p className="pb-1">{getTime(showing.startDate)}</p>
             </div>
             <div className="row-span-2 text-right text-lg">
                 <p>{price}</p>
@@ -36,7 +36,7 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
         />
         <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 pb-4"/>
         <p className="text-2xl pb-10">{showing.description}</p>
-        <h2 className="text-3xl pb-3">Movie Details</h2>
+        <h2 className="text-3xl pb-3">Movie Details:</h2>
         <p className="text-2xl pb-3">
             {filmDetails.title} ({filmDetails.year})
         </p>
