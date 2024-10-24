@@ -15,7 +15,8 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
     }
     
     return <>
-        <h1 className="text-5xl pb-4">{showing.name}</h1>
+        <Link to="/showings" className="hover:text-grey">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
+        <h1 className="text-5xl mt-8 mb-5">{showing.name}</h1>
         <div className="grid grid-cols-2 grid-rows-2 px-8 pb-3">
             <div className="row-span-2 text-left text-lg">
                 <p className="pb-3">{getDate(showing.startDate)}</p>
