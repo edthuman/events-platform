@@ -11,10 +11,6 @@ const router = createBrowserRouter([
         element: <Page page="Login" />,
     },
     {
-        path: "/showings",
-        element: <Page page="Showings" />,
-    },
-    {
         path: "/showing",
         element: <Page page="SingleShowing" />,
     },
