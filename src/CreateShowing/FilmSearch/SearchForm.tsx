@@ -3,8 +3,9 @@ import { BooleanStateSetter, SetFilmDetails } from "../../../types"
 import { findFilmDetails } from "../event-handlers"
 import { Link } from "react-router-dom";
 import { handleTextInput } from "../../event-handler";
+import { FilmPreviewResponse } from "../../../server/omdb-types";
 
-function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter}) {
+function SearchForm({filmDetails, setFilmDetails, omdbKey, setIsLoading} : {filmDetails: FilmPreviewResponse, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter}) {
     const [isNameSearch, setIsNameSearch] = useState(true)
     const [textInput, setTextInput] = useState("");
     const linkStyling = "border w-3/6 block mx-auto mt-5 hover:text-grey"
@@ -36,6 +37,7 @@ function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: S
                 value={textInput}
                 className="text-black px-2 py-1 mb-3"
             />
+            {filmDetails.error ? <p className="text-xl mt-2 py-1 bg-red w-5/6 mx-auto rounded-lg">{filmDetails.error}</p> : null}
             <button type="submit" className={linkStyling}>Find Film</button>
             <button type="button" className={linkStyling} onClick={() => setIsNameSearch((currValue: boolean) => !currValue)}>Search by {isNameSearch ? "IMDb ID": "film name"}</button>
         </form>

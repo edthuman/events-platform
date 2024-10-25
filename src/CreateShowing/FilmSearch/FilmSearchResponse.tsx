@@ -17,7 +17,6 @@ function FilmSearchResponse({
 
     return (
         <>
-            {filmDetails.error ? <p className="text-xl mt-8">{filmDetails.error}</p> : null}
             {Object.keys(filmDetails).length > 1 ? (
                 <>
                     <FilmPreview filmDetails={filmDetails} />

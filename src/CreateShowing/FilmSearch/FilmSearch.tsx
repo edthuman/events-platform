@@ -21,7 +21,7 @@ function FilmSearch({
     return (
         <>
             <h1 className="text-3xl mt-5">Start A New Event!</h1>
-            <SearchForm setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} />
+            <SearchForm filmDetails={filmDetails} setFilmDetails={setFilmDetails} omdbKey={omdbKey} setIsLoading={setIsLoading} />
             {isLoading ? (
                 <Loading />
             ) : (
