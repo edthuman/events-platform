@@ -13,21 +13,24 @@ function FilmSearchResponse({
     setIsSearchRequired: BooleanStateSetter;
 }) {
     // TypeScript error on FilmPreview component can be ignored - filmDetails having more than 1 key means it has type FilmPreviewDetails
+    const linkStyling = "border w-3/6 block mx-auto mt-5 hover:text-grey"
 
     return (
         <>
-            {filmDetails.error ? <p>{filmDetails.error}</p> : null}
+            {filmDetails.error ? <p className="text-xl mt-8">{filmDetails.error}</p> : null}
             {Object.keys(filmDetails).length > 1 ? (
                 <>
                     <FilmPreview filmDetails={filmDetails} />
-                    <p>Are these details correct?</p>
+                    <p className="text-2xl mt-5">Are these details correct?</p>
                     <button
                         onClick={() => handleFilmFound(setIsSearchRequired)}
+                        className={linkStyling}
                     >
                         Yes
                     </button>
                     <button
                         onClick={() => handleIncorrectFilmFound(setFilmDetails)}
+                        className={linkStyling}
                     >
                         No
                     </button>
