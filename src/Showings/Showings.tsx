@@ -14,6 +14,7 @@ function Showings() {
     const [isLoading, setIsLoading] = useState(true);
     const firestore = useContext(FirebaseContext);
     const {user} = useContext(UserContext)
+    const isStaff = user.email && user.role === "staff"
 
     useEffect(() => {
         (async () => {
@@ -31,9 +32,9 @@ function Showings() {
         <ShowingLoadFailed />
     ) : (
         <>
-            <h1 className="text-3xl mt-7">Upcoming Showings</h1>
-            {user.role === "staff" ? <Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link> : null}
-            <div className="flex flex-wrap justify-center mt-7">
+            <h1 className="text-3xl mt-7 pb-4">Upcoming Showings</h1>
+            {isStaff ? <div className="mt-3 mb-7"><Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link></div> : null}
+            <div className="flex flex-wrap justify-center mt-3">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
                 ))}
