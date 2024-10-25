@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 import { addAttendee } from "../../server/firestore-methods";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import UserContext from "../../hooks/UserContext";
-import ErrorMessage from "../ErrorMessage";
 
 const successIcon = (
     <svg
@@ -81,7 +80,7 @@ const statusDetails = {
         icon: infoIcon,
     },
     requires_payment_method: {
-        text: "Your payment unsuccessful, please try again",
+        text: "Your payment was unsuccessful, please try again",
         iconColor: "#DF1B41",
         icon: errorIcon,
     },
@@ -97,7 +96,7 @@ const statusDetails = {
     },
     loading: {
         text: "Loading",
-        iconColor: "#DF1B41",
+        iconColor: "#6D6E78",
         icon: infoIcon,
     },
 };
