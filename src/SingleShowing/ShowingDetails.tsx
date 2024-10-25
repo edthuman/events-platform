@@ -4,6 +4,7 @@ import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
 import AttendShowing from "./AttendShowing"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
+import ToTopButton from "../ToTopButton"
 
 function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation}: {showing: Showing, filmDetails: FilmDetails, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter}) {
     let price = `£${Number(showing.price).toFixed(2)}`
@@ -48,10 +49,11 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
         <Link
             to={`https://www.imdb.com/title/${showing.imdbId}`}
             target="_blank"
-            className="text-xl underline text-off_white hover:text-grey"
+            className="text-xl underline text-off_white hover:text-grey hover:no-underline"
         >
             See full details on IMDb
         </Link>
+        <ToTopButton />
     </>
 }
 
