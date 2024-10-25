@@ -34,7 +34,7 @@ function SearchForm({setFilmDetails, omdbKey, setIsLoading} : {setFilmDetails: S
                 type="text"
                 onChange={(e) => handleTextInput(e, setTextInput)}
                 value={textInput}
-                className="text-black px-2 mb-3"
+                className="text-black px-2 py-1 mb-3"
             />
             <button type="submit" className={linkStyling}>Find Film</button>
             <button type="button" className={linkStyling} onClick={() => setIsNameSearch((currValue: boolean) => !currValue)}>Search by {isNameSearch ? "IMDb ID": "film name"}</button>
