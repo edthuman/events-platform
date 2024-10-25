@@ -19,7 +19,7 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
     const firestore = useContext(FirebaseContext)
     const [error, setError] = useState("")
     const formElementStyle = "flex mb-4 self-center w-full"
-    const labelStyle = "text-lg w-1/2"
+    const labelStyle = "flex text-lg w-1/2 self-center justify-center"
     const inputStyle = "bg-off_white text-black w-1/2 px-2 py-1 text-center"
 
     return <>
@@ -30,12 +30,12 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
                 <input className={inputStyle} id="event-name" onChange={(e) => handleTextInput(e, setEventNameInput)} value={eventNameInput} type="text" placeholder="My Event"/>
             </div>
             <div className={formElementStyle}>
-                <label className={labelStyle} htmlFor="description">Event Description:</label>
-                <input className={inputStyle} id="description" onChange={(e) => handleTextInput(e, setDescriptionInput)} value={descriptionInput} type="text" placeholder="Description of event"/>
+                <label className={labelStyle} htmlFor="film-name">Film:</label>
+                <input className={inputStyle + " text-grey"} id="film-name" value={title} type="text" readOnly/>
             </div>
             <div className={formElementStyle}>
-                <label className={labelStyle} htmlFor="film-name">Film:</label>
-                <input className={inputStyle} id="film-name" value={title} type="text" readOnly/>
+                <label className={labelStyle} htmlFor="description">Event Description:</label>
+                <textarea className={inputStyle + " min-h-20 max-h-72"} id="description" onChange={(e) => handleTextInput(e, setDescriptionInput)} value={descriptionInput} type="text" placeholder="Description of event"/>
             </div>
             <div className={formElementStyle}>
                 <label className={labelStyle} htmlFor="date">Date:</label>
