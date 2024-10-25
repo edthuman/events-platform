@@ -155,12 +155,13 @@ function PaymentResponse() {
 
     return stripe ? (
         <>
-            <h1>{statusDetails[status].text}</h1>
+            <h1 className="text-3xl my-6">{statusDetails[status].text}</h1>
             {error ? <p>{error}</p> : null}
             <div
                 style={{
                     backgroundColor: statusDetails[status].iconColor,
                 }}
+                className="rounded-lg py-1 flex justify-center mb-8 w-11/12 mx-auto"
                 >
                 {statusDetails[status].icon}
             </div>
