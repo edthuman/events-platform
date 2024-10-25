@@ -13,7 +13,7 @@ import { handlePayment } from "./event-handlers";
 export default function CheckoutForm({ showing, donation }: { showing: Showing, donation: string }) {
     const stripe = useStripe();
     const elements = useElements();
-    const [message, setMessage] = useState("An unexpected error occurred");
+    const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { user: { email }} = useContext(UserContext)
     const ticketPrice = showing.price === "any" ? donation : showing.price
