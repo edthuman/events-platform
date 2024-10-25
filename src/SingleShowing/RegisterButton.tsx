@@ -12,10 +12,9 @@ function RegisterButton({setError, setIsUserAttending, id, setIsPaying, price, d
     const isAnyPrice = price === "any"
 
     return <>
-        <p>Interested in attending?</p>
         {isAnyPrice ? <DonationForm donation={donation} setDonation={setDonation}/> : null}
-        <button onClick={() => handleBuyTicketClick(setIsPaying, setIsButtonDisabled, setError, setIsUserAttending, firebase, email, id, price, donation)} disabled={isButtonDisabled}>
-            Buy Ticket
+        <button className="attend_button mt-4" onClick={() => handleBuyTicketClick(setIsPaying, setIsButtonDisabled, setError, setIsUserAttending, firebase, email, id, price, donation)} disabled={isButtonDisabled}>
+            {price === 0 ? "Get": "Buy"} Ticket
         </button>
     </>
 }

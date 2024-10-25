@@ -1,4 +1,3 @@
-import "./Login.css"
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../hooks/UserContext";
 import SuccessfulLoginLinks from "./SuccessfulLoginLinks";
@@ -12,6 +11,7 @@ function Login() {
     const [isSigningUp, setIsSigningUp] = useState(false)
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
+    const buttonStyle = "text-xl border mt-6 w-10/12 hover:text-grey"
 
     useEffect(() => {
         if (!user.email) {
@@ -25,15 +25,19 @@ function Login() {
     }, [])
 
     return <>
-        {error ? <p>{error}</p> : null}
+        {error ? <p className="text-xl mt-6 py-1 rounded-lg bg-red w-5/6 mx-auto">{error}</p> : null}
         {user.email ? (
             <SuccessfulLoginLinks setError={setError}/>
         ) :(
             user.role === "guest" ? (
             <>
-                <p>How are you logging in today?</p>
-                <button onClick={() => handleRoleSelection(setUser, "staff")}>Staff</button>
-                <button onClick={() => handleRoleSelection(setUser, "non-staff")}>Non-staff</button>
+                <h2 className="text-2xl no-underline pb-2 pt-8">How are you logging in today?</h2>
+                <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "staff")}>
+                    Staff
+                </button>
+                <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "non-staff")}>
+                    Non-staff
+                </button>
             </>
         ) : (
             <>
@@ -44,9 +48,9 @@ function Login() {
                         <EmailLogin setError={setError}/>
                     ) : (
                     <>
-                        <button onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
-                        <button onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
-                        <button onClick={() => setIsSigningUp(true)}>Sign up</button>
+                        <button className={buttonStyle} onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
+                        <button className={buttonStyle} onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
+                        <button className={buttonStyle} onClick={() => setIsSigningUp(true)}>Sign up</button>
                     </> 
                 ))}
             </>

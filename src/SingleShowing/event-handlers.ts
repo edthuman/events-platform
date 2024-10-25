@@ -35,7 +35,7 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
 
     const isInvalidDonation = price === "any" && Number(donation) < 0.5 
     if (isInvalidDonation) {
-        setError("Payment must be either £0.00 or above £0.50")
+        setError("Payment must be £0.00 or above £0.50")
         setIsButtonDisabled(false)
         return
     }
@@ -63,7 +63,7 @@ export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, element
     if (error.type === "card_error" || error.type === "validation_error") {
         setMessage(error.message);
     } else {
-        setMessage("An unexpected error occurred.");
+        setMessage("An unexpected error occurred");
     }
 
     setIsLoading(false);

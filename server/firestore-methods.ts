@@ -18,6 +18,13 @@ export async function getAllShowings(database: Firestore, setIsLoading: BooleanS
     
             fetchedShowings.push(showing)
         })
+        fetchedShowings.sort((a: Showing, b: Showing) => {
+            const x = a.startDate.seconds
+            const y = b.startDate.seconds
+            if (x < y) return -1
+            if (x > y) return 1
+            return 0
+        })
         setIsLoading(false)
         return fetchedShowings
     }

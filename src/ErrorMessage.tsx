@@ -1,7 +1,7 @@
 function ErrorMessage({ error }: { error: string }) {
     return <>
-        <h2>Error occurred</h2>
-        <p>{error}</p>
+        <h1 className="text-4xl mt-8 mb-6">Error occurred</h1>
+        <p className="text-2xl">{error}</p>
     </>
 }
 

@@ -3,11 +3,9 @@ import { useParams } from "react-router-dom";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { getSingleShowing } from "../../server/firestore-methods";
 import { getFilmDetails } from "../../server/omdb-methods";
-import "./SingleShowing.css";
 import { FilmDetailsResponse } from "../../server/omdb-types";
 import ShowingDetails from "./ShowingDetails";
 import Loading from "../Loading";
-import AttendShowing from "./AttendShowing";
 import { checkShowingInCalendar } from "../../server/google-methods";
 import UserContext from "../../hooks/UserContext";
 import ErrorMessage from "../ErrorMessage";
@@ -15,7 +13,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
-import * as uuid from 'uuid';
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
@@ -41,7 +38,7 @@ function SingleShowing() {
     const [donation, setDonation] = useState("")
 
     const appearance = {
-        theme: "stripe",
+        theme: "night",
     };
     const loader = "auto";
 
@@ -78,16 +75,6 @@ function SingleShowing() {
     useEffect(() => {
         (async() => {
             if (isPaying) {
-                let idempotencyKey = ""
-                const currentKey = window.sessionStorage.getItem(`${showing.id}_key`)
-                if (currentKey) {
-                    idempotencyKey = currentKey
-                } else {
-                    const key = uuid.v4()
-                    window.sessionStorage.setItem(`${showing.id}_key`, key)
-                    idempotencyKey = key
-                }
-
                 if (showing.price === "any"){
                     const paymentIntent = await stripe.paymentIntents.create(
                         {
@@ -96,9 +83,6 @@ function SingleShowing() {
                             automatic_payment_methods: {
                                 enabled: true,
                             },
-                        },
-                        { 
-                            idempotencyKey 
                         }
                     );
                     
@@ -112,9 +96,6 @@ function SingleShowing() {
                             automatic_payment_methods: {
                                 enabled: true,
                             },
-                        },
-                        { 
-                            idempotencyKey 
                         }
                     );
                     
@@ -142,17 +123,7 @@ function SingleShowing() {
             <CheckoutForm showing={showing} donation={donation}/>
         </Elements>
     ) : (
-        <>
-            <AttendShowing
-                showing={showing}
-                isNotInCalendar={isNotInCalendar}
-                setIsPaying={setIsPaying}
-                donation={donation}
-                setDonation={setDonation}
-
-            />
-            <ShowingDetails showing={showing} filmDetails={filmDetails} />
-        </>
+        <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation}/>
     );
 }
 

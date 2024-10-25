@@ -13,8 +13,8 @@ function RegisteredMessage({
 
     return (
         <>
-            <p>You are registered for this event</p>
-            {isNotInCalendar ? <Link to={eventLink} target="_blank">Add event to Google calendar</Link> : null}
+            <p className="text-2xl pt-4 pb-3">You are registered for this event</p>
+            {isNotInCalendar ? <Link to={eventLink} target="_blank" className="attend_button">Add to Google calendar</Link> : null}
         </>
     );
 }

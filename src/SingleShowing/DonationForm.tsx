@@ -6,11 +6,11 @@ function DonationForm({ donation, setDonation }: {donation: string, setDonation:
     const [error, setError] = useState("")
 
     return <>
-        <form>
-            <label htmlFor="price">Donation (£)</label>
-            <input id="price" type="number" value={donation} placeholder="0" onChange={e => handlePriceInput(e, setDonation, setError)}/>
+        <form className="mt-4">
+            <label htmlFor="price" className="mr-3">Donation (£):</label>
+            <input id="price" className="w-2/6 text-black pl-1 pr-0.5" type="number" value={donation} placeholder="0" onChange={e => handlePriceInput(e, setDonation, setError)}/>
         </form>
-        {error ? <p>{error}</p> : null}
+        {error ? <p className="text-xl pt-3">{error}</p> : null}
     </>
 }
 

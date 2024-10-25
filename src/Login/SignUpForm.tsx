@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { handleSignUpClick } from "./event-handlers";
-import "./Form.css";
 import UserContext from "../../hooks/UserContext";
 import EmailFormElements from "./EmailFormElements";
 import { StringStateSetter } from "../../types";
@@ -10,11 +9,13 @@ function SignUpForm({ setError }: { setError: StringStateSetter }) {
 
     return <>
         <form
-            className="sign-up-form"
             onSubmit={(e) => handleSignUpClick(e, setUser, setError)}
+            className="flex flex-col"
         >
             <EmailFormElements />
-            <button type="submit">Sign Up</button>
+            <button type="submit" className="border w-20 mx-auto mt-5 hover:text-grey">
+                Sign Up
+            </button>
         </form>
     </>
 }
