@@ -5,11 +5,14 @@ import { getAllShowings } from "../../server/firestore-methods";
 import { Showing } from "../../server/firestore-types";
 import Loading from "../Loading";
 import ShowingLoadFailed from "./ShowingLoadFailed";
+import { Link } from "react-router-dom";
+import UserContext from "../../hooks/UserContext";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const firestore = useContext(FirebaseContext);
+    const {user} = useContext(UserContext)
 
     useEffect(() => {
         (async () => {
@@ -27,8 +30,9 @@ function Showings() {
         <ShowingLoadFailed />
     ) : (
         <>
-            <h1 className="text-3xl my-7">Upcoming Showings</h1>
-            <div className="flex flex-wrap justify-center">
+            <h1 className="text-3xl mt-7">Upcoming Showings</h1>
+            {user.role === "staff" ? <Link to="/create-showing" target="_self" className=" border p-2 hover:text-grey">Create a showing</Link> : null}
+            <div className="flex flex-wrap justify-center mt-7">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
                 ))}
