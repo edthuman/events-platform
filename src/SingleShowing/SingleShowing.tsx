@@ -39,7 +39,7 @@ function SingleShowing() {
     const [donation, setDonation] = useState("")
 
     const appearance = {
-        theme: "stripe",
+        theme: "night",
     };
     const loader = "auto";
 
