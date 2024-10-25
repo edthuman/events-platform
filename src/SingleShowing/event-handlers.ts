@@ -35,7 +35,7 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
 
     const isInvalidDonation = price === "any" && Number(donation) < 0.5 
     if (isInvalidDonation) {
-        setError("Payment must be either £0.00 or above £0.50")
+        setError("Payment must be £0.00 or above £0.50")
         setIsButtonDisabled(false)
         return
     }
