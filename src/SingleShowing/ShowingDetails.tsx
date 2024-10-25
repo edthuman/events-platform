@@ -35,24 +35,26 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
                 setDonation={setDonation}
 
         />
-        <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 pb-4"/>
+        <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 mt-2 mb-4"/>
         <p className="text-2xl pb-10">{showing.description}</p>
-        <h2 className="text-3xl pb-3">Movie Details:</h2>
-        <p className="text-2xl pb-3">
-            {filmDetails.title} ({filmDetails.year})
-        </p>
-        <p className="text-2xl pb-3">Rated: {filmDetails.rating}</p>
-        <p className="text-2xl pb-3">Runtime: {filmDetails.runtime}</p>
-        <p className="text-2xl pb-3">Directed by: {filmDetails.director}</p>
-        <p className="text-2xl pb-3">Genre(s): {filmDetails.genre}</p>
-        <p className="text-2xl pb-4">Plot: {filmDetails.plot}</p>
-        <Link
-            to={`https://www.imdb.com/title/${showing.imdbId}`}
-            target="_blank"
-            className="text-xl underline text-off_white hover:text-grey hover:no-underline"
-        >
-            See full details on IMDb
-        </Link>
+        <div className="mb-5">
+            <h2 className="text-3xl pb-3">Movie Details:</h2>
+            <p className="text-2xl pb-3">
+                {filmDetails.title} ({filmDetails.year})
+            </p>
+            <p className="text-2xl pb-3">Rated: {filmDetails.rating}</p>
+            <p className="text-2xl pb-3">Runtime: {filmDetails.runtime}</p>
+            <p className="text-2xl pb-3">Directed by: {filmDetails.director}</p>
+            <p className="text-2xl pb-3">Genre(s): {filmDetails.genre}</p>
+            <p className="text-2xl pb-4">Plot: {filmDetails.plot}</p>
+            <Link
+                to={`https://www.imdb.com/title/${showing.imdbId}`}
+                target="_blank"
+                className="text-xl underline text-off_white hover:text-grey hover:no-underline"
+            >
+                See full details on IMDb
+            </Link>
+        </div>
         <ToTopButton />
     </>
 }
