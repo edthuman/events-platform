@@ -7,7 +7,7 @@ function ReturnLinks({ showingId }:{ showingId: string }) {
     <Link className={linkStyling} to={`/showing/${showingId}`} target="_self">
         Return to showing page
     </Link>
-    <Link className={linkStyling} to="/showings" target="_self">
+    <Link className={linkStyling} to="/" target="_self">
         Return to home page
     </Link>
     </div>

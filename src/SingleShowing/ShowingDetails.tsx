@@ -16,7 +16,7 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
     }
     
     return <>
-        <Link to="/showings" className="block text-left hover:text-grey mt-2">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
+        <Link to="/" className="block text-left hover:text-grey mt-2">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
         <h1 className="text-5xl mt-5 mb-5">{showing.name}</h1>
         <div className="grid grid-cols-2 grid-rows-2 px-8">
             <div className="row-span-2 text-left text-lg">

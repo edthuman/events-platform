@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function ViewShowingsLink({linkStyling}: {linkStyling: string}) {
-    return <Link to="/showings" className={linkStyling}>
+    return <Link to="/" className={linkStyling}>
         View showings
     </Link>
 }
