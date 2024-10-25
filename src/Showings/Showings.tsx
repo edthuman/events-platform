@@ -7,6 +7,7 @@ import Loading from "../Loading";
 import ShowingLoadFailed from "./ShowingLoadFailed";
 import { Link } from "react-router-dom";
 import UserContext from "../../hooks/UserContext";
+import ToTopButton from "../ToTopButton";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
@@ -31,12 +32,13 @@ function Showings() {
     ) : (
         <>
             <h1 className="text-3xl mt-7">Upcoming Showings</h1>
-            {user.role === "staff" ? <Link to="/create-showing" target="_self" className=" border p-2 hover:text-grey">Create a showing</Link> : null}
+            {user.role === "staff" ? <Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link> : null}
             <div className="flex flex-wrap justify-center mt-7">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
                 ))}
             </div>
+            <ToTopButton />
         </>
     );
 }
