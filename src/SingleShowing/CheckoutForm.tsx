@@ -10,9 +10,11 @@ import UserContext from "../../hooks/UserContext";
 import { Showing } from "../../server/firestore-types";
 import { handlePayment } from "./event-handlers";
 import LoggedOutPayAttempt from "./LoggedOutPayAttempt";
+import CheckoutError from "./CheckoutError";
 
 export default function CheckoutForm({ showing, donation }: { showing: Showing, donation: string }) {
-    const stripe = useStripe();
+    // const stripe = useStripe();
+    let stripe = null
     const elements = useElements();
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +38,8 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
                     {`Pay £${formattedTicketPrice}`}
                 </button>
             </form>
-        ) : null
+        ) : (
+            <CheckoutError />
+        )
     )
 }
