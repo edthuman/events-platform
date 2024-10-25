@@ -13,8 +13,7 @@ import LoggedOutPayAttempt from "./LoggedOutPayAttempt";
 import CheckoutError from "./CheckoutError";
 
 export default function CheckoutForm({ showing, donation }: { showing: Showing, donation: string }) {
-    // const stripe = useStripe();
-    let stripe = null
+    const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
