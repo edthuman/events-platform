@@ -12,7 +12,7 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
         price = "Free"
     }
     if (price === "£NaN") {
-        price = "Pay what you like"
+        price = "Donation"
     }
     
     return <>
