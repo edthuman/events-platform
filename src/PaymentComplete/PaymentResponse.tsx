@@ -81,17 +81,17 @@ const statusDetails = {
     },
     requires_payment_method: {
         text: "Your payment was unsuccessful, please try again",
-        iconColor: "#DF1B41",
+        iconColor: "#a62d1f",
         icon: errorIcon,
     },
     default: {
         text: "Something went wrong, please try again",
-        iconColor: "#DF1B41",
+        iconColor: "#a62d1f",
         icon: errorIcon,
     },
     canceled: {
         text: "Payment was cancelled, please try again",
-        iconColor: "#DF1B41",
+        iconColor: "#a62d1f",
         icon: errorIcon,
     },
     loading: {
@@ -123,7 +123,7 @@ function PaymentResponse() {
             ).get("payment_intent_client_secret");
 
             if (!clientSecret) {
-                setError("Error: Payment query missing from URL");
+                setError("No payment query given in URL");
                 return;
             }
 
@@ -143,7 +143,7 @@ function PaymentResponse() {
             if (paymentIntent.status === "succeeded") {
                 const response = await addAttendee(firebase, email, showingId);
                 if (response.error) {
-                    setError("An error occurred whilst added you to the event");
+                    setError("An error occurred whilst adding you to the event");
                     return;
                 }
             }
@@ -155,15 +155,15 @@ function PaymentResponse() {
     return stripe ? (
         <>
             <h1 className="text-3xl my-6">{statusDetails[status].text}</h1>
-            {error ? <p>{error}</p> : null}
             <div
                 style={{
                     backgroundColor: statusDetails[status].iconColor,
                 }}
-                className="rounded-lg py-1 flex justify-center mb-8 w-11/12 mx-auto"
+                className="rounded-lg py-1 flex justify-center w-11/12 mx-auto"
                 >
                 {statusDetails[status].icon}
             </div>
+            {error ? <p className="text-2xl py-1 rounded-lg mt-5">{error}</p> : null}
             <ReturnLinks showingId={showingId} />
         </>
     ) : (
