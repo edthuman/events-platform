@@ -5,7 +5,6 @@ import { FilmPreviewResponse } from "../../server/omdb-types";
 import PostSuccessMessage from "./PostSuccessMessage";
 import Loading from "../Loading";
 import UserContext from "../../hooks/UserContext";
-import ErrorMessage from "../ErrorMessage";
 
 function CreateShowing() {
     // TypeScript error on EventForm component can be ignored - isSearchRequired is only set to true when filmDetails are of type FilmPreviewDetails
