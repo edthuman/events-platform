@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import { getSingleShowing } from "../../server/firestore-methods";
 import { getFilmDetails } from "../../server/omdb-methods";
-import "./SingleShowing.css";
 import { FilmDetailsResponse } from "../../server/omdb-types";
 import ShowingDetails from "./ShowingDetails";
 import Loading from "../Loading";
