@@ -9,7 +9,7 @@ function ShowingRegistration({showing, setIsUserAttending, setIsPaying, donation
     
     return <>
         <RegisterButton setError={setError} setIsUserAttending={setIsUserAttending} id={id} setIsPaying={setIsPaying} price={price} donation={donation} setDonation={setDonation}/>
-        {error ? <p>{error}</p> : null}
+        {error ? <p className="text-xl px-2 mt-4 mb-4">{error}</p> : null}
     </>
 }
 
