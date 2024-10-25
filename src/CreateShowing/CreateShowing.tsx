@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FilmSearch from "./FilmSearch/FilmSearch";
 import EventForm from "./EventForm";
 import { FilmPreviewResponse } from "../../server/omdb-types";
 import PostSuccessMessage from "./PostSuccessMessage";
 import Loading from "../Loading";
+import UserContext from "../../hooks/UserContext";
+import ErrorMessage from "../ErrorMessage";
 
 function CreateShowing() {
     // TypeScript error on EventForm component can be ignored - isSearchRequired is only set to true when filmDetails are of type FilmPreviewDetails
@@ -13,23 +15,30 @@ function CreateShowing() {
     const [isSearchRequired, setIsSearchRequired] = useState(true);
     const [showingId, setShowingId] = useState("");
     const [isPosting, setIsPosting] = useState(false);
+    const {user} = useContext(UserContext)
+    console.log(user.role)
 
-    return isSearchRequired ? (
-        <FilmSearch
-            filmDetails={filmDetails}
-            setFilmDetails={setFilmDetails}
-            setIsSearchRequired={setIsSearchRequired}
-        />
-    ) : isPosting ? (
-        <Loading />
-    ) : showingId === "" ? (
-        <EventForm
-            filmDetails={filmDetails}
-            setShowingId={setShowingId}
-            setIsPosting={setIsPosting}
-        />
+    return user.role !== "staff" ? 
+    (
+        <p className="text-2xl mt-8">Please log in as staff to create an event</p>
     ) : (
-        <PostSuccessMessage showingId={showingId} />
+        isSearchRequired ? (
+            <FilmSearch
+                filmDetails={filmDetails}
+                setFilmDetails={setFilmDetails}
+                setIsSearchRequired={setIsSearchRequired}
+            />
+        ) : isPosting ? (
+            <Loading />
+        ) : showingId === "" ? (
+            <EventForm
+                filmDetails={filmDetails}
+                setShowingId={setShowingId}
+                setIsPosting={setIsPosting}
+            />
+        ) : (
+            <PostSuccessMessage showingId={showingId} />
+        )
     );
 }
 
