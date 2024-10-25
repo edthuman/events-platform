@@ -33,7 +33,7 @@ function Header() {
                     <LogOutButton setError={setError} />
                 ) : null}
             </div>
-            {error ? <p>{error}</p> : null}
+            {error ? <p className="mt-1 text-base bg-red w-max px-2 py-1 mx-auto  rounded-md">{error}</p> : null}
         </>
     );
 }
