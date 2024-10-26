@@ -43,7 +43,7 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
     setIsPaying(true)
 }
 
-export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, elements: StripeElements, showingId: string, setIsLoading: BooleanStateSetter, setMessage: StringStateSetter) {
+export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, elements: StripeElements, showingId: string, setIsLoading: BooleanStateSetter, setMessage: StringStateSetter, url: string) {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -55,7 +55,7 @@ export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, element
     const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-            return_url: `http://localhost:5173/complete?showing=${showingId}`,
+            return_url: `${url}/complete?showing=${showingId}`,
         },
         redirect: undefined,
     });
