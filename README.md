@@ -20,7 +20,7 @@ You then need to install the relevant dependencies for the project, using comman
 npm install
 ```
 
-## Getting Your Secrets
+## Getting your secrets
 
 ### Creating a gitignore
 
@@ -120,3 +120,13 @@ VITE_FIREBASE_APP_ID="<appId>"
 > [!NOTE]
 > These secrets can be obtained at a later stage if needed. 
 > Click the settings icon to the right of your "Project Overview" button, then select "Project Settings". You will be able to see the same code segment shown in the "Your Apps" section.
+
+## Preview your website
+
+You can see a live verison of your website as you make changes to your code by using the shell command:
+
+```
+npm run dev
+```
+
+And then visiting the link shown in your terminal.
