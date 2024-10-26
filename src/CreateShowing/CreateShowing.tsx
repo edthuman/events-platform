@@ -7,7 +7,6 @@ import Loading from "../Loading";
 import UserContext from "../../hooks/UserContext";
 
 function CreateShowing() {
-    // TypeScript error on EventForm component can be ignored - isSearchRequired is only set to true when filmDetails are of type FilmPreviewDetails
     const [filmDetails, setFilmDetails] = useState<FilmPreviewResponse>({
         error: "",
     });

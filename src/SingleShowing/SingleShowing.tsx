@@ -21,7 +21,6 @@ const stripePromise = loadStripe(
 );
 
 function SingleShowing() {
-    // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
     const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({
