@@ -59,7 +59,7 @@ export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter)
     }
 }
 
-export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter) {
+export async function handleEventFormSubmit(e: any, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter) {
     e.preventDefault()
     setIsPosting(true)
 
@@ -123,12 +123,15 @@ export async function handleEventFormSubmit(e: FormSubmitEvent, film: string, im
         return
     }
 
-    // TypeScript error on response.id possibly being undefined can be ignored - response from postShowing will always have an id if error is an empty string
-    setError("")
+    if (!response.id) {
+        // Preventing TypeScript error for undefined response.id - which is impossible as postShowing response will always have an id if error is an empty string
+        return
+    }
     setShowingId(response.id)
+    setError("")
     setIsPosting(false)
 }
 
-export function handlePriceTypeInput(e: ChangeEvent, setPriceType: StringStateSetter) {
+export function handlePriceTypeInput(e: React.ChangeEvent<HTMLSelectElement>, setPriceType: StringStateSetter) {
     setPriceType(e.target.value)
 }

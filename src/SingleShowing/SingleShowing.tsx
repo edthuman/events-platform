@@ -21,7 +21,6 @@ const stripePromise = loadStripe(
 );
 
 function SingleShowing() {
-    // TypeScript error on ShowingDetails component can be ignored - filmDetails will be of type FilmDetails whenever this renders
     const showingId = useParams().showing_id;
     const [showing, setShowing] = useState<any>(null);
     const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({
@@ -37,8 +36,10 @@ function SingleShowing() {
     const [clientSecret, setClientSecret] = useState("");
     const [donation, setDonation] = useState("")
 
+    const night: "night" = "night"
+
     const appearance = {
-        theme: "night",
+        theme: night,
     };
     const loader = "auto";
 
@@ -87,6 +88,10 @@ function SingleShowing() {
                     );
                     
                     const secret = paymentIntent.client_secret;
+                    if (!secret) {
+                        setClientSecret("")
+                        return
+                    }
                     setClientSecret(secret);
                 } else if (showing.price !== 0) {
                     const paymentIntent = await stripe.paymentIntents.create(
@@ -100,7 +105,11 @@ function SingleShowing() {
                     );
                     
                     const secret = paymentIntent.client_secret;
-                    setClientSecret(secret);
+                    if (!secret) {
+                        setClientSecret("")
+                    } else {
+                        setClientSecret(secret);
+                    }
                 }
             }
         }

@@ -1,12 +1,11 @@
-import { ChangeEvent } from "react";
 import { SetUser, StringStateSetter, User } from "../types";
 import { signOutUser } from "../server/firebase-auth-methods";
 
-export function handleTextInput(e: ChangeEvent, setTextInput: StringStateSetter) {
+export function handleTextInput(e: any, setTextInput: StringStateSetter) {
     setTextInput(e.target.value);
 }
 
-export function handlePriceInput(e: ChangeEvent, setPriceInput: StringStateSetter, setError: StringStateSetter) {
+export function handlePriceInput(e: any, setPriceInput: StringStateSetter, setError: StringStateSetter) {
     setError("")
     const priceInput = e.target.value
     const nonPriceRegex = /^\d{0,3}(\.\d{0,2})?$/
