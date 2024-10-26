@@ -33,7 +33,9 @@ function Showings() {
     ) : (
         <>
             <h1 className="text-3xl mt-7 pb-4">Upcoming Showings</h1>
-            {isStaff ? <div className="mt-3 mb-7"><Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link></div> : null}
+            <div className="mt-3 mb-7">
+                <Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link>
+            </div>
             <div className="flex flex-wrap justify-center mt-3">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
