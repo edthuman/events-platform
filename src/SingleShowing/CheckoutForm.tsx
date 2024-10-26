@@ -20,12 +20,15 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
     const { user: { email }} = useContext(UserContext)
     const ticketPrice = showing.price === "any" ? donation : showing.price
     const formattedTicketPrice = Number(ticketPrice).toFixed(2)
+    const fullUrl = window.location.href
+    const indexToRemove = fullUrl.indexOf("/showing")
+    const url = fullUrl.slice(0, indexToRemove)
 
     return !email ? (
         <LoggedOutPayAttempt />
     ) : (
         stripe && elements ? (
-            <form className="mt-5 px-2" onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage)}>
+            <form className="mt-5 px-2" onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage, url)}>
                 {message ? <p className="text-xl my-3 py-2 rounded-lg w-10/12 mx-auto bg-red">{message}</p> : null}
                 <AddressElement options={{mode: "shipping"}} />
                 <LinkAuthenticationElement options={{defaultValues: { email }}} />
