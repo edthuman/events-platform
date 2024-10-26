@@ -17,7 +17,7 @@ import CheckoutForm from "./CheckoutForm";
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
 const stripePromise = loadStripe(
-    "pk_test_51Q9nghKK7ykYcCh0ywwIIxPTONKVi1uxYPrboXY4LQfSGkIs9Mj0vSwWsmGeFhYMtwDhCk8B0ZWsZKXdVcXBjSYQ00juMM9MCx"
+    import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 );
 
 function SingleShowing() {
