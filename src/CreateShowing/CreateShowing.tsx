@@ -15,7 +15,6 @@ function CreateShowing() {
     const [showingId, setShowingId] = useState("");
     const [isPosting, setIsPosting] = useState(false);
     const {user} = useContext(UserContext)
-    console.log(user.role)
 
     return user.role !== "staff" ? 
     (
