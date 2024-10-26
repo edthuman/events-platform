@@ -1,6 +1,4 @@
-import { FilmPreviewDetails } from "../../../server/omdb-types";
-
-function FilmPreview({ filmDetails }: { filmDetails: FilmPreviewDetails }) {
+function FilmPreview({ filmDetails }: { filmDetails: any }) {
     const textStyling = "text-2xl mt-3"
     return (
         <>

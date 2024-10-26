@@ -1,12 +1,11 @@
 import { useContext, useState } from "react"
 import { handleDateInput, handleEventFormSubmit, handlePriceTypeInput, handleTimeInput } from "./event-handlers"
 import { getCurrentDate } from "./utils"
-import { FilmPreviewDetails } from "../../server/omdb-types"
 import FirebaseContext from "../../hooks/FirebaseContext"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
 import { handlePriceInput, handleTextInput } from "../event-handler"
 
-function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: FilmPreviewDetails, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter}) {
+function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: any, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter}) {
     const currentDate = getCurrentDate()
     const [eventNameInput, setEventNameInput] = useState("")
     const [descriptionInput, setDescriptionInput] = useState("")
@@ -35,7 +34,7 @@ function EventForm({filmDetails, setShowingId, setIsPosting}: {filmDetails: Film
             </div>
             <div className={formElementStyle}>
                 <label className={labelStyle} htmlFor="description">Event Description:</label>
-                <textarea className={inputStyle + " min-h-20 max-h-72"} id="description" onChange={(e) => handleTextInput(e, setDescriptionInput)} value={descriptionInput} type="text" placeholder="Description of event"/>
+                <textarea className={inputStyle + " min-h-20 max-h-72"} id="description" onChange={(e) => handleTextInput(e, setDescriptionInput)} value={descriptionInput} placeholder="Description of event"/>
             </div>
             <div className={formElementStyle}>
                 <label className={labelStyle} htmlFor="date">Date:</label>

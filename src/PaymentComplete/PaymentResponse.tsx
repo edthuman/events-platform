@@ -68,7 +68,7 @@ const infoIcon = (
     </svg>
 );
 
-const statusDetails = {
+const statusDetails: any = {
     succeeded: {
         text: "Payment successful",
         iconColor: "#30B130",
@@ -102,7 +102,7 @@ const statusDetails = {
 };
 
 function PaymentResponse() {
-    const [status, setStatus] = useState("loading");
+    const [status, setStatus] = useState<any>("loading");
     const stripe = useStripe();
     const queries = useSearchParams()[0];
     const showingId = queries.get("showing");
@@ -148,7 +148,13 @@ function PaymentResponse() {
                 }
             }
 
-            setStatus(paymentIntent.status);
+            const validStatuses = ["succeeded", "processing", "requires_payment_method", "default", "canceled", "loading"]
+            if (!validStatuses.includes(paymentIntent.status)) {
+                setStatus("default")
+            } else {
+                setStatus(paymentIntent.status);
+            }
+
         })();
     }, [stripe]);
 

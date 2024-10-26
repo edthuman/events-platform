@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom"
 import { Showing } from "../../server/firestore-types"
-import { FilmDetails } from "../../server/omdb-types"
 import { getDate, getTime } from "../../utils/datetime-utils"
 import AttendShowing from "./AttendShowing"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
 import ToTopButton from "../ToTopButton"
 
-function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation}: {showing: Showing, filmDetails: FilmDetails, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter}) {
+function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation}: {showing: Showing, filmDetails: any, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter}) {
     let price = `£${Number(showing.price).toFixed(2)}`
     if (price === "£0.00") {
         price = "Free"

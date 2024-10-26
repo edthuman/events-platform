@@ -37,8 +37,10 @@ function SingleShowing() {
     const [clientSecret, setClientSecret] = useState("");
     const [donation, setDonation] = useState("")
 
+    const night: "night" = "night"
+
     const appearance = {
-        theme: "night",
+        theme: night,
     };
     const loader = "auto";
 
@@ -87,6 +89,10 @@ function SingleShowing() {
                     );
                     
                     const secret = paymentIntent.client_secret;
+                    if (!secret) {
+                        setClientSecret("")
+                        return
+                    }
                     setClientSecret(secret);
                 } else if (showing.price !== 0) {
                     const paymentIntent = await stripe.paymentIntents.create(
@@ -100,7 +106,11 @@ function SingleShowing() {
                     );
                     
                     const secret = paymentIntent.client_secret;
-                    setClientSecret(secret);
+                    if (!secret) {
+                        setClientSecret("")
+                    } else {
+                        setClientSecret(secret);
+                    }
                 }
             }
         }

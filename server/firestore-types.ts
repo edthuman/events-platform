@@ -1,5 +1,4 @@
 import { Timestamp } from "@firebase/firestore"
-import { ErrorMessage } from "../types"
 
 export type Showing = {
     id: string
@@ -13,8 +12,6 @@ export type Showing = {
     price: "any" | number
     attendees: string[]
 }
-
-export type SingleShowingResponse = Showing | ErrorMessage
 
 export type UpdateResponse = {
     error: boolean 

@@ -61,6 +61,10 @@ export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, element
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
+        if (typeof error.message !== "string") {
+            // Needed to prevent TypeScript error
+            return
+        }
         setMessage(error.message);
     } else {
         setMessage("An unexpected error occurred");

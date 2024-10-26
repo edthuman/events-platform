@@ -25,7 +25,7 @@ export async function handleGoogleLogin(
     }
 }
 
-export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
+export async function handleSignUpClick(e: any, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
     e.preventDefault()
     setError("")
     
@@ -65,7 +65,7 @@ export async function handleSignUpClick(e: React.FormEvent<HTMLFormElement>, set
     setError("")
 }
 
-export async function handleEmailLogin(e: React.FormEvent<HTMLFormElement>, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
+export async function handleEmailLogin(e: any, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
     e.preventDefault()
     setError("")
 

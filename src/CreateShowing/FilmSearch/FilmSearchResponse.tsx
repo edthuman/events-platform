@@ -12,7 +12,6 @@ function FilmSearchResponse({
     setFilmDetails: any;
     setIsSearchRequired: BooleanStateSetter;
 }) {
-    // TypeScript error on FilmPreview component can be ignored - filmDetails having more than 1 key means it has type FilmPreviewDetails
     const linkStyling = "border w-3/6 block mx-auto mt-5 hover:text-grey"
 
     return (
