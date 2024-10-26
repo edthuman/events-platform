@@ -20,6 +20,8 @@ You then need to install the relevant dependencies for the project, using comman
 npm install
 ```
 
+## Getting Your Secrets
+
 ### Creating a gitignore
 
 Create a file called ".gitignore" at the root of your folder, in which you type (or copy and paste): 
@@ -81,3 +83,40 @@ VITE_STRIPE_KEY="******"
 
 > [!WARNING]
 > This secret key must be kept secret, double check that ".env" is included in your gitignore to prevent this from being seen publicly.
+
+### Setting up Firebase
+
+The Firebase API allows the website to connect with two databases: a Firestore database which contains details of showings and their related users, and a Authentication database which is used to allows users to log into the website.
+
+To begin, create an account with Firebase or log in to https://console.firebase.google.com
+
+You can then click "Create Project" and name your project whatever you like.
+
+Click the "Build" button on the left hand toolbar and select "Firestore Database", then "Create Database".
+
+You do not need to add any events to your database yet, but you may if you wish.
+
+Then, click the "Build" button again, and select "Authentication", then "Get Started". You can configure the settings however you wish. The hosted version of this repo is build to allow Email or Google login, but you can add further options as you please.
+
+### Getting Firebase secrets
+
+With Firebase set-up complete, click the "Project Overview" button with a home icon. Once there, click the "Add app" button, then select the web option.
+
+Enter a name for your web app, and then the code segment shown under "Add Firebase SDK" will include your Firebase secrets in an object called firebaseConfig with the keys: apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId.
+
+From these, you may ignore the databaseURL and measurementId values.
+
+Copy and paste the other values into your .env file. Use the following structure, and replace the <variable names> with the values given on the Firebase website.
+
+```
+VITE_FIREBASE_KEY="<apiKey>"
+VITE_FIREBASE_AUTH_DOMAIN="<authDomain>"
+VITE_FIREBASE_PROJECT_ID="<projectId>"
+VITE_FIREBASE_STORAGE_BUCKET="<storageBucket>"
+VITE_FIREBASE_SENDER_ID="<messagingSenderId>"
+VITE_FIREBASE_APP_ID="<appId>"
+```
+
+> [!NOTE]
+> These secrets can be obtained at a later stage if needed. 
+> Click the settings icon to the right of your "Project Overview" button, then select "Project Settings". You will be able to see the same code segment shown in the "Your Apps" section.
