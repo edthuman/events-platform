@@ -6,15 +6,12 @@ import { Showing } from "../../server/firestore-types";
 import Loading from "../Loading";
 import ShowingLoadFailed from "./ShowingLoadFailed";
 import { Link } from "react-router-dom";
-import UserContext from "../../hooks/UserContext";
 import ToTopButton from "../ToTopButton";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const firestore = useContext(FirebaseContext);
-    const {user} = useContext(UserContext)
-    const isStaff = user.email && user.role === "staff"
 
     useEffect(() => {
         (async () => {
