@@ -29,11 +29,11 @@ function Showings() {
         <ShowingLoadFailed />
     ) : (
         <>
-            <h1 className="text-3xl mt-7 pb-4">Upcoming Showings</h1>
-            <div className="mt-3 mb-7">
-                <Link to="/create-showing" target="_self" className="border p-2 hover:text-grey">Create a showing</Link>
+            <h1 className="text-3xl xl:text-4xl mt-7 pb-4 lg:pb-6">Upcoming Showings</h1>
+            <div className="mt-3 mb-7 lg:mb-10">
+                <Link to="/create-showing" target="_self" className="text-lg border p-3 lg:p-4 lg:text-xl hover:text-grey">Create a showing</Link>
             </div>
-            <div className="flex flex-wrap justify-center mt-3">
+            <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-7 lg:gap-6 justify-center w-full mb-8">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
                 ))}
