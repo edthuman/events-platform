@@ -15,7 +15,7 @@ function CreateShowing() {
     const [isPosting, setIsPosting] = useState(false);
     const {user} = useContext(UserContext)
 
-    return user.role !== "staff" ? 
+    return user.role !== "staff" || !user.email ? 
     (
         <p className="text-2xl mt-8">Please log in as staff to create an event</p>
     ) : (
