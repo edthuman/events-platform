@@ -15,6 +15,7 @@ import {
     getTime,
 } from "../../utils/datetime-utils";
 import { handleEventEditSubmit } from "./event-handlers";
+import { Link } from "react-router-dom";
 
 function EventDetailsForm({
     showing,
@@ -40,6 +41,7 @@ function EventDetailsForm({
     const [priceInput, setPriceInput] = useState(initialPrice);
     const firestore = useContext(FirebaseContext);
     const [isPosting, setIsPosting] = useState(false);
+    const [hasPosted, setHasPosted] = useState(false)
     const [error, setError] = useState("");
     const formElementStyle = "flex mb-4 self-center w-full";
     const labelStyle = "flex text-lg w-1/2 self-center justify-center";
@@ -47,8 +49,16 @@ function EventDetailsForm({
     const buttonStyle = `border w-3/6 mx-auto mt-2 hover:text-grey ${
         isPosting ? "text-grey" : "text-off_white"
     }`;
-
-    return (
+    const linkStyle = "text-xl block border py-3 w-3/6 mx-auto mt-4 hover:text-grey"
+    
+    
+    return hasPosted ? (
+        <>
+            <h1 className="text-3xl my-5">Details updated</h1>
+            <Link to="/" className={linkStyle}>View all showings</Link>
+            <Link to="/create-showing" className={linkStyle}>Create an event</Link>
+        </>
+    ) : (
         <>
             <h1 className="text-3xl my-5">Edit event details:</h1>
             <form
@@ -59,7 +69,8 @@ function EventDetailsForm({
                         firestore,
                         showing,
                         setError,
-                        setIsPosting
+                        setIsPosting,
+                        setHasPosted
                     )
                 }
             >

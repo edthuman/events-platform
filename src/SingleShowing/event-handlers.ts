@@ -75,7 +75,7 @@ export async function handlePayment(e: FormSubmitEvent, stripe: Stripe, elements
     setIsLoading(false);
 };
 
-export async function handleEventEditSubmit(e: any, firestore: Firestore, showing: Showing, setError: StringStateSetter, setIsPosting: BooleanStateSetter) {
+export async function handleEventEditSubmit(e: any, firestore: Firestore, showing: Showing, setError: StringStateSetter, setIsPosting: BooleanStateSetter, setHasPosted: BooleanStateSetter) {
     e.preventDefault()
     setIsPosting(true)
     
@@ -133,4 +133,7 @@ export async function handleEventEditSubmit(e: any, firestore: Firestore, showin
     const response = await updateShowing(firestore, showingId, eventName, startDate, endDate, description, price)
     setError(response.error)
     setIsPosting(false)
+    if (!response.error){
+        setHasPosted(true)
+    }
 }
