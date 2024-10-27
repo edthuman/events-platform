@@ -1,8 +1,8 @@
-import { BooleanStateSetter, ChangeEvent, FormSubmitEvent, SetFilmDetails, StringStateSetter } from "../../types";
+import { BooleanStateSetter, FormSubmitEvent, SetFilmDetails, StringStateSetter } from "../../types";
 import { getFilmPreview } from "../../server/omdb-methods";
 import { postShowing } from "../../server/firestore-methods";
 import { Firestore, Timestamp } from "@firebase/firestore";
-import { getDurationSeconds, getEventDetailsError } from "./utils";
+import { getDurationSeconds, getEventDetailsError } from "../../utils/event-details-utils";
 
 export async function findFilmDetails(e: FormSubmitEvent, searchInput: string, setFilmDetails: SetFilmDetails, omdbKey: string, setIsLoading: BooleanStateSetter, isNameSearch: boolean) {
     e.preventDefault();
@@ -32,31 +32,6 @@ export function handleFilmFound(setIsSearchRequired: BooleanStateSetter) {
 
 export function handleIncorrectFilmFound(setFilmDetails: any) {
     setFilmDetails({ error: "" })
-}
-
-export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter) {
-    const dateRegex = /\d\d-\d\d-\d\d/
-    const dateTyped = e.target.value
-
-    if (dateRegex.test(dateTyped)) {
-        setDateInput(e.target.value)
-    }
-}
-
-export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter) {
-    const timeRegex = /\d\d:\d\d/
-    const timeTyped = e.target.value
-
-    if (!timeRegex.test(timeTyped)) {
-        return
-    }
-
-    const hourTyped = Number(timeTyped.slice(0,2))
-    const minsTyped = Number(timeTyped.slice(-2))
-    
-    if (hourTyped < 24 && minsTyped < 60) {
-        setTimeInput(timeTyped)
-    }
 }
 
 export async function handleEventFormSubmit(e: any, film: string, imdbId: string, posterUrl: string, firestore: Firestore, setError: StringStateSetter, setShowingId: StringStateSetter, setIsPosting: BooleanStateSetter) {
@@ -130,8 +105,4 @@ export async function handleEventFormSubmit(e: any, film: string, imdbId: string
     setShowingId(response.id)
     setError("")
     setIsPosting(false)
-}
-
-export function handlePriceTypeInput(e: React.ChangeEvent<HTMLSelectElement>, setPriceType: StringStateSetter) {
-    setPriceType(e.target.value)
 }
