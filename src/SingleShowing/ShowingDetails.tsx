@@ -5,7 +5,7 @@ import AttendShowing from "./AttendShowing"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
 import ToTopButton from "../ToTopButton"
 
-function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation}: {showing: Showing, filmDetails: any, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter}) {
+function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation, setIsEditing}: {showing: Showing, filmDetails: any, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter, setIsEditing: BooleanStateSetter}) {
     let price = `£${Number(showing.price).toFixed(2)}`
     if (price === "£0.00") {
         price = "Free"
@@ -32,6 +32,7 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
                 setIsPaying={setIsPaying}
                 donation={donation}
                 setDonation={setDonation}
+                setIsEditing={setIsEditing}
 
         />
         <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 mt-2 mb-4"/>

@@ -1,7 +1,9 @@
-import { Firestore } from "@firebase/firestore";
-import { addAttendee } from "../../server/firestore-methods";
+import { Firestore, Timestamp } from "@firebase/firestore";
+import { addAttendee, updateShowing } from "../../server/firestore-methods";
 import { BooleanStateSetter, FormSubmitEvent, StringStateSetter } from "../../types";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
+import { getDurationSeconds, getEventDetailsError } from "../../utils/event-details-utils";
+import { Showing } from "../../server/firestore-types";
 
 async function handleRegistration(
     setIsButtonDisabled: BooleanStateSetter,
@@ -43,7 +45,7 @@ export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButto
     setIsPaying(true)
 }
 
-export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, elements: StripeElements, showingId: string, setIsLoading: BooleanStateSetter, setMessage: StringStateSetter, url: string) {
+export async function handlePayment(e: FormSubmitEvent, stripe: Stripe, elements: StripeElements, showingId: string, setIsLoading: BooleanStateSetter, setMessage: StringStateSetter, url: string) {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -72,3 +74,66 @@ export async function handlePayment (e: FormSubmitEvent, stripe: Stripe, element
 
     setIsLoading(false);
 };
+
+export async function handleEventEditSubmit(e: any, firestore: Firestore, showing: Showing, setError: StringStateSetter, setIsPosting: BooleanStateSetter, setHasPosted: BooleanStateSetter) {
+    e.preventDefault()
+    setIsPosting(true)
+    
+    const showingId = showing.id
+    const elements = e.target.elements
+    const date = elements.date.value
+    const time = elements.time.value
+
+    let startDate: Timestamp
+    try {
+        const fullStartDate = new Date(`${date}T${time}Z`)
+        startDate = Timestamp.fromDate(fullStartDate)
+    }
+    catch {
+        setError("Invalid date or time given")
+        setIsPosting(false)
+        return
+    }
+    
+    const duration = elements.duration.value
+    const durationSeconds = getDurationSeconds(duration)
+    const endSeconds = startDate.seconds + durationSeconds
+
+    let endDate
+    try {
+        endDate = new Timestamp(endSeconds, 0)
+    } catch (err) {
+        setError("Invalid duration")
+        setIsPosting(false)
+        return
+    }
+    const eventName = elements["event-name"].value
+    const description = elements.description.value
+    const error = getEventDetailsError(eventName, description)
+    if (error) {
+        setError(error)
+        setIsPosting(false)
+        return
+    }
+
+    let price: "any" | number
+    const priceType = elements["price-type"].value
+    if (priceType === "set") {
+        const priceInput = Number(elements["price"].value)
+        if (priceInput === 0) {
+            setError("Set price must not be free")
+            setIsPosting(false)
+            return
+        }
+        price = priceInput
+    } else {
+        price = (priceType === "free" ? 0 : "any")
+    }
+
+    const response = await updateShowing(firestore, showingId, eventName, startDate, endDate, description, price)
+    setError(response.error)
+    setIsPosting(false)
+    if (!response.error){
+        setHasPosted(true)
+    }
+}

@@ -13,6 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
+import EventDetailsForm from "./EventDetailsForm";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
@@ -35,6 +36,7 @@ function SingleShowing() {
     const [isPaying, setIsPaying] = useState(false);
     const [clientSecret, setClientSecret] = useState("");
     const [donation, setDonation] = useState("")
+    const [isEditing, setIsEditing] = useState(false)
 
     const night: "night" = "night"
 
@@ -124,6 +126,8 @@ function SingleShowing() {
         <ErrorMessage error={filmDetails.error} />
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
+    ) : isEditing ? (
+        <EventDetailsForm showing={showing} setIsEditing={setIsEditing} setIsLoading={setIsLoading}/>
     ) : isPaying && clientSecret ? (
         <Elements
             options={{ clientSecret, appearance, loader }}
@@ -132,7 +136,7 @@ function SingleShowing() {
             <CheckoutForm showing={showing} donation={donation}/>
         </Elements>
     ) : (
-        <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation}/>
+        <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation} setIsEditing={setIsEditing}/>
     );
 }
 

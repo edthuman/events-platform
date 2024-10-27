@@ -4,51 +4,73 @@ import {
     handlePriceTypeInput,
     handleTimeInput,
 } from "../event-handlers";
-import { getCurrentDate } from "../../utils/datetime-utils";
 import FirebaseContext from "../../hooks/FirebaseContext";
-import { BooleanStateSetter, StringStateSetter } from "../../types";
+import { BooleanStateSetter } from "../../types";
 import { handlePriceInput, handleTextInput } from "../event-handlers";
-import { handleEventFormSubmit } from "./event-handlers";
+import { Showing } from "../../server/firestore-types";
+import {
+    getCurrentDate,
+    getDuration,
+    getFullDate,
+    getTime,
+} from "../../utils/datetime-utils";
+import { handleEventEditSubmit } from "./event-handlers";
+import { Link } from "react-router-dom";
 
-function EventForm({
-    filmDetails,
-    setShowingId,
-    setIsPosting,
+function EventDetailsForm({
+    showing,
+    setIsEditing,
 }: {
-    filmDetails: any;
-    setShowingId: StringStateSetter;
-    setIsPosting: BooleanStateSetter;
+    showing: Showing;
+    setIsEditing: BooleanStateSetter;
 }) {
     const currentDate = getCurrentDate();
-    const [eventNameInput, setEventNameInput] = useState("");
-    const [descriptionInput, setDescriptionInput] = useState("");
-    const [dateInput, setDateInput] = useState(currentDate);
-    const [timeInput, setTimeInput] = useState("00:00");
-    const [durationInput, setDurationInput] = useState("00:30");
-    const [priceType, setPriceType] = useState("free");
-    const [priceInput, setPriceInput] = useState("");
-    const { title, imdbId, poster } = filmDetails;
+    const { name, film, description, price, startDate, endDate } = showing;
+    const [eventNameInput, setEventNameInput] = useState(name);
+    const [descriptionInput, setDescriptionInput] = useState(description);
+    const startDay = getFullDate(startDate);
+    const [dateInput, setDateInput] = useState(startDay);
+    const startTime = getTime(startDate);
+    const [timeInput, setTimeInput] = useState(startTime);
+    const initialDuration = getDuration(startDate, endDate);
+    const [durationInput, setDurationInput] = useState(initialDuration);
+    const initialPriceType =
+        price === "any" ? "optional" : price === 0 ? "free" : "set";
+    const [priceType, setPriceType] = useState(initialPriceType);
+    const initialPrice = price === "any" || price === 0 ? "0" : String(price);
+    const [priceInput, setPriceInput] = useState(initialPrice);
     const firestore = useContext(FirebaseContext);
+    const [isPosting, setIsPosting] = useState(false);
+    const [hasPosted, setHasPosted] = useState(false)
     const [error, setError] = useState("");
     const formElementStyle = "flex mb-4 self-center w-full";
     const labelStyle = "flex text-lg w-1/2 self-center justify-center";
     const inputStyle = "bg-off_white text-black w-1/2 px-2 py-1 text-center";
-
-    return (
+    const buttonStyle = `border w-3/6 mx-auto mt-2 hover:text-grey ${
+        isPosting ? "text-grey" : "text-off_white"
+    }`;
+    const linkStyle = "text-xl block border py-3 w-3/6 mx-auto mt-4 hover:text-grey"
+    
+    
+    return hasPosted ? (
         <>
-            <h1 className="text-3xl my-5">Fill out events details:</h1>
+            <h1 className="text-3xl my-5">Details updated</h1>
+            <Link to="/" className={linkStyle}>View all showings</Link>
+            <Link to="/create-showing" className={linkStyle}>Create an event</Link>
+        </>
+    ) : (
+        <>
+            <h1 className="text-3xl my-5">Edit event details:</h1>
             <form
                 className="flex flex-col px-2"
                 onSubmit={(e) =>
-                    handleEventFormSubmit(
+                    handleEventEditSubmit(
                         e,
-                        title,
-                        imdbId,
-                        poster,
                         firestore,
+                        showing,
                         setError,
-                        setShowingId,
-                        setIsPosting
+                        setIsPosting,
+                        setHasPosted
                     )
                 }
             >
@@ -62,18 +84,17 @@ function EventForm({
                         onChange={(e) => handleTextInput(e, setEventNameInput)}
                         value={eventNameInput}
                         type="text"
-                        placeholder="My Event"
                     />
                 </div>
                 <div className={formElementStyle}>
-                    <label className={labelStyle} htmlFor="film-name">
+                    <label className={labelStyle} htmlFor="film">
                         Film:
                     </label>
                     <input
                         className={inputStyle + " text-grey"}
-                        id="film-name"
-                        value={title}
+                        id="film"
                         type="text"
+                        value={film}
                         readOnly
                     />
                 </div>
@@ -167,12 +188,26 @@ function EventForm({
                         {error}
                     </p>
                 ) : null}
-                <button type="submit" className="border w-3/6 mx-auto mt-2">
-                    Create event
+                {isPosting ? (
+                    <p className="text-2xl mb-2">Updating event...</p>
+                ) : null}
+                <button
+                    type="submit"
+                    className={buttonStyle}
+                    disabled={isPosting}
+                >
+                    Update event
+                </button>
+                <button
+                    className={buttonStyle}
+                    onClick={() => setIsEditing(false)}
+                    disabled={isPosting}
+                >
+                    Cancel changes
                 </button>
             </form>
         </>
     );
 }
 
-export default EventForm;
+export default EventDetailsForm;

@@ -1,4 +1,4 @@
-import { SetUser, StringStateSetter, User } from "../types";
+import { ChangeEvent, SetUser, StringStateSetter, User } from "../types";
 import { signOutUser } from "../server/firebase-auth-methods";
 
 export function handleTextInput(e: any, setTextInput: StringStateSetter) {
@@ -30,4 +30,33 @@ export async function handleLogOutClick(e: React.MouseEvent<HTMLButtonElement, M
     }
 
     setError(error)
+}
+
+export function handleDateInput(e: ChangeEvent, setDateInput: StringStateSetter) {
+    const dateRegex = /\d\d-\d\d-\d\d/
+    const dateTyped = e.target.value
+
+    if (dateRegex.test(dateTyped)) {
+        setDateInput(e.target.value)
+    }
+}
+
+export function handleTimeInput(e: ChangeEvent, setTimeInput: StringStateSetter) {
+    const timeRegex = /\d\d:\d\d/
+    const timeTyped = e.target.value
+
+    if (!timeRegex.test(timeTyped)) {
+        return
+    }
+
+    const hourTyped = Number(timeTyped.slice(0,2))
+    const minsTyped = Number(timeTyped.slice(-2))
+    
+    if (hourTyped < 24 && minsTyped < 60) {
+        setTimeInput(timeTyped)
+    }
+}
+
+export function handlePriceTypeInput(e: React.ChangeEvent<HTMLSelectElement>, setPriceType: StringStateSetter) {
+    setPriceType(e.target.value)
 }

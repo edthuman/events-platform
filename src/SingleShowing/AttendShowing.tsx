@@ -5,19 +5,22 @@ import ShowingRegistration from "./ShowingRegistration";
 import RegisteredMessage from "./RegisteredMessage";
 import { BooleanStateSetter, StringStateSetter } from "../../types";
 import UnregisteredMessage from "./UnregisteredMessage";
+import ManageEventButton from "./ManageEvent";
 
 function AttendShowing({
     showing,
     isNotInCalendar,
     setIsPaying,
     donation,
-    setDonation
+    setDonation,
+    setIsEditing
 }: {
     showing: Showing;
     isNotInCalendar: boolean;
     setIsPaying: BooleanStateSetter;
     donation: string;
-    setDonation: StringStateSetter;
+    setDonation: StringStateSetter
+    setIsEditing: BooleanStateSetter;
 }) {
     const { user } = useContext(UserContext);
     const isUserInAttendees = showing.attendees.includes(user.email);
@@ -26,7 +29,7 @@ function AttendShowing({
     return user.role === "guest" ? (
         <UnregisteredMessage message="Please log in to register for event"/>
     ) : user.role === "staff" ? (
-        <UnregisteredMessage message="You must be non-staff to register for an event"/>
+        <ManageEventButton setIsEditing={setIsEditing}/>
     ) : isUserAttending ? (
         <RegisteredMessage
             showing={showing}
