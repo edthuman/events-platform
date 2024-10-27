@@ -92,3 +92,17 @@ export async function addAttendee(database: Firestore, username: string, showing
         return { error: true }
     }
 }
+
+export async function updateShowing(database: Firestore, showingId: string, name: string, startDate: Timestamp, endDate: Timestamp, description: string, price: "any" | number) {
+    try {
+        const showingDocument = doc(database, `showings/${showingId}`)
+    
+        await updateDoc(showingDocument, { name, startDate, endDate, description, price })
+        // updateDoc returns undefined when successful, otherwise errors
+
+        return { error: "" }
+    }
+    catch (err) {
+        return { error: "Something went wrong whilst updating event" }
+    }
+}
