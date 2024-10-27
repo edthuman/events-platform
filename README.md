@@ -6,6 +6,20 @@ Events can be free, paid for, or pay as you want.
 
 When a user has signed up to attend an event, they can add events to a Google calendar.
 
+## Hosted Website
+
+Link to hosted website: https://events-platform-i74z.onrender.com
+
+### Test user login details:  
+
+Email: test@test.com  
+Password: test123
+
+### Testing Stripe
+
+To make a test payment, please use the test card details provided in Stripe's [documentation](https://docs.stripe.com/testing)
+
+
 ## Copying the repo
 
 To begin working on the repo, navigate in your shell to the directory where you wish to save it. Then download a copy of the repo using the command:
@@ -123,7 +137,7 @@ VITE_FIREBASE_APP_ID="<appId>"
 
 ## Preview your website
 
-You can see a live verison of your website as you make changes to your code by using the shell command:
+You can see a live version of your website as you make changes to your code by using the shell command:
 
 ```
 npm run dev
