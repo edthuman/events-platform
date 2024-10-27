@@ -11,7 +11,8 @@ function Login() {
     const [isSigningUp, setIsSigningUp] = useState(false)
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
-    const buttonStyle = "text-xl border mt-6 w-10/12 hover:text-grey"
+    const buttonStyle = "block mx-auto text-xl border mt-6 xl:mt-8 w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 hover:text-grey h-min"
+    const buttonTextStyle = "text-xl sm:text-2xl py-3 sm:py-3 xl:py-4"
 
     useEffect(() => {
         if (!user.email) {
@@ -31,12 +32,12 @@ function Login() {
         ) :(
             user.role === "guest" ? (
             <>
-                <h2 className="text-2xl no-underline pb-2 pt-8">How are you logging in today?</h2>
+                <h2 className="text-2xl xl:text-3xl no-underline pb-2 pt-8 mt-5">How are you logging in today?</h2>
                 <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "staff")}>
-                    Staff
+                    <p className={buttonTextStyle}>Staff</p>
                 </button>
                 <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "non-staff")}>
-                    Non-staff
+                    <p className={buttonTextStyle}>Non-staff</p>
                 </button>
             </>
         ) : (
@@ -48,9 +49,15 @@ function Login() {
                         <EmailLogin setError={setError}/>
                     ) : (
                     <>
-                        <button className={buttonStyle} onClick={() => setIsEmailLogin(true)}>Sign in with Email</button>
-                        <button className={buttonStyle} onClick={() => handleGoogleLogin(setUser, user.role, setError)}>Sign in with Google</button>
-                        <button className={buttonStyle} onClick={() => setIsSigningUp(true)}>Sign up</button>
+                        <button className={buttonStyle} onClick={() => setIsEmailLogin(true)}>
+                            <p className={buttonTextStyle}>Sign in with Email</p>
+                        </button>
+                        <button className={buttonStyle} onClick={() => handleGoogleLogin(setUser, user.role, setError)}>
+                            <p className={buttonTextStyle}>Sign in with Google</p>
+                        </button>
+                        <button className={buttonStyle} onClick={() => setIsSigningUp(true)}>
+                            <p className={buttonTextStyle}>Sign up</p>
+                        </button>
                     </> 
                 ))}
             </>
