@@ -32,7 +32,6 @@ export function getCurrentDate(): string {
 
 export function getDuration(start: Timestamp, end: Timestamp) {
     const durationMins = (end.seconds - start.seconds) / 60
-    console.log(durationMins)
     const mins = String(durationMins % 60)
     const hours = String(Math.floor(durationMins / 60))
     const duration = `${hours.length === 1 ? "0" : ""}${hours}:${mins.length === 1 ? "0" : ""}${mins}`
