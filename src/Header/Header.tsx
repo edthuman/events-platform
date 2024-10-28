@@ -16,7 +16,7 @@ function Header() {
     const titleTextStyling = "w-min text-3xl lg:text-4xl"
 
     const loginHomeLinkStyling = "text-3xl font-bold size-full hover:text-grey"
-    const loginTitleTextStyling = "md:text-4xl xl:text-5xl"
+    const loginTitleTextStyling = "mt-4 text-4xl md:text-4xl xl:text-5xl"
 
     return (
         <>
