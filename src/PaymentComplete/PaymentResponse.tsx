@@ -160,16 +160,16 @@ function PaymentResponse() {
 
     return stripe ? (
         <>
-            <h1 className="text-3xl my-6">{statusDetails[status].text}</h1>
+            <h1 className="text-3xl my-6 lg:mt-10">{statusDetails[status].text}</h1>
             <div
                 style={{
                     backgroundColor: statusDetails[status].iconColor,
                 }}
-                className="rounded-lg py-1 flex justify-center w-11/12 mx-auto"
+                className="rounded-lg py-1 flex justify-center w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 mx-auto"
                 >
                 {statusDetails[status].icon}
             </div>
-            {error ? <p className="text-2xl py-1 rounded-lg mt-5">{error}</p> : null}
+            {error ? <p className="text-2xl py-1 px-2 rounded-lg mt-5">{error}</p> : null}
             <ReturnLinks showingId={showingId} />
         </>
     ) : (
