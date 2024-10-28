@@ -5,6 +5,7 @@ import { FilmPreviewResponse } from "../../server/omdb-types";
 import PostSuccessMessage from "./PostSuccessMessage";
 import Loading from "../Loading";
 import UserContext from "../../hooks/UserContext";
+import HomeLink from "../SingleShowing/HomeLink";
 
 function CreateShowing() {
     const [filmDetails, setFilmDetails] = useState<FilmPreviewResponse>({
@@ -15,7 +16,9 @@ function CreateShowing() {
     const [isPosting, setIsPosting] = useState(false);
     const {user} = useContext(UserContext)
 
-    return user.role !== "staff" || !user.email ? 
+    return <>
+    <HomeLink />
+    {user.role !== "staff" || !user.email ? 
     (
         <p className="text-2xl lg:text-3xl mt-10 lg:mt-14">Please log in as staff to create an event</p>
     ) : (
@@ -36,7 +39,8 @@ function CreateShowing() {
         ) : (
             <PostSuccessMessage showingId={showingId} />
         )
-    );
+    )}
+    </>
 }
 
 export default CreateShowing;
