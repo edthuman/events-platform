@@ -4,8 +4,8 @@ import { handleTextInput } from "../event-handlers";
 function EmailFormElements() {
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
-    const labelStyling = "mt-5 mb-1";
-    const inputStyling = "mx-auto w-11/12 pl-2 py-0.5 text-black";
+    const labelStyling = "mt-5 mb-1 text-md md:text-lg lg:text-xl lg:mb-3";
+    const inputStyling = "mx-auto w-10/12 sm:w-7/12 md:w-6/12 lg:5/12 xl:4/12 pl-2 py-0.5 md:py-1 xl:py-2 text-black";
 
     return (
         <>

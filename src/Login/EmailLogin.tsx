@@ -10,8 +10,8 @@ function EmailLogin({ setError }: { setError: StringStateSetter }) {
     return <>
         <form className="flex flex-col" onSubmit={e => handleEmailLogin(e, setUser, setError)}>
             <EmailFormElements />
-            <button type="submit" className="border w-20 mx-auto mt-5 hover:text-grey">
-                Sign in
+            <button type="submit" className="mx-auto mt-5 hover:text-grey">
+                <p className="text-base border p-2 w-max mx-auto md:text-lg md:px-3">Sign in</p>
             </button>
         </form>
     </>

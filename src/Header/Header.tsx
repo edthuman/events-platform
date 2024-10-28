@@ -12,11 +12,11 @@ function Header() {
     const isLogOutButtonRequired = pathname !== "/login" && user.email;
     const [error, setError] = useState("");
 
-    const homeLinkStyling = "text-3xl font-bold size-9/12 hover:text-grey pl-5"
-    const titleTextStyling = "w-min"
+    const homeLinkStyling = "font-bold size-9/12 hover:text-grey pl-5"
+    const titleTextStyling = "w-min text-3xl lg:text-4xl"
 
     const loginHomeLinkStyling = "text-3xl font-bold size-full hover:text-grey"
-    const loginTitleTextStyling = ""
+    const loginTitleTextStyling = "mt-4 text-4xl md:text-4xl xl:text-5xl"
 
     return (
         <>

@@ -44,25 +44,25 @@ function EventDetailsForm({
     const [hasPosted, setHasPosted] = useState(false)
     const [error, setError] = useState("");
     const formElementStyle = "flex mb-4 self-center w-full";
-    const labelStyle = "flex text-lg w-1/2 self-center justify-center";
-    const inputStyle = "bg-off_white text-black w-1/2 px-2 py-1 text-center";
-    const buttonStyle = `border w-3/6 mx-auto mt-2 hover:text-grey ${
+    const labelStyle = "flex text-lg sm:text-xl w-1/2 self-center justify-center";
+    const inputStyle = "bg-off_white sm:text-lg text-black w-1/2 px-2 py-1 text-center";
+    const buttonStyle = `sm:text-xl w-5/12 sm:4/12 mx-auto mt-2 mb-3 xl:mb-5 hover:text-grey ${
         isPosting ? "text-grey" : "text-off_white"
     }`;
-    const linkStyle = "text-xl block border py-3 w-3/6 mx-auto mt-4 hover:text-grey"
-    
+    const buttonTextStyle = "py-3 xl:py-4 text-lg xl:text-xl"
+    const linkStyle = "text-xl lg:text-2xl block border py-3 lg:py-4 w-3/6 sm:w-5/12 md:w-4/12 mx-auto mt-4 lg:mt-6 lg:mb-4 hover:text-grey"
     
     return hasPosted ? (
         <>
-            <h1 className="text-3xl my-5">Details updated</h1>
+            <h1 className="text-3xl md:text-4xl my-5">Details updated</h1>
             <Link to="/" className={linkStyle}>View all showings</Link>
             <Link to="/create-showing" className={linkStyle}>Create an event</Link>
         </>
     ) : (
         <>
-            <h1 className="text-3xl my-5">Edit event details:</h1>
+            <h1 className="text-3xl sm:text-4xl my-5">Edit event details:</h1>
             <form
-                className="flex flex-col px-2"
+                className="flex flex-col px-2 mx-auto sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12"
                 onSubmit={(e) =>
                     handleEventEditSubmit(
                         e,
@@ -103,7 +103,7 @@ function EventDetailsForm({
                         Event Description:
                     </label>
                     <textarea
-                        className={inputStyle + " min-h-20 max-h-72"}
+                        className={inputStyle + " min-h-20 sm:min-h-32 max-h-72"}
                         id="description"
                         onChange={(e) =>
                             handleTextInput(e, setDescriptionInput)
@@ -196,14 +196,14 @@ function EventDetailsForm({
                     className={buttonStyle}
                     disabled={isPosting}
                 >
-                    Update event
+                    <p className={buttonTextStyle + " border"}>Update event</p>
                 </button>
                 <button
                     className={buttonStyle}
                     onClick={() => setIsEditing(false)}
                     disabled={isPosting}
                 >
-                    Cancel changes
+                    <p className={buttonTextStyle + " bg-red"}>Cancel changes</p>
                 </button>
             </form>
         </>
