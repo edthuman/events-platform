@@ -1,6 +1,6 @@
 # Events Platform
 
-This repo is for a Community Cinema website which allows 'staff' users to create events, and 'non-staff' users to attend events.
+This repo is for a Community Cinema website which allows 'staff' users to create and manage events, and 'non-staff' users to attend events.
 
 Events can be free, paid for, or pay as you want.
 
