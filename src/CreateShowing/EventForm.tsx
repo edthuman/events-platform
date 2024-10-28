@@ -31,14 +31,14 @@ function EventForm({
     const firestore = useContext(FirebaseContext);
     const [error, setError] = useState("");
     const formElementStyle = "flex mb-4 self-center w-full";
-    const labelStyle = "flex text-lg w-1/2 self-center justify-center";
-    const inputStyle = "bg-off_white text-black w-1/2 px-2 py-1 text-center";
+    const labelStyle = "flex text-lg md:text-xl w-1/2 self-center justify-center";
+    const inputStyle = "bg-off_white md:text-lg text-black w-1/2 px-2 py-1 text-center";
 
     return (
         <>
             <h1 className="text-3xl my-5">Fill out events details:</h1>
             <form
-                className="flex flex-col px-2"
+                className="flex flex-col px-2 mx-auto sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12"
                 onSubmit={(e) =>
                     handleEventFormSubmit(
                         e,
@@ -82,7 +82,7 @@ function EventForm({
                         Event Description:
                     </label>
                     <textarea
-                        className={inputStyle + " min-h-20 max-h-72"}
+                        className={inputStyle + " min-h-20 xl:min-h-32 max-h-72"}
                         id="description"
                         onChange={(e) =>
                             handleTextInput(e, setDescriptionInput)
@@ -163,12 +163,12 @@ function EventForm({
                     </div>
                 ) : null}
                 {error ? (
-                    <p className="text-xl w-11/12 bg-red mx-auto mb-2 rounded-lg py-1">
+                    <p className="text-xl w-11/12 lg:w-10/12 bg-red mx-auto mb-2 rounded-lg py-1">
                         {error}
                     </p>
                 ) : null}
-                <button type="submit" className="border w-3/6 mx-auto mt-2">
-                    Create event
+                <button type="submit" className="mt-2">
+                    <p className="border hover:text-grey mx-auto w-max text-lg md:text-xl px-3 md:px-4 py-2 md:py-3">Create event</p>
                 </button>
             </form>
         </>
