@@ -17,7 +17,7 @@ function CreateShowing() {
 
     return user.role !== "staff" || !user.email ? 
     (
-        <p className="text-2xl mt-8">Please log in as staff to create an event</p>
+        <p className="text-2xl lg:text-3xl mt-10 lg:mt-14">Please log in as staff to create an event</p>
     ) : (
         isSearchRequired ? (
             <FilmSearch
