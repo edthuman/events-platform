@@ -10,7 +10,7 @@ function LogOutButton({ setError }: { setError: StringStateSetter }) {
             className="flex items-start justify-center w-3/12 mt-1 mr-2"
             onClick={(e) => handleLogOutClick(e, setError, setUser)}
         >
-            <p className="text-xl font-medium text-[black] bg-[#D45143] hover:bg-[#AF4C40] p-2 rounded-xl md:text-2xl lg:p-3">
+            <p className="text-xl font-medium text-black bg-[#D45143] hover:bg-[#AF4C40] p-2 rounded-xl md:text-2xl lg:p-3">
                 Log Out
             </p>
         </button>
