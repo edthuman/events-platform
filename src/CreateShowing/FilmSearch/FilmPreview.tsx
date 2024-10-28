@@ -12,7 +12,7 @@ function FilmPreview({ filmDetails }: { filmDetails: any }) {
             <img
                 src={filmDetails.poster}
                 alt={`Poster for ${filmDetails.title}`}
-                className="mx-auto size-8/12"
+                className="mx-auto w-7/12 sm:w-5/12 md:w-4/12 lg:w-3/12"
             />
         </>
     );
