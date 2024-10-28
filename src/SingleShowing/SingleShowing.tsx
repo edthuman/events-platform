@@ -127,7 +127,7 @@ function SingleShowing() {
     ) : calendarError ? (
         <ErrorMessage error={calendarError} />
     ) : isEditing ? (
-        <EventDetailsForm showing={showing} setIsEditing={setIsEditing} setIsLoading={setIsLoading}/>
+        <EventDetailsForm showing={showing} setIsEditing={setIsEditing}/>
     ) : isPaying && clientSecret ? (
         <Elements
             options={{ clientSecret, appearance, loader }}
