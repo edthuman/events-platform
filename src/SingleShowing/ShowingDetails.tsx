@@ -6,6 +6,8 @@ import { BooleanStateSetter, StringStateSetter } from "../../types"
 import ToTopButton from "../ToTopButton"
 
 function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation, setIsEditing}: {showing: Showing, filmDetails: any, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter, setIsEditing: BooleanStateSetter}) {
+    const { title, year, rating, runtime, director, genre, plot } = filmDetails
+    const { name, startDate, poster, description, imdbId } = showing
     let price = `£${Number(showing.price).toFixed(2)}`
     if (price === "£0.00") {
         price = "Free"
@@ -16,11 +18,11 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
     
     return <>
         <Link to="/" className="block text-left hover:text-grey mt-2">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
-        <h1 className="text-5xl mt-5 mb-5">{showing.name}</h1>
+        <h1 className="text-5xl mt-5 mb-5">{name}</h1>
         <div className="grid grid-cols-2 grid-rows-2 px-8">
             <div className="row-span-2 text-left text-lg">
-                <p className="pb-3">{getDate(showing.startDate)}</p>
-                <p className="pb-1">{getTime(showing.startDate)}</p>
+                <p className="pb-3">{getDate(startDate)}</p>
+                <p className="pb-1">{getTime(startDate)}</p>
             </div>
             <div className="row-span-2 text-right text-lg">
                 <p>{price}</p>
@@ -35,20 +37,20 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
                 setIsEditing={setIsEditing}
 
         />
-        <img src={`${showing.poster}`} alt={`Poster for ${filmDetails.title}`} className="m-auto size-7/12 mt-2 mb-4"/>
-        <p className="text-2xl pb-10">{showing.description}</p>
+        <img src={`${poster}`} alt={`Poster for ${title}`} className="m-auto size-7/12 mt-2 mb-4"/>
+        <p className="text-2xl pb-10">{description}</p>
         <div className="mb-5">
             <h2 className="text-3xl pb-3">Movie Details:</h2>
             <p className="text-2xl pb-3">
-                {filmDetails.title} ({filmDetails.year})
+                {title} ({year})
             </p>
-            <p className="text-2xl pb-3">Rated: {filmDetails.rating}</p>
-            <p className="text-2xl pb-3">Runtime: {filmDetails.runtime}</p>
-            <p className="text-2xl pb-3">Directed by: {filmDetails.director}</p>
-            <p className="text-2xl pb-3">Genre(s): {filmDetails.genre}</p>
-            <p className="text-2xl pb-4">Plot: {filmDetails.plot}</p>
+            <p className="text-2xl pb-3">Rated: {rating}</p>
+            <p className="text-2xl pb-3">Runtime: {runtime}</p>
+            <p className="text-2xl pb-3">Directed by: {director}</p>
+            <p className="text-2xl pb-3">Genre(s): {genre}</p>
+            <p className="text-2xl pb-4">Plot: {plot}</p>
             <Link
-                to={`https://www.imdb.com/title/${showing.imdbId}`}
+                to={`https://www.imdb.com/title/${imdbId}`}
                 target="_blank"
                 className="text-xl underline text-off_white hover:text-grey hover:no-underline"
             >
