@@ -50,12 +50,11 @@ function EventDetailsForm({
         isPosting ? "text-grey" : "text-off_white"
     }`;
     const buttonTextStyle = "py-3 xl:py-4 text-lg xl:text-xl"
-    const linkStyle = "text-xl block border py-3 w-3/6 mx-auto mt-4 hover:text-grey"
-    
+    const linkStyle = "text-xl lg:text-2xl block border py-3 lg:py-4 w-3/6 sm:w-5/12 md:w-4/12 mx-auto mt-4 lg:mt-6 lg:mb-4 hover:text-grey"
     
     return hasPosted ? (
         <>
-            <h1 className="text-3xl my-5">Details updated</h1>
+            <h1 className="text-3xl md:text-4xl my-5">Details updated</h1>
             <Link to="/" className={linkStyle}>View all showings</Link>
             <Link to="/create-showing" className={linkStyle}>Create an event</Link>
         </>
