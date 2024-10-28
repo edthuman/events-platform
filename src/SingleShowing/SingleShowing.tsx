@@ -14,6 +14,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
 import EventDetailsForm from "./EventDetailsForm";
+import HomeLink from "./HomeLink";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
@@ -118,26 +119,30 @@ function SingleShowing() {
         )()
         }, [isPaying])
 
-    return !showing || !filmDetails || isLoading ? (
-        <Loading />
-    ) : showing.error ? (
-        <ErrorMessage error={showing.error} />
-    ) : filmDetails.error ? (
-        <ErrorMessage error={filmDetails.error} />
-    ) : calendarError ? (
-        <ErrorMessage error={calendarError} />
-    ) : isEditing ? (
-        <EventDetailsForm showing={showing} setIsEditing={setIsEditing}/>
-    ) : isPaying && clientSecret ? (
-        <Elements
-            options={{ clientSecret, appearance, loader }}
-            stripe={stripePromise}
-        >
-            <CheckoutForm showing={showing} donation={donation}/>
-        </Elements>
-    ) : (
-        <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation} setIsEditing={setIsEditing}/>
-    );
+    return <>
+        <HomeLink />
+        {!showing || !filmDetails || isLoading ? (
+            <Loading />
+        ) : showing.error ? (
+            <ErrorMessage error={showing.error} />
+        ) : filmDetails.error ? (
+            <ErrorMessage error={filmDetails.error} />
+        ) : calendarError ? (
+            <ErrorMessage error={calendarError} />
+        ) : isEditing ? (
+            <EventDetailsForm showing={showing} setIsEditing={setIsEditing}/>
+        ) : isPaying && clientSecret ? (
+            <Elements
+                options={{ clientSecret, appearance, loader }}
+                stripe={stripePromise}
+            >
+                <CheckoutForm showing={showing} donation={donation}/>
+            </Elements>
+        ) : (
+            <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation} setIsEditing={setIsEditing}/>
+        )
+        }
+    </>
 }
 
 export default SingleShowing;
