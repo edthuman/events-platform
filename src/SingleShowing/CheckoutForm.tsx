@@ -11,8 +11,9 @@ import { Showing } from "../../server/firestore-types";
 import { handlePayment } from "./event-handlers";
 import LoggedOutPayAttempt from "./LoggedOutPayAttempt";
 import CheckoutError from "./CheckoutError";
+import { BooleanStateSetter } from "../../types";
 
-export default function CheckoutForm({ showing, donation }: { showing: Showing, donation: string }) {
+export default function CheckoutForm({ showing, donation, setIsPaying }: { showing: Showing, donation: string, setIsPaying: BooleanStateSetter }) {
     const stripe = useStripe();
     const elements = useElements();
     const [message, setMessage] = useState("");
@@ -28,18 +29,26 @@ export default function CheckoutForm({ showing, donation }: { showing: Showing, 
         <LoggedOutPayAttempt />
     ) : (
         stripe && elements ? (
-            <form className="mt-5 px-2" onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage, url)}>
-                {message ? <p className="text-xl my-3 py-2 rounded-lg w-10/12 mx-auto bg-red">{message}</p> : null}
-                <AddressElement options={{mode: "shipping"}} />
-                <LinkAuthenticationElement options={{defaultValues: { email }}} />
-                <PaymentElement />
+            <>
+                <form className="mt-5 px-2" onSubmit={e => handlePayment(e, stripe, elements, showing.id, setIsLoading, setMessage, url)}>
+                    {message ? <p className="text-xl my-3 py-2 rounded-lg w-10/12 mx-auto bg-red">{message}</p> : null}
+                    <AddressElement options={{mode: "shipping"}} />
+                    <LinkAuthenticationElement options={{defaultValues: { email }}} />
+                    <PaymentElement />
+                    <button
+                        disabled={isLoading || !stripe || !elements}
+                        className="text-lg bg-[#30313c] hover:bg-[#22242B] mt-3 rounded-md border border-[#424352] shadow-md shadow-[#202020]"
+                    >
+                        {`Pay £${formattedTicketPrice}`}
+                    </button>
+                </form>
                 <button
                     disabled={isLoading || !stripe || !elements}
-                    className="text-lg bg-[#30313c] mt-3 rounded-md border border-[#424352] shadow-md shadow-[#202020]"
-                >
-                    {`Pay £${formattedTicketPrice}`}
+                    onClick={()=>setIsPaying(false)}
+                    >
+                    <p className="hover:bg-[#832318] text-lg mt-3 mb-6 mx-2 py-2.5 rounded-md bg-red border border-[#424352] shadow-md shadow-[#202020]">Cancel payment</p>
                 </button>
-            </form>
+            </>
         ) : (
             <CheckoutError />
         )
