@@ -136,7 +136,7 @@ function SingleShowing() {
                 options={{ clientSecret, appearance, loader }}
                 stripe={stripePromise}
             >
-                <CheckoutForm showing={showing} donation={donation}/>
+                <CheckoutForm showing={showing} donation={donation} setIsPaying={setIsPaying}/>
             </Elements>
         ) : (
             <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation} setIsEditing={setIsEditing}/>
