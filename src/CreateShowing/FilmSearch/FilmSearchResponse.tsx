@@ -12,8 +12,8 @@ function FilmSearchResponse({
     setFilmDetails: any;
     setIsSearchRequired: BooleanStateSetter;
 }) {
-    const linkStyling = "border w-3/6 block mx-auto mt-5 hover:text-grey"
-
+    const linkStyling = "w-3/6 md:w-5/12 lg:w-3/12 block mx-auto mt-5 hover:text-grey";
+    const buttonTextStyling = "text-lg lg:text-xl py-3 border"
     return (
         <>
             {Object.keys(filmDetails).length > 1 ? (
@@ -24,13 +24,13 @@ function FilmSearchResponse({
                         onClick={() => handleFilmFound(setIsSearchRequired)}
                         className={linkStyling}
                     >
-                        Yes
+                        <p className={buttonTextStyling}>Yes</p>
                     </button>
                     <button
                         onClick={() => handleIncorrectFilmFound(setFilmDetails)}
                         className={linkStyling}
                     >
-                        No
+                        <p className={buttonTextStyling}>No</p>
                     </button>
                 </>
             ) : null}
