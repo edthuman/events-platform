@@ -4,6 +4,7 @@ import { getDate, getTime } from "../../utils/datetime-utils"
 import AttendShowing from "./AttendShowing"
 import { BooleanStateSetter, StringStateSetter } from "../../types"
 import ToTopButton from "../ToTopButton"
+import HomeLink from "./HomeLink"
 
 function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, donation, setDonation, setIsEditing}: {showing: Showing, filmDetails: any, isNotInCalendar: boolean, setIsPaying: BooleanStateSetter, donation: string, setDonation: StringStateSetter, setIsEditing: BooleanStateSetter}) {
     const { title, year, rating, runtime, director, genre, plot } = filmDetails
@@ -17,7 +18,7 @@ function ShowingDetails({showing, filmDetails, isNotInCalendar, setIsPaying, don
     }
     
     return <>
-        <Link to="/" className="block text-left hover:text-grey mt-2">{"←"}<span className="underline hover:no-underline">Back to all showings</span></Link>
+        <HomeLink />
         <h1 className="text-5xl mt-5 mb-5">{name}</h1>
         <div className="grid grid-cols-2 grid-rows-2 px-8">
             <div className="row-span-2 text-left text-lg">
