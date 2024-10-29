@@ -32,7 +32,7 @@ export async function getFilmDetails(omdbKey: string, imdbId: string): Promise<F
 
 export async function getFilmPreview(omdbKey: string, searchInput: string, isNameSearch: boolean): Promise<FilmPreviewResponse>{
     try {
-        const response = await axios.get(`http://www.omdbapi.com/?apikey=${omdbKey}&${isNameSearch ? "t" : "i"}=${searchInput}`)
+        const response = await axios.get(`https://www.omdbapi.com/?apikey=${omdbKey}&${isNameSearch ? "t" : "i"}=${searchInput}`)
 
         if (response.data.Response === "False") {
             return { error: "No film found, please try again" }
