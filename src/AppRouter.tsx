@@ -25,6 +25,10 @@ const router = createBrowserRouter([
     {
         path: "/complete",
         element: <Page page="PaymentComplete" />,
+    },
+    {
+        path: "/*",
+        element: <Page page="PageNotFound" />
     }
 ]);
 
