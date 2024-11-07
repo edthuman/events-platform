@@ -17,7 +17,17 @@ Password: test123
 
 ### Testing Stripe
 
-To make a test payment, please use the test card details provided in Stripe's [documentation](https://docs.stripe.com/testing)
+To make a test payment, you should use Stripe's test card details. Some example test card details are as follows: 
+
+| Payment type            | Card no.            |
+| ----------------------- | ------------------- |
+| Successful              | 4242 4242 4242 4242 |
+| Declined                | 4000 0000 0000 9995 |
+| Requires authentication | 4000 0025 0000 3155 |
+
+Alongside these card numbers, provide any valid future date for the expiry, and any 3 number combination for the CVC.
+
+For test card details covering other payment types or further information on testing, please consult Stripe's [documentation](https://docs.stripe.com/testing).
 
 
 ## Copying the repo
