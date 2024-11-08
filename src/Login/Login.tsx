@@ -9,6 +9,7 @@ import HomeLink from "../SingleShowing/HomeLink";
 
 function Login() {
     const { user, setUser } = useContext(UserContext)
+    const {email, role} = user
     const [isSigningUp, setIsSigningUp] = useState(false)
     const [isEmailLogin, setIsEmailLogin] = useState(false)
     const [error, setError] = useState("")
@@ -16,7 +17,7 @@ function Login() {
     const buttonTextStyle = "text-xl sm:text-2xl py-3 sm:py-3 xl:py-4"
 
     useEffect(() => {
-        if (!user.email) {
+        if (!email) {
             setUser((currUser: User) => {
                 return {
                     ...currUser,
@@ -29,12 +30,12 @@ function Login() {
     return <>
     <HomeLink/>
         {error ? <p className="text-lg lg:text-xl mt-6 py-1 lg:py-2 px-4 rounded-lg bg-red w-10/12 sm:w-7/12 md:w-6/12 lg:5/12 xl:4/12 mx-auto">{error}</p> : null}
-        {user.email ? (
+        {email ? (
             <SuccessfulLoginLinks setError={setError}/>
         ) :(
-            user.role === "guest" ? (
+            role === "guest" ? (
             <>
-                <h2 className="text-2xl xl:text-3xl no-underline pb-2 mt-7">How are you logging in today?</h2>
+                <h2 className="text-2xl xl:text-3xl no-underline pb-2 mt-7">How are you signing in today?</h2>
                 <button className={buttonStyle} onClick={() => handleRoleSelection(setUser, "staff")}>
                     <p className={buttonTextStyle}>Staff</p>
                 </button>
@@ -43,13 +44,13 @@ function Login() {
                 </button>
             </>
         ) : (
+            role === "staff" || isEmailLogin ? (
+            <EmailLogin setError={setError} role={role}/>
+        ) : (
             <>
                 {isSigningUp ? (
                     <SignUpForm setError={setError}/>
                 ) : (
-                    isEmailLogin ? (
-                        <EmailLogin setError={setError}/>
-                    ) : (
                     <>
                         <button className={buttonStyle} onClick={() => setIsEmailLogin(true)}>
                             <p className={buttonTextStyle}>Sign in with Email</p>
@@ -61,9 +62,9 @@ function Login() {
                             <p className={buttonTextStyle}>Sign up</p>
                         </button>
                     </> 
-                ))}
+                )}
             </>
-            )
+            ))
         )}
     </>
 }
