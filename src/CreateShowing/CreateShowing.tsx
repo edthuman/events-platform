@@ -20,7 +20,7 @@ function CreateShowing() {
     <HomeLink />
     {user.role !== "staff" || !user.email ? 
     (
-        <p className="text-2xl lg:text-3xl mt-10 lg:mt-14">Please log in as staff to create an event</p>
+        <p className="text-2xl lg:text-3xl mt-10 lg:mt-14 px-3">Please log in as staff to add an event</p>
     ) : (
         isSearchRequired ? (
             <FilmSearch
