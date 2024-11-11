@@ -7,11 +7,13 @@ import Loading from "../Loading";
 import ShowingLoadFailed from "./ShowingLoadFailed";
 import { Link } from "react-router-dom";
 import ToTopButton from "../ToTopButton";
+import { getFirestore } from "@firebase/firestore";
 
 function Showings() {
     const [showings, setShowings] = useState<Showing[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const firestore = useContext(FirebaseContext);
+    const firebaseApp = useContext(FirebaseContext);
+    const firestore = getFirestore(firebaseApp)
 
     useEffect(() => {
         (async () => {

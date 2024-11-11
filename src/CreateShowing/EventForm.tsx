@@ -9,6 +9,7 @@ import FirebaseContext from "../../hooks/FirebaseContext";
 import { BooleanStateSetter, StringStateSetter } from "../../types";
 import { handlePriceInput, handleTextInput } from "../event-handlers";
 import { handleEventFormSubmit } from "./event-handlers";
+import { getFirestore } from "@firebase/firestore";
 
 function EventForm({
     filmDetails,
@@ -28,7 +29,8 @@ function EventForm({
     const [priceType, setPriceType] = useState("free");
     const [priceInput, setPriceInput] = useState("");
     const { title, imdbId, poster } = filmDetails;
-    const firestore = useContext(FirebaseContext);
+    const firebaseApp = useContext(FirebaseContext);
+    const firestore = getFirestore(firebaseApp)
     const [error, setError] = useState("");
     const formElementStyle = "flex mb-4 self-center w-full";
     const labelStyle = "flex text-lg md:text-xl w-1/2 self-center justify-center";

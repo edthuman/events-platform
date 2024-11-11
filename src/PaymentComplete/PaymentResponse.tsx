@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { addAttendee } from "../../server/firestore-methods";
 import FirebaseContext from "../../hooks/FirebaseContext";
 import UserContext from "../../hooks/UserContext";
+import { getFirestore } from "@firebase/firestore";
 
 const successIcon = (
     <svg
@@ -106,7 +107,8 @@ function PaymentResponse() {
     const stripe = useStripe();
     const queries = useSearchParams()[0];
     const showingId = queries.get("showing");
-    const firebase = useContext(FirebaseContext);
+    const firebaseApp = useContext(FirebaseContext);
+    const firestore = getFirestore(firebaseApp)
     const {
         user: { email },
     } = useContext(UserContext);
@@ -141,7 +143,7 @@ function PaymentResponse() {
             }
 
             if (paymentIntent.status === "succeeded") {
-                const response = await addAttendee(firebase, email, showingId);
+                const response = await addAttendee(firestore, email, showingId);
                 if (response.error) {
                     setError("An error occurred whilst adding you to the event");
                     return;

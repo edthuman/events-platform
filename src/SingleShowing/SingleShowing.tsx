@@ -15,6 +15,7 @@ import Stripe from "stripe";
 import CheckoutForm from "./CheckoutForm";
 import EventDetailsForm from "./EventDetailsForm";
 import HomeLink from "./HomeLink";
+import { getFirestore } from "@firebase/firestore";
 
 const omdbKey = import.meta.env.VITE_OMDB_KEY;
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_KEY);
@@ -28,7 +29,8 @@ function SingleShowing() {
     const [filmDetails, setFilmDetails] = useState<FilmDetailsResponse>({
         error: "",
     });
-    const firestore = useContext(FirebaseContext);
+    const firebaseApp = useContext(FirebaseContext);
+    const firestore = getFirestore(firebaseApp)
     const [isLoading, setIsLoading] = useState(true);
     const [isNotInCalendar, setIsNotInCalendar] = useState(true);
     const [calendarError, setCalendarError] = useState("");
