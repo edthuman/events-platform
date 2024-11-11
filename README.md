@@ -112,7 +112,7 @@ VITE_STRIPE_KEY="******"
 
 ### Setting up Firebase
 
-The Firebase API allows the website to connect with two databases: a Firestore database which contains details of showings and their related users, and a Authentication database which is used to allows users to log into the website.
+The Firebase API allows the website to connect with three databases: a Firestore database which contains details of showings and their related users, an a Authentication database which is used to allows users to log into the website, and a Realtime Database that stores details of user roles.
 
 To begin, create an account with Firebase or log in to https://console.firebase.google.com
 
@@ -124,9 +124,11 @@ You do not need to add any events to your database yet, but you may if you wish.
 
 Then, click the "Build" button again, and select "Authentication", then "Get Started". You can configure the settings however you wish. The hosted version of this repo is build to allow Email or Google login, but you can add further options as you please.
 
+After this, one again click the "Build" button, and select "Realtime Database". You do not have to add any data to this database straight away.
+
 ### Getting Firebase secrets
 
-With Firebase set-up complete, click the "Project Overview" button with a home icon. Once there, click the "Add app" button, then select the web option.
+With Firebase set-up complete, navigate to your Firestore and then click the "Project Overview" button with a home icon. Once there, click the "Add app" button, then select the web option.
 
 Enter a name for your web app, and then the code segment shown under "Add Firebase SDK" will include your Firebase secrets in an object called firebaseConfig with the keys: apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId.
 
@@ -146,6 +148,14 @@ VITE_FIREBASE_APP_ID="<appId>"
 > [!NOTE]
 > These secrets can be obtained at a later stage if needed. 
 > Click the settings icon to the right of your "Project Overview" button, then select "Project Settings". You will be able to see the same code segment shown in the "Your Apps" section.
+
+Now navigate to your Realtime Database. At the top of your database above where the data will be displayed, there is a URL with a button to the left that says "Copy reference url" as you hover over it. 
+
+Copy and paste this link into your .env file in the following format replacing ****** with your copied link.
+
+```
+VITE_FIREBASE_REALTIME_URL="******"
+```
 
 ## Preview your website
 
