@@ -9,11 +9,11 @@ async function handleRegistration(
     setIsButtonDisabled: BooleanStateSetter,
     setError: StringStateSetter,
     setIsUserAttending: BooleanStateSetter,
-    firebase: Firestore,
+    firestore: Firestore,
     email: string,
     showingId: string
 ) {
-    const response = await addAttendee(firebase, email, showingId);
+    const response = await addAttendee(firestore, email, showingId);
 
     if (response.error) {
         setError("Error occurred during registration, please try again");
@@ -24,14 +24,14 @@ async function handleRegistration(
     setIsUserAttending(true);
 }
 
-export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setError: StringStateSetter, setIsUserAttending: BooleanStateSetter, firebase: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
+export function handleBuyTicketClick(setIsPaying: BooleanStateSetter, setIsButtonDisabled: BooleanStateSetter, setError: StringStateSetter, setIsUserAttending: BooleanStateSetter, firestore: Firestore, email: string, showingId: string, price: number | "any", donation: string) {
     setIsButtonDisabled(true)
     setError("")
     
     const isDonationZero = price === "any" && Number(donation) === 0
     const isFree = price === 0 || isDonationZero
     if (isFree) {
-        handleRegistration(setIsButtonDisabled, setError, setIsUserAttending, firebase, email, showingId)
+        handleRegistration(setIsButtonDisabled, setError, setIsUserAttending, firestore, email, showingId)
         return
     }
 

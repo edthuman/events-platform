@@ -16,6 +16,7 @@ import {
 } from "../../utils/datetime-utils";
 import { handleEventEditSubmit } from "./event-handlers";
 import { Link } from "react-router-dom";
+import { getFirestore } from "@firebase/firestore";
 
 function EventDetailsForm({
     showing,
@@ -39,7 +40,8 @@ function EventDetailsForm({
     const [priceType, setPriceType] = useState(initialPriceType);
     const initialPrice = price === "any" || price === 0 ? "0" : String(price);
     const [priceInput, setPriceInput] = useState(initialPrice);
-    const firestore = useContext(FirebaseContext);
+    const firebaseApp = useContext(FirebaseContext);
+    const firestore = getFirestore(firebaseApp)
     const [isPosting, setIsPosting] = useState(false);
     const [hasPosted, setHasPosted] = useState(false)
     const [error, setError] = useState("");

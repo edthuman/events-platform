@@ -2,6 +2,7 @@ import { createUser, signInUser } from "../../server/firebase-auth-methods";
 import { getGoogleAuthorisation } from "../../server/google-methods";
 import { SetUser, StringStateSetter, User } from "../../types";
 import { getEmailError, getPasswordError } from "./utils";
+import { checkIsStaff } from "../../server/realtime-methods"
 
 export async function handleGoogleLogin(
     setUser: React.SetStateAction<any>,
@@ -65,7 +66,7 @@ export async function handleSignUpClick(e: any, setUser: React.SetStateAction<an
     setError("")
 }
 
-export async function handleEmailLogin(e: any, setUser: React.SetStateAction<any>, setError: StringStateSetter) {
+export async function handleEmailLogin(e: any, setUser: React.SetStateAction<any>, setError: StringStateSetter, role: string, firebase: any, databaseURL: string) {
     e.preventDefault()
     setError("")
 
@@ -83,6 +84,18 @@ export async function handleEmailLogin(e: any, setUser: React.SetStateAction<any
     if (passwordError) {
         setError(passwordError)
         return
+    }
+
+    if (role === "staff") {
+        const response = await checkIsStaff(firebase, databaseURL, email)
+        if (response.error) {
+            setError(response.error)
+            return
+        }
+        if (response.isInvalidEmail) {
+            setError("No staff account exists with this email")
+            return
+        }
     }
 
     const response = await signInUser(email, password)
