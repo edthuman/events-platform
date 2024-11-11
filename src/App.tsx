@@ -5,7 +5,6 @@ import FirebaseContext from "../hooks/FirebaseContext.ts"
 import { User } from "../types.ts"
 import AppRouter from "./AppRouter.tsx"
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "@firebase/firestore"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_KEY,
@@ -19,10 +18,9 @@ const firebaseConfig = {
 function App() {
     const [user, setUser] = useState<User>({ role: "guest", email: "", isGoogleAccount: false })
     const firebaseApp = initializeApp(firebaseConfig)
-    const firestore = getFirestore(firebaseApp)
 
     return user ? <UserContext.Provider value={{user, setUser}}>
-        <FirebaseContext.Provider value={firestore}>
+        <FirebaseContext.Provider value={firebaseApp}>
             <AppRouter/>
         </FirebaseContext.Provider>
     </UserContext.Provider> : null
