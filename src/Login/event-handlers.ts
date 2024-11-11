@@ -98,6 +98,19 @@ export async function handleEmailLogin(e: any, setUser: React.SetStateAction<any
         }
     }
 
+    if (role === "non-staff") {
+        const response = await checkIsStaff(firebase, databaseURL, email)
+        if (response.error) {
+            setError(response.error)
+            return
+        }
+        const isStaff = !response.isInvalidEmail
+        if (isStaff) {
+            setError("Login failed - attempting to log in with staff email")
+            return
+        }
+    }
+
     const response = await signInUser(email, password)
     if (response.error) {
         setError(response.error)
