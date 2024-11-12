@@ -1,6 +1,17 @@
 import { ChangeEvent, SetUser, StringStateSetter, User } from "../types";
 import { signOutUser } from "../server/firebase-auth-methods";
 
+export function handleEventNameInput(e: any, setEventNameInput: StringStateSetter, setError: StringStateSetter) {
+    setError("")
+
+    const eventName = e.target.value
+    if (eventName.length > 50) {
+        setError("Event name must be 50 characters or fewer")
+        return
+    }
+    setEventNameInput(e.target.value);
+}
+
 export function handleTextInput(e: any, setTextInput: StringStateSetter) {
     setTextInput(e.target.value);
 }
