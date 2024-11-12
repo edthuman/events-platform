@@ -8,9 +8,11 @@ export function getDate(datetime: Timestamp) {
 export function getFullDate(datetime: Timestamp) {
     const fullDate = datetime.toDate()
     const day = String(fullDate.getDate())
+    const formattedDay = day.length === 2 ? day : `${"0" + day}`
     const month = String(fullDate.getMonth() + 1)
+    const formattedMonth = month.length === 2 ? month : `${"0" + month}`
     const year = String(fullDate.getFullYear())
-    return `${year}-${month}-${day}`
+    return `${year}-${formattedMonth}-${formattedDay}`
 }
 
 export function getTime(datetime: Timestamp) {
