@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import {
     handleDateInput,
+    handleEventNameInput,
     handlePriceTypeInput,
     handleTimeInput,
 } from "../event-handlers";
@@ -83,7 +84,7 @@ function EventDetailsForm({
                     <input
                         className={inputStyle}
                         id="event-name"
-                        onChange={(e) => handleTextInput(e, setEventNameInput)}
+                        onChange={(e) => handleEventNameInput(e, setEventNameInput, setError)}
                         value={eventNameInput}
                         type="text"
                     />
