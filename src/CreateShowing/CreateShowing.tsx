@@ -17,29 +17,29 @@ function CreateShowing() {
     const {user} = useContext(UserContext)
 
     return <>
-    <HomeLink />
-    {user.role !== "staff" || !user.email ? 
-    (
-        <p className="text-2xl lg:text-3xl mt-10 lg:mt-14 px-3">Please log in as staff to add an event</p>
-    ) : (
-        isSearchRequired ? (
-            <FilmSearch
-                filmDetails={filmDetails}
-                setFilmDetails={setFilmDetails}
-                setIsSearchRequired={setIsSearchRequired}
-            />
-        ) : isPosting ? (
-            <Loading />
-        ) : showingId === "" ? (
-            <EventForm
-                filmDetails={filmDetails}
-                setShowingId={setShowingId}
-                setIsPosting={setIsPosting}
-            />
+        <HomeLink />
+        {user.role !== "staff" || !user.email ? 
+        (
+            <p className="text-2xl lg:text-3xl mt-10 lg:mt-14 px-3">Please log in as staff to add an event</p>
         ) : (
-            <PostSuccessMessage showingId={showingId} />
-        )
-    )}
+            isSearchRequired ? (
+                <FilmSearch
+                    filmDetails={filmDetails}
+                    setFilmDetails={setFilmDetails}
+                    setIsSearchRequired={setIsSearchRequired}
+                />
+            ) : isPosting ? (
+                <Loading />
+            ) : showingId === "" ? (
+                <EventForm
+                    filmDetails={filmDetails}
+                    setShowingId={setShowingId}
+                    setIsPosting={setIsPosting}
+                />
+            ) : (
+                <PostSuccessMessage showingId={showingId} />
+            )
+        )}
     </>
 }
 
