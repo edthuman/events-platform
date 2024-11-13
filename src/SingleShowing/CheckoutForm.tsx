@@ -42,13 +42,16 @@ export default function CheckoutForm({ showing, donation, setIsPaying }: { showi
                         {`Pay £${formattedTicketPrice}`}
                     </button>
                 </form>
-                <button
-                    disabled={isLoading || !stripe || !elements}
-                    onClick={()=>setIsPaying(false)}
-                    >
-                    <p className="hover:bg-[#832318] text-lg mt-3 mb-6 mx-2 py-2.5 rounded-md bg-red border border-[#424352] shadow-md shadow-[#202020]">Cancel payment</p>
-                </button>
-            </>
+                <div className="px-2">
+                    <button
+                        disabled={isLoading || !stripe || !elements}
+                        onClick={()=>setIsPaying(false)}
+                        className="h-max place-content-center w-12/12 hover:bg-[#832318] mt-3 mb-5 py-2.5 rounded-md bg-red border border-[#424352] shadow-md shadow-[#202020]"
+                        >
+                        <p className="text-lg">Cancel payment</p>
+                    </button>
+                </div>
+            </> 
         ) : (
             <CheckoutError />
         )
