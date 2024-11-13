@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import UserContext from "../../hooks/UserContext";
 import { useContext, useState } from "react";
 import LogOutButton from "../LogOutButton";
-import LogInButton from "./LogInButton";
+import LogInLink from "./LogInLink";
 
 function Header() {
     const { pathname } = useLocation();
@@ -29,7 +29,7 @@ function Header() {
                     </Link>
                 </div>
                 {isLoginLinkRequired ? (
-                    <LogInButton/>
+                    <LogInLink/>
                 ) : null}
                 {isLogOutButtonRequired ? (
                     <LogOutButton setError={setError} />
