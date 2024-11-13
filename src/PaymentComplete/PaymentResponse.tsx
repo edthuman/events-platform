@@ -161,7 +161,7 @@ function PaymentResponse() {
     }, [stripe]);
 
     return stripe ? (
-        <>
+        <main>
             <h1 className="text-3xl my-6 lg:mt-10">{statusDetails[status].text}</h1>
             <div
                 style={{
@@ -173,9 +173,11 @@ function PaymentResponse() {
             </div>
             {error ? <p className="text-2xl py-1 px-2 rounded-lg mt-5">{error}</p> : null}
             <ReturnLinks showingId={showingId} />
-        </>
+        </main>
     ) : (
-        <Loading />
+        <main>
+            <Loading />
+        </main>
     );
 }
 

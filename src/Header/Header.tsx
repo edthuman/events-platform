@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import UserContext from "../../hooks/UserContext";
 import { useContext, useState } from "react";
 import LogOutButton from "../LogOutButton";
-import LogInButton from "./LogInButton";
+import LogInLink from "./LogInLink";
 
 function Header() {
     const { pathname } = useLocation();
@@ -19,7 +19,7 @@ function Header() {
     const loginPageTitleTextStyling = "text-4xl md:text-4xl xl:text-5xl"
 
     return (
-        <>
+        <header>
             <div className="mt-2 flex justify-between">
                 <div className={isLoginPage ? loginPageHomeLinkStyling : homeLinkStyling}>
                     <Link to="/" className={isLoginPage ? "my-4" : ""} >
@@ -29,14 +29,14 @@ function Header() {
                     </Link>
                 </div>
                 {isLoginLinkRequired ? (
-                    <LogInButton/>
+                    <LogInLink/>
                 ) : null}
                 {isLogOutButtonRequired ? (
                     <LogOutButton setError={setError} />
                 ) : null}
             </div>
             {error ? <p className="mt-1 text-base bg-red w-max px-2 py-1 mx-auto  rounded-md">{error}</p> : null}
-        </>
+        </header>
     );
 }
 

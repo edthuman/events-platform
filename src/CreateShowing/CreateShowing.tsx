@@ -16,7 +16,7 @@ function CreateShowing() {
     const [isPosting, setIsPosting] = useState(false);
     const {user} = useContext(UserContext)
 
-    return <>
+    return <main>
         <HomeLink />
         {user.role !== "staff" || !user.email ? 
         (
@@ -40,7 +40,7 @@ function CreateShowing() {
                 <PostSuccessMessage showingId={showingId} />
             )
         )}
-    </>
+    </main>
 }
 
 export default CreateShowing;

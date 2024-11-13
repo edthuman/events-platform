@@ -121,7 +121,7 @@ function SingleShowing() {
         )()
         }, [isPaying])
 
-    return <>
+    return <main>
         <HomeLink />
         {!showing || !filmDetails || isLoading ? (
             <Loading />
@@ -144,7 +144,7 @@ function SingleShowing() {
             <ShowingDetails showing={showing} filmDetails={filmDetails} isNotInCalendar={isNotInCalendar} setIsPaying={setIsPaying} donation={donation} setDonation={setDonation} setIsEditing={setIsEditing}/>
         )
         }
-    </>
+    </main>
 }
 
 export default SingleShowing;
