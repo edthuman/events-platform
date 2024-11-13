@@ -41,7 +41,7 @@ function EventForm({
         <>
             <h1 className="text-3xl my-5">Fill out events details:</h1>
             <form
-                className="flex flex-col px-2 mx-auto sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12"
+                className="items-center flex flex-col px-2 mx-auto sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12"
                 onSubmit={(e) =>
                     handleEventFormSubmit(
                         e,
@@ -170,7 +170,7 @@ function EventForm({
                         {error}
                     </p>
                 ) : null}
-                <button type="submit" className="mt-2">
+                <button type="submit" className="mt-2 w-max">
                     <p className="border hover:text-grey mx-auto w-max text-lg md:text-xl px-3 md:px-4 py-2 md:py-3">Create event</p>
                 </button>
             </form>
