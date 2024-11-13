@@ -1,7 +1,7 @@
 function FilmPreview({ filmDetails }: { filmDetails: any }) {
     const textStyling = "text-2xl mt-3"
     return (
-        <section>
+        <article>
             <div className="mt-6 mb-4">
                 <p className={textStyling + " underline"}>Details found:</p>
                 <p className={textStyling}>Title: {filmDetails.title}</p>
@@ -14,7 +14,7 @@ function FilmPreview({ filmDetails }: { filmDetails: any }) {
                 alt={`Poster for ${filmDetails.title}`}
                 className="mx-auto w-7/12 sm:w-5/12 md:w-4/12 lg:w-3/12"
             />
-        </section>
+        </article>
     );
 }
 
