@@ -19,7 +19,7 @@ function Header() {
     const loginPageTitleTextStyling = "text-4xl md:text-4xl xl:text-5xl"
 
     return (
-        <>
+        <header>
             <div className="mt-2 flex justify-between">
                 <div className={isLoginPage ? loginPageHomeLinkStyling : homeLinkStyling}>
                     <Link to="/" className={isLoginPage ? "my-4" : ""} >
@@ -36,7 +36,7 @@ function Header() {
                 ) : null}
             </div>
             {error ? <p className="mt-1 text-base bg-red w-max px-2 py-1 mx-auto  rounded-md">{error}</p> : null}
-        </>
+        </header>
     );
 }
 
