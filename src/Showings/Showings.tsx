@@ -39,11 +39,11 @@ function Showings() {
             <div className="mt-3 mb-7 lg:mb-10">
                 <Link to="/create-showing" target="_self" className="text-lg border p-3 lg:p-4 lg:text-xl hover:text-grey">Add an event</Link>
             </div>
-            <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-7 lg:gap-6 justify-center w-full mb-8">
+            <section className="flex flex-col items-center md:flex-row md:flex-wrap gap-7 lg:gap-6 justify-center w-full mb-8">
                 {showings.map((showing) => (
                     <ShowingCard showing={showing} key={showing.id} />
                 ))}
-            </div>
+            </section>
             <ToTopButton />
         </main>
     );
