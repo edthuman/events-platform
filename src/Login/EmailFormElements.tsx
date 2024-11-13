@@ -24,7 +24,7 @@ function EmailFormElements() {
             </label>
             <input
                 id="password"
-                className={inputStyling}
+                className={inputStyling + " mb-1"}
                 type="password"
                 value={passwordInput}
                 onChange={(e) => handleTextInput(e, setPasswordInput)}
