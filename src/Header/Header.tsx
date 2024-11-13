@@ -15,15 +15,15 @@ function Header() {
     const homeLinkStyling = "font-bold hover:text-grey pl-5"
     const titleTextStyling = "w-min text-3xl lg:text-4xl"
 
-    const loginHomeLinkStyling = "w-full flex justify-center text-3xl font-bold hover:text-grey"
-    const loginTitleTextStyling = "text-4xl md:text-4xl xl:text-5xl"
+    const loginPageHomeLinkStyling = "w-full flex justify-center text-3xl font-bold hover:text-grey"
+    const loginPageTitleTextStyling = "text-4xl md:text-4xl xl:text-5xl"
 
     return (
         <>
             <div className="mt-2 flex justify-between">
-                <div className={isLoginPage ? loginHomeLinkStyling : homeLinkStyling}>
+                <div className={isLoginPage ? loginPageHomeLinkStyling : homeLinkStyling}>
                     <Link to="/" className={isLoginPage ? "my-4" : ""} >
-                        <p className={isLoginPage ? loginTitleTextStyling : titleTextStyling}>
+                        <p className={isLoginPage ? loginPageTitleTextStyling : titleTextStyling}>
                             Community<br/>Cinema
                         </p>
                     </Link>
