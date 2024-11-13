@@ -13,7 +13,7 @@ function SignUpForm({ setError }: { setError: StringStateSetter }) {
             className="flex flex-col"
         >
             <EmailFormElements />
-            <button type="submit" className=" w-20 mx-auto mt-5 hover:text-grey">
+            <button type="submit" className="w-max h-max mx-auto mt-5 hover:text-grey">
                 <p className="text-base border p-2 w-max mx-auto md:text-lg md:px-3">Sign Up</p>
             </button>
         </form>
