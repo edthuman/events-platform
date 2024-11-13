@@ -12,7 +12,7 @@ function Header() {
     const isLogOutButtonRequired = pathname !== "/login" && user.email;
     const [error, setError] = useState("");
 
-    const homeLinkStyling = "font-bold size-9/12 hover:text-grey pl-5"
+    const homeLinkStyling = "py-6 font-bold hover:text-grey pl-5"
     const titleTextStyling = "w-min text-3xl lg:text-4xl"
 
     const loginHomeLinkStyling = "text-3xl font-bold size-full hover:text-grey"
@@ -20,12 +20,14 @@ function Header() {
 
     return (
         <>
-            <div className="flex justify-between ">
-                <Link to="/" className={isLoginPage ? loginHomeLinkStyling : homeLinkStyling}>
-                    <p className={isLoginPage ? loginTitleTextStyling : titleTextStyling}>
-                        Community<br/>Cinema
-                    </p>
-                </Link>
+            <div className="flex justify-between">
+                <div className={isLoginPage ? loginHomeLinkStyling : homeLinkStyling}>
+                    <Link to="/" >
+                        <p className={isLoginPage ? loginTitleTextStyling : titleTextStyling}>
+                            Community<br/>Cinema
+                        </p>
+                    </Link>
+                </div>
                 {isLoginLinkRequired ? (
                     <LogInButton/>
                 ) : null}
