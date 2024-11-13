@@ -27,7 +27,7 @@ function Login() {
         }
     }, [])
 
-    return <>
+    return <main>
     <HomeLink/>
         {error ? <p className="text-lg lg:text-xl mt-6 py-1 lg:py-2 px-4 rounded-lg bg-red w-10/12 sm:w-7/12 md:w-6/12 lg:5/12 xl:4/12 mx-auto">{error}</p> : null}
         {email ? (
@@ -66,7 +66,7 @@ function Login() {
             </>
             ))
         )}
-    </>
+    </main>
 }
 
 export default Login;
